@@ -1,163 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CoreHRX — One Platform. Every HR Need.</title>
-<meta name="description" content="CoreHRX — All-in-one HRMS: attendance, leave, payroll, onboarding, offboarding, TDS & compliance." />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoreHRX Pvt Ltd</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+        }
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-section img {
+            width: 60px;
+            height: auto;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            position: relative;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 25px;
+            left: 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            min-width: 150px;
+        }
+        .dropdown a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: black;
+        }
+        .dropdown a:hover {
+            background: #f2f2f2;
+        }
 
-<!-- Simple modern CSS (Blue + White) -->
-<style>
-  :root{
-    --bg:#f7fbff;
-    --card:#ffffff;
-    --primary:#0b66ff;
-    --accent:#0b66ff;
-    --muted:#6b7280;
-    --radius:12px;
-    --container:1100px;
-    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-  body{margin:0;background:var(--bg);color:#111;}
-  .wrap{max-width:var(--container);margin:40px auto;padding:24px;}
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;}
-  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
-  .brand img{height:52px;width:auto;border-radius:8px;object-fit:contain}
-  .brand h1{font-size:20px;margin:0;font-weight:700}
-  .nav{display:flex;gap:12px;align-items:center}
-  .btn{background:var(--primary);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600}
-  .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:36px}
-  .card{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:0 6px 22px rgba(11,102,255,0.06)}
-  h2{margin:0 0 12px 0;font-size:28px}
-  p.lead{color:var(--muted);margin:0 0 18px 0;line-height:1.6}
-  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
-  .feature{display:flex;gap:12px;align-items:flex-start}
-  .dot{height:40px;width:40px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#3aa0ff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-  .cta-row{display:flex;gap:12px;margin-top:18px}
-  .muted{color:var(--muted);font-size:14px}
-  /* right column */
-  .right {text-align:center}
-  .coming {font-size:14px;color:var(--muted);margin-bottom:12px}
-  .countdown {font-weight:700;font-size:34px;color:var(--primary);margin-bottom:10px}
-  /* contact form */
-  form{display:flex;flex-direction:column;gap:10px}
-  input, textarea{padding:10px;border-radius:8px;border:1px solid #e6eefc;font-size:14px}
-  textarea{min-height:100px;resize:vertical}
-  footer{margin-top:40px;padding:20px 0;color:var(--muted);text-align:center}
-  @media(max-width:900px){
-    .hero{grid-template-columns:1fr; padding-bottom:20px}
-    .wrap{padding:16px;margin:18px}
-    .brand img{height:44px}
-  }
-</style>
+        /* Center Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 70px;
+        }
+        .hero img {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: bold;
+        }
+        .hero p {
+            margin-top: 10px;
+            max-width: 600px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="#">
-        <!-- use the logo path you have uploaded; leave as-is for now -->
-      <img src="CoreHRX.png" alt="CoreHRX logo">
- <div>
-          <h1>CoreHRX</h1>
-          <div style="font-size:12px;color:var(--muted)">One Platform. Every HR Need.</div>
-        </div>
-      </a>
-      <nav class="nav">
-        <a class="muted" href="#features">Features</a>
-        <a class="muted" href="#pricing">Pricing</a>
-        <a class="muted" href="#contact">Contact</a>
-        <a class="btn" href="#contact">Request Demo</a>
-      </nav>
-    </header>
 
-    <section class="hero">
-      <div>
-        <div class="card">
-          <h2>HRMS, Payroll & Compliance — All in One</h2>
-          <p class="lead">CoreHRX automates attendance, leave, onboarding, payroll, TDS and every HR activity — so teams focus on people, not paperwork.</p>
+<header>
+    <nav>
+        <ul>
+            <li>Products
+                <div class="dropdown">
+                    <a href="#">MyCo</a>
+                    <a href="#">CRM</a>
+                </div>
+            </li>
+            <li><a href="#services">Services</a></li>
+        </ul>
+    </nav>
 
-          <div class="features" id="features">
-            <div class="feature">
-              <div class="dot">A</div>
-              <div>
-                <strong>Attendance</strong>
-                <div class="muted">GPS, QR & shift management</div>
-              </div>
-            </div>
+    <div class="logo-section">
+        <img src="CoreHRX.png" alt="CoreHRX Logo" />
+        <span><strong>CoreHRX</strong> Pvt Ltd</span>
+    </div>
 
-            <div class="feature">
-              <div class="dot">L</div>
-              <div>
-                <strong>Leave Management</strong>
-                <div class="muted">Apply, approve & auto-balance</div>
-              </div>
-            </div>
+    <nav>
+        <ul>
+            <li>Hirings
+                <div class="dropdown">
+                    <a href="#">Developer</a>
+                    <a href="#">Sales</a>
+                    <a href="#">Support</a>
+                    <a href="#">Implementation</a>
+                </div>
+            </li>
+            <li>About Us
+                <div class="dropdown">
+                    <a href="#">Life at CoreHRX</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-            <div class="feature">
-              <div class="dot">P</div>
-              <div>
-                <strong>Payroll</strong>
-                <div class="muted">PF, ESI, TDS & payslips</div>
-              </div>
-            </div>
+<section class="hero">
+    <img src="CoreHRX.png" alt="Logo" />
+    <h1>When HR Meets CoreHRX</h1>
+    <p>CoreHRX Pvt Ltd brings powerful, modern HR solutions that automate workforce management, payroll, hiring, and more. Our platform is designed to simplify HR for every growing business.</p>
+</section>
 
-            <div class="feature">
-              <div class="dot">O</div>
-              <div>
-                <strong>Onboard & Offboard</strong>
-                <div class="muted">Digital docs & final settlement</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="cta-row">
-            <a class="btn" href="#contact">Book a Demo</a>
-            <a class="muted" href="#features">Explore Features</a>
-          </div>
-        </div>
-
-        <section id="pricing" style="margin-top:18px">
-          <div class="card" style="margin-top:12px">
-            <strong>Simple Pricing</strong>
-            <div class="muted" style="margin-top:8px">Free plan • Basic ₹99/emp/mo • Pro ₹199/emp/mo • Enterprise (custom)</div>
-          </div>
-        </section>
-      </div>
-
-      <aside class="right">
-        <div class="card">
-          <div class="coming">Launching Soon</div>
-          <div class="countdown" id="countdown">Coming Soon</div>
-          <p class="muted">Enter your email to get launch updates & early access.</p>
-
-          <!-- FormSubmit form (replace info@corehrx.in with your email if needed) -->
-          <form action="https://formsubmit.co/info@corehrx.in" method="POST" id="contact" >
-            <!-- required by FormSubmit: _captcha to disable their captcha or leave -->
-            <input type="hidden" name="_subject" value="CoreHRX Demo Request">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_autoresponse" value="Thanks! We'll contact you soon.">
-            <input type="hidden" name="_next" value="https://harshchavda980-byte.github.io/corehrx/">
-            <input type="email" name="Email" placeholder="Your email address" required>
-            <input type="text" name="Name" placeholder="Full name (optional)">
-            <textarea name="Message" placeholder="Tell us about your interest (optional)"></textarea>
-            <button class="btn" type="submit">Get Early Access</button>
-          </form>
-
-          <div style="font-size:12px;color:var(--muted);margin-top:10px">We respect your privacy — no spam.</div>
-        </div>
-      </aside>
-    </section>
-
-    <footer>
-      <div class="muted">© <strong>CoreHRX</strong> — Ahmedabad, India • <a class="muted" href="mailto:info@corehrx.in">info@corehrx.in</a></div>
-    </footer>
-  </div>
-
-<!-- small script for countdown placeholder -->
-<script>
-  // simple placeholder for "coming soon" text
-  document.getElementById('countdown').textContent = 'Launching 2025';
-</script>
 </body>
 </html>
-
