@@ -1,142 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CoreHRX Pvt Ltd</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-        }
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            position: fixed;
-            top: 0;
-            background: #fff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo-section img {
-            width: 60px;
-            height: auto;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li {
-            position: relative;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        nav ul li:hover .dropdown {
-            display: block;
-        }
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 25px;
-            left: 0;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            padding: 10px 0;
-            min-width: 150px;
-        }
-        .dropdown a {
-            display: block;
-            padding: 8px 15px;
-            text-decoration: none;
-            color: black;
-        }
-        .dropdown a:hover {
-            background: #f2f2f2;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoreHRX Pvt. Ltd. — When HR meets CoreHRX</title>
+  <meta name="description" content="CoreHRX — Modern HRMS & Payroll SaaS" />
+  <style>
+    :root{
+      --bg:#030309;
+      --card:#0b0b0d;
+      --neon:#00ffd5;
+      --accent:#8b5cf6;
+      --muted:#9aa0a6;
+      --glass: rgba(255,255,255,0.03);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#020205 0%, #061018 100%);color:#e6eef6}
+    a{color:var(--neon);text-decoration:none}
+    /* NAV */
+    header{position:fixed;top:0;left:0;right:0;z-index:999;transition:background 280ms ease,backdrop-filter 280ms ease;padding:18px 36px}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .menu-left,.menu-right{display:flex;gap:20px;align-items:center}
+    .menu-left a,.menu-right a{color:rgba(230,238,246,0.85);font-weight:600;font-size:14px;padding:8px 10px;border-radius:8px}
+    .menu-left a:hover,.menu-right a:hover{background:rgba(255,255,255,0.03)}
+    /* transparent to solid */
+    header.transparent{background:transparent}
+    header.solid{background:rgba(10,12,15,0.86);backdrop-filter: blur(6px);box-shadow:0 8px 30px rgba(1,2,6,0.6)}
 
-        /* Center Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 70px;
-        }
-        .hero img {
-            width: 180px;
-            margin-bottom: 20px;
-        }
-        .hero h1 {
-            margin: 0;
-            font-size: 34px;
-            font-weight: bold;
-        }
-        .hero p {
-            margin-top: 10px;
-            max-width: 600px;
-            font-size: 18px;
-            color: #555;
-        }
-    </style>
+    /* Center logo block */
+    .center-block{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;padding-top:64px;text-align:center}
+    .logo-wrap{display:flex;align-items:center;gap:14px}
+    .logo-wrap img{width:86px;height:auto;border-radius:12px;box-shadow:0 6px 28px rgba(0,0,0,0.6)}
+    .brand-line{display:flex;flex-direction:column;align-items:center}
+    .brand-name{font-size:20px;font-weight:700;letter-spacing:0.6px;color:#fff}
+    .brand-sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+    /* animated headline */
+    .headline{margin-top:18px;font-size:46px;line-height:1.02;font-weight:700;max-width:920px}
+    .headline .typed{color:var(--neon);}
+    .lead{margin-top:18px;color:var(--muted);max-width:760px;font-size:16px}
+
+    /* two columns below hero */
+    .two-cols{display:grid;grid-template-columns:1fr 420px;gap:32px;max-width:1200px;margin:40px auto;padding:0 24px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .feature{display:flex;gap:12px;align-items:flex-start}
+    .dot{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--neon),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
+
+    /* footer */
+    footer{margin-top:60px;padding:36px 24px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* responsive */
+    @media(max-width:980px){
+      .two-cols{grid-template-columns:1fr;}
+      .headline{font-size:28px}
+      .logo-wrap img{width:70px}
+      header{padding:12px 18px}
+    }
+
+    /* Dropdown styles */
+    .dropdown{position:relative}
+    .dropdown-menu{position:absolute;top:44px;left:0;background:var(--card);min-width:180px;border-radius:10px;padding:8px 0;display:none;box-shadow:0 10px 30px rgba(2,6,23,0.6);}
+    .dropdown-menu a{display:block;padding:8px 14px;color:#e6eef6}
+    .dropdown:hover .dropdown-menu{display:block}
+
+    /* subtle entrance */
+    .fade-up{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:none}
+  </style>
 </head>
 <body>
+  <header class="transparent" id="site-header">
+    <div class="nav-inner">
+      <div class="menu-left">
+        <div class="dropdown">
+          <a href="#">Products ▾</a>
+          <div class="dropdown-menu">
+            <a href="#">MyCo</a>
+            <a href="#">CRM</a>
+          </div>
+        </div>
+        <a href="#services">Services</a>
+      </div>
 
-<header>
-    <nav>
-        <ul>
-            <li>Products
-                <div class="dropdown">
-                    <a href="#">MyCo</a>
-                    <a href="#">CRM</a>
-                </div>
-            </li>
-            <li><a href="#services">Services</a></li>
-        </ul>
-    </nav>
+      <div></div>
 
-    <div class="logo-section">
-        <img src="CoreHRX.png" alt="CoreHRX Logo" />
-        <span><strong>CoreHRX</strong> Pvt Ltd</span>
+      <div class="menu-right">
+        <div class="dropdown">
+          <a href="#">Hirings ▾</a>
+          <div class="dropdown-menu">
+            <a href="#">Developer</a>
+            <a href="#">Sales</a>
+            <a href="#">Support</a>
+            <a href="#">Implementation</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#">About Us ▾</a>
+          <div class="dropdown-menu">
+            <a href="#life">Life at CoreHRX</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <nav>
-        <ul>
-            <li>Hirings
-                <div class="dropdown">
-                    <a href="#">Developer</a>
-                    <a href="#">Sales</a>
-                    <a href="#">Support</a>
-                    <a href="#">Implementation</a>
-                </div>
-            </li>
-            <li>About Us
-                <div class="dropdown">
-                    <a href="#">Life at CoreHRX</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-</header>
+  <main>
+    <section class="center-block">
+      <div class="logo-wrap">
+        <!-- Using your uploaded logo file path -->
+        <img src="/mnt/data/A_2D_digital_graphic_displays_the_logo_and_tagline.png" alt="CoreHRX logo">
+        <div class="brand-line">
+          <div class="brand-name">CoreHRX <span style="font-weight:400;font-size:12px;color:var(--neon);">Pvt Ltd</span></div>
+          <div class="brand-sub">When HR meets CoreHRX</div>
+        </div>
+      </div>
 
-<section class="hero">
-    <img src="CoreHRX.png" alt="Logo" />
-    <h1>When HR Meets CoreHRX</h1>
-    <p>CoreHRX Pvt Ltd brings powerful, modern HR solutions that automate workforce management, payroll, hiring, and more. Our platform is designed to simplify HR for every growing business.</p>
-</section>
+      <div class="headline fade-up" id="headline">
+        Transforming HR with <span class="typed"></span>
+      </div>
+      <p class="lead fade-up" style="transition-delay:.12s">CoreHRX delivers a next‑gen HRMS — attendance, payroll, onboarding, compliance and employee experience — built for Indian businesses. Fast to deploy. Easy to use. Secure by design.</p>
+    </section>
 
+    <section class="two-cols" id="services">
+      <div class="card fade-up">
+        <h3>Features</h3>
+        <div class="features" style="margin-top:12px">
+          <div class="feature">
+            <div class="dot">A</div>
+            <div>
+              <strong>Attendance</strong>
+              <div style="color:var(--muted)">GPS, QR, shift and biometric-ready</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="dot">L</div>
+            <div>
+              <strong>Leaves</strong>
+              <div style="color:var(--muted)">Auto balances & approvals</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="dot">P</div>
+            <div>
+              <strong>Payroll</strong>
+              <div style="color:var(--muted)">PF, ESI, TDS & payslips</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="dot">O</div>
+            <div>
+              <strong>Onboarding</strong>
+              <div style="color:var(--muted)">Digital offers & document workflow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card fade-up">
+        <h4>Request a Demo</h4>
+        <p style="color:var(--muted)">Quick demo for your team — 20 minutes.</p>
+        <form action="https://formsubmit.co/info@corehrx.in" method="POST" style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+          <input type="hidden" name="_subject" value="CoreHRX Demo Request">
+          <input name="Name" placeholder="Full name" required style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff">
+          <input name="Email" placeholder="Email" type="email" required style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff">
+          <textarea name="Message" placeholder="Company size / Notes (optional)" style="min-height:120px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff"></textarea>
+          <button type="submit" style="background:linear-gradient(90deg,var(--neon),var(--accent));border:none;padding:12px;border-radius:10px;color:#001;font-weight:700">Request Demo</button>
+        </form>
+      </aside>
+    </section>
+
+    <section style="max-width:1100px;margin:44px auto;padding:0 24px">
+      <div class="card fade-up">
+        <h3 id="life">Life at CoreHRX</h3>
+        <p style="color:var(--muted)">We are a small, driven team based in Ahmedabad building human-centered HR tools. We believe in flexible work, continuous learning and building software that makes people’s work simpler.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div style="max-width:1100px;margin:24px auto;padding:16px;color:var(--muted);text-align:center">© CoreHRX Pvt Ltd • Ahmedabad • <a href="mailto:info@corehrx.in">info@corehrx.in</a></div>
+    </footer>
+  </main>
+
+  <script>
+    // Navbar transparent -> solid on scroll
+    const header = document.getElementById('site-header');
+    function onScroll(){
+      if(window.scrollY > 20) header.classList.add('solid'); else header.classList.remove('solid');
+    }
+    window.addEventListener('scroll', onScroll);
+
+    // simple typed-text animation
+    const words = ['automation.', 'clarity.', 'speed.', 'security.'];
+    let idx = 0, charIdx = 0, forward = true;
+    const typedEl = document.querySelector('.typed');
+    function type(){
+      const current = words[idx];
+      if(forward){
+        typedEl.textContent = current.slice(0, charIdx+1);
+        charIdx++;
+        if(charIdx === current.length) { forward=false; setTimeout(type,800); return }
+      } else {
+        typedEl.textContent = current.slice(0, charIdx-1);
+        charIdx--;
+        if(charIdx===0){ forward=true; idx=(idx+1)%words.length }
+      }
+      setTimeout(type,80);
+    }
+    // start after small delay and reveal
+    setTimeout(()=>{
+      document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'), i*120));
+      type();
+    },220);
+  </script>
 </body>
 </html>
