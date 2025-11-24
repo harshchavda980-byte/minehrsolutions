@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyCo — HRMS & Payroll | CoreHRX</title>
+
+<style>
+/* ---------- GLOBAL THEME ---------- */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* NEON Headings */
+.neon {
+  color: #0aff9d;
+  text-shadow: 0 0 12px #0aff9d;
+}
+
+h1, h2 {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+p.sub {
+  color: #ccc;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  text-align: center;
+  padding: 80px 0 40px;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero p {
+  color: #aaa;
+  font-size: 20px;
+  line-height: 1.6;
+  max-width: 750px;
+  margin: 12px auto 24px;
+}
+
+.cta-btn {
+  background: #0aff9d;
+  color: #000;
+  padding: 14px 36px;
+  font-size: 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  background: #06d880;
+  box-shadow: 0 0 18px rgba(10,255,157,0.4);
+}
+
+/* ---------- FEATURES ---------- */
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  background: rgba(255,255,255,0.06);
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.card:hover {
+  border-color: #0aff9d;
+  box-shadow: 0 0 18px rgba(10,255,157,0.35);
+  transform: translateY(-6px);
+}
+
+.card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+/* ---------- PRICING ---------- */
+.pricing-box {
+  background: rgba(255,255,255,0.05);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.price {
+  font-size: 46px;
+  color: #0aff9d;
+  font-weight: 700;
+  margin: 8px 0 20px;
+}
+
+.small {
+  color: #aaa;
+  font-size: 15px;
+}
+
+@media(max-width: 768px){
+  h1 { font-size: 36px; }
+  .hero { padding: 50px 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 class="neon">MyCo — HRMS & Payroll</h1>
+  <p>
+    A complete HR automation suite designed for Indian businesses.  
+    Simple, fast, compliant — built for the modern workforce.
+  </p>
+  <button class="cta-btn" onclick="window.location.href='contact.html'">Request Demo</button>
+</div>
+
+<!-- FEATURES -->
+<div class="container">
+  <div class="section-title">
+    <h2 class="neon">Features</h2>
+    <p class="sub">Everything your HR needs — in one place.</p>
+  </div>
+
+  <div class="features-grid">
+
+    <div class="card">
+      <h3>Attendance & Time Tracking</h3>
+      <p>Biometrics, geofencing, mobile punch-in, shift scheduling & real-time reports.</p>
+    </div>
+
+    <div class="card">
+      <h3>Automated Payroll</h3>
+      <p>PF, ESI, PT, TDS, bonuses, arrears — all auto-calculated with zero mistakes.</p>
+    </div>
+
+    <div class="card">
+      <h3>Leave Management</h3>
+      <p>Leave policies, approvals, monthly reports & employee dashboard.</p>
+    </div>
+
+    <div class="card">
+      <h3>Employee Self Service (ESS)</h3>
+      <p>Payslips, leave requests, personal details, documents & attendance.</p>
+    </div>
+
+    <div class="card">
+      <h3>Onboarding & Offboarding</h3>
+      <p>Offer letters, joining forms, KYC, exit flow & clearance checklist.</p>
+    </div>
+
+    <div class="card">
+      <h3>Compliance & Reports</h3>
+      <p>PF, ESI, PT, TDS, MIS analytics & one-click HR reports.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="container" style="margin-top:80px;">
+  <div class="section-title">
+    <h2 class="neon">Simple Transparent Pricing</h2>
+    <p class="sub">Pay only per active employee. No hidden charges.</p>
+  </div>
+
+  <div class="pricing-box">
+    <div class="price">₹49<span class="small"> / employee / month</span></div>
+    <p class="sub">Includes full HRMS + Payroll + Compliance</p>
+
+    <button class="cta-btn" onclick="window.location.href='contact.html'">
+      Get Customized Proposal
+    </button>
+  </div>
+</div>
+
+</body>
+</html>
