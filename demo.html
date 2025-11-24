@@ -1,205 +1,290 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home | CHL Group</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoreHRX Pvt. Ltd. — When HR meets CoreHRX</title>
+
   <style>
-    /* === STYLISH NAVBAR UPGRADE === */
+    :root{
+      --bg:#030309;
+      --card:#0d0d12;
+      --neon:#00ffd5;
+      --accent:#8b5cf6;
+      --muted:#9aa0a6;
+      --glass:rgba(255,255,255,0.06);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;
+    }
 
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  padding: 18px 36px;
-  transition: 0.35s ease;
-}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#020205,#07111b);
+      color:#e8eef6;
+      overflow-x:hidden;
+    }
 
-header.transparent {
-  background: transparent;
-}
+    a{text-decoration:none;color:var(--neon)}
+    *{box-sizing:border-box}
 
-header.solid {
-  background: rgba(10, 12, 15, 0.72);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 25px rgba(0, 255, 213, 0.1);
-  border-bottom: 1px solid rgba(0, 255, 213, 0.07);
-}
+    /* ---------------- NAVBAR ---------------- */
+    header{
+      position:fixed;
+      top:0;left:0;right:0;
+      padding:18px 40px;
+      z-index:999;
+      transition:0.35s ease;
+      background:transparent;
+    }
+    header.solid{
+      background:rgba(8,10,16,0.85);
+      backdrop-filter:blur(10px);
+      box-shadow:0 8px 30px rgba(0,0,0,0.6);
+    }
 
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .nav-inner{
+      max-width:1250px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;
+    }
 
-.menu-left a,
-.menu-right a {
-  color: rgba(230, 238, 246, 0.88);
-  font-size: 15px;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: 10px;
-  position: relative;
-  transition: 0.25s ease;
-}
+    .menu-left,.menu-right{display:flex;gap:28px;align-items:center}
 
-.menu-left a:hover,
-.menu-right a:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--neon);
-  box-shadow: 0 0 14px rgba(0, 255, 213, 0.4);
-}
+    .menu-left a,.menu-right a{
+      color:#d9d9e0;font-weight:600;font-size:14px;
+      padding:10px 14px;border-radius:10px;
+      transition:0.25s;
+    }
+    .menu-left a:hover,.menu-right a:hover{
+      background:rgba(255,255,255,0.07);
+    }
 
-/* Neon underline on hover */
-.menu-left a::after,
-.menu-right a::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: 0;
-  height: 2px;
-  background: var(--neon);
-  transition: 0.25s ease;
-  transform: translateX(-50%);
-}
+    /* dropdown */
+    .dropdown{position:relative}
+    .dropdown-menu{
+      position:absolute;top:48px;left:0;
+      min-width:180px;background:var(--card);
+      padding:8px 0;border-radius:12px;
+      display:none;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    }
+    .dropdown-menu a{
+      display:block;padding:10px 16px;
+      color:#e8eef6;font-size:14px;
+    }
+    .dropdown:hover .dropdown-menu{display:block}
 
-.menu-left a:hover::after,
-.menu-right a:hover::after {
-  width: 60%;
-}
+    /* ---------------- HERO ---------------- */
+    .center-block{
+      height:100vh;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;padding-top:80px;
+    }
+    .logo-wrap img{
+      width:90px;border-radius:12px;
+      box-shadow:0 6px 25px rgba(0,0,0,0.6);
+    }
+    .brand-name{
+      font-size:22px;font-weight:700;
+      margin-top:10px;color:#fff;
+    }
+    .brand-sub{font-size:14px;color:var(--muted)}
 
-/* Dropdown Menu */
-.dropdown {
-  position: relative;
-}
+    .headline{
+      margin-top:20px;font-size:46px;font-weight:700;
+      max-width:900px;
+    }
+    .typed{color:var(--neon)}
 
-.dropdown-menu {
-  position: absolute;
-  top: 46px;
-  left: 0;
-  min-width: 170px;
-  background: rgba(15, 18, 24, 0.96);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 255, 213, 0.14);
-  border-radius: 12px;
-  padding: 8px 0;
-  display: none;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: 0.25s ease;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-}
+    .lead{
+      margin-top:16px;color:var(--muted);
+      font-size:17px;max-width:700px;
+    }
 
-.dropdown-menu a {
-  display: block;
-  padding: 10px 16px;
-  color: #e6eef6;
-  font-size: 14px;
-  transition: 0.2s ease;
-}
+    /* ---------------- FEATURES ---------------- */
+    .two-cols{
+      max-width:1200px;margin:40px auto;
+      display:grid;grid-template-columns:1fr 420px;
+      gap:32px;padding:0 24px;
+    }
 
-/* Neon glow on dropdown items */
-.dropdown-menu a:hover {
-  background: rgba(0, 255, 213, 0.08);
-  color: var(--neon);
-}
+    .card{
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.05);
+      padding:26px;border-radius:14px;
+    }
 
-/* Dropdown animation */
-.dropdown:hover .dropdown-menu {
-  display: block;
-  opacity: 1;
-  transform: translateY(0px);
-}
+    .features{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+    }
 
-/* Active page highlight */
-a.active {
-  color: var(--neon) !important;
-  font-weight: 700;
-}
+    .feature{display:flex;gap:12px}
+    .dot{
+      width:46px;height:46px;border-radius:12px;
+      background:linear-gradient(135deg,var(--neon),var(--accent));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#001;
+    }
 
+    /* ---------------- FOOTER ---------------- */
+    footer{
+      margin-top:80px;padding:40px 24px;
+      text-align:center;color:var(--muted);
+      font-size:14px;
+    }
+
+    /* ANIMATION */
+    .fade-up{
+      opacity:0;transform:translateY(18px);
+      transition:0.7s ease;
+    }
+    .fade-up.visible{opacity:1;transform:none}
+
+    /* RESPONSIVE */
+    @media(max-width:980px){
+      .two-cols{grid-template-columns:1fr}
+      .headline{font-size:32px}
+      header{padding:14px 20px}
+      .menu-left,.menu-right{gap:16px}
+    }
   </style>
 </head>
+
 <body>
- <header class="transparent" id="site-header">
-  <div class="nav-inner">
 
-    <!-- LEFT MENU -->
-    <div class="menu-left">
-      <div class="dropdown">
-        <a href="products.html">Products ▾</a>
-        <div class="dropdown-menu">
-          <a href="myco.html">MyCo</a>
-          <a href="crm.html">CRM</a>
+  <!-- 🔥 Navbar -->
+  <header id="site-header">
+    <div class="nav-inner">
+
+      <div class="menu-left">
+        <div class="dropdown">
+          <a href="products.html">Products ▾</a>
+          <div class="dropdown-menu">
+            <a href="myco.html">MyCo</a>
+            <a href="crm.html">CRM</a>
+          </div>
         </div>
+
+        <a href="services.html">Services</a>
       </div>
 
-      <a href="services.html">Services</a>
+      <div class="menu-right">
+
+        <div class="dropdown">
+          <a href="careers.html">Hirings ▾</a>
+          <div class="dropdown-menu">
+            <a href="careers.html#developer">Developer</a>
+            <a href="careers.html#sales">Sales</a>
+            <a href="careers.html#support">Support</a>
+            <a href="careers.html#implementation">Implementation</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <a href="about.html">About Us ▾</a>
+          <div class="dropdown-menu">
+            <a href="about.html">About Company</a>
+            <a href="about.html#life">Life at CoreHRX</a>
+          </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 🔥 HERO -->
+  <section class="center-block fade-up">
+    <div class="logo-wrap">
+      <img src="CoreHRX.png" alt="CoreHRX Logo">
+    </div>
+    <div class="brand-name">CoreHRX <span style="color:var(--neon);font-size:14px;">Pvt Ltd</span></div>
+    <div class="brand-sub">When HR meets CoreHRX</div>
+
+    <div class="headline fade-up">
+      Transforming HR with <span class="typed"></span>
     </div>
 
-    <div></div>
-
-    <!-- RIGHT MENU -->
-    <div class="menu-right">
-      <div class="dropdown">
-        <a href="careers.html">Hirings ▾</a>
-        <div class="dropdown-menu">
-          <a href="careers.html#developer">Developer</a>
-          <a href="careers.html#sales">Sales</a>
-          <a href="careers.html#support">Support</a>
-          <a href="careers.html#implementation">Implementation</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="about.html">About Us ▾</a>
-        <div class="dropdown-menu">
-          <a href="about.html">About Company</a>
-          <a href="about.html#life">Life at CoreHRX</a>
-        </div>
-      </div>
-
-      <a href="contact.html">Contact</a>
-    </div>
-
-  </div>
-</header>
-
-
-  <!-- HOME HERO -->
-  <section class="hero">
-    <h1>Welcome to CHL Group</h1>
-    <p>Your one-stop solution for HRMS, Payroll, and CRM platforms — built for modern businesses.</p>
-    <a href="pricing.html" class="btn">Get Started</a>
+    <p class="lead fade-up">
+      CoreHRX delivers a next-gen HRMS — attendance, payroll, onboarding, compliance and employee experience — built for Indian businesses.
+    </p>
   </section>
 
-  <!-- Features -->
-  <section class="section">
-    <h2>Our Products</h2>
-    <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
-      <div style="width:280px; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px #ccc;">
-        <h3>HRMS</h3>
-        <p>Attendance, Leave, Employees, Shifts, Departments & more — all in one place.</p>
+  <!-- 🔥 FEATURES -->
+  <section class="two-cols">
+
+    <div class="card fade-up">
+      <h3>Features</h3>
+      <div class="features">
+        <div class="feature"><div class="dot">A</div><div><strong>Attendance</strong><div style="color:var(--muted)">GPS, QR, shifts, biometric-ready</div></div></div>
+        <div class="feature"><div class="dot">L</div><div><strong>Leaves</strong><div style="color:var(--muted)">Auto balances & approvals</div></div></div>
+        <div class="feature"><div class="dot">P</div><div><strong>Payroll</strong><div style="color:var(--muted)">PF, ESI, TDS & payslips</div></div></div>
+        <div class="feature"><div class="dot">O</div><div><strong>Onboarding</strong><div style="color:var(--muted)">Digital offers & workflows</div></div></div>
       </div>
-      <div style="width:280px; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px #ccc;">
-        <h3>Payroll</h3>
-        <p>Automated salary calculations, payslips, compliance & deductions.</p>
-      </div>
-      <div style="width:280px; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px #ccc;">
-        <h3>CRM</h3>
-        <p>Track leads, manage clients & close deals faster with automation.</p>
-      </div>
+    </div>
+
+    <aside class="card fade-up">
+      <h3>Request Demo</h3>
+      <form action="https://formsubmit.co/info@corehrx.in" method="POST" style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+        <input type="hidden" name="_subject" value="CoreHRX Demo Request">
+
+        <input name="Name" placeholder="Full Name" required
+          style="padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff">
+
+        <input name="Email" type="email" placeholder="Email" required
+          style="padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff">
+
+        <textarea name="Message" placeholder="Company size / Notes" style="min-height:120px;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff"></textarea>
+
+        <button style="background:linear-gradient(90deg,var(--neon),var(--accent));padding:12px;border:none;border-radius:10px;font-weight:700;color:#001">
+          Request Demo
+        </button>
+      </form>
+    </aside>
+
+  </section>
+
+  <!-- 🔥 LIFE SECTION -->
+  <section style="max-width:1100px;margin:40px auto;padding:0 24px">
+    <div class="card fade-up">
+      <h3 id="life">Life at CoreHRX</h3>
+      <p style="color:var(--muted)">
+        We are a focused team in Ahmedabad building human-centered HR tools.
+        We believe in smart work, innovation and creating impactful software.
+      </p>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- 🔥 FOOTER -->
   <footer>
-    <p>© 2025 CHL Group — All Rights Reserved</p>
-    <p>Website built for HRMS | Payroll | CRM</p>
+    © CoreHRX Pvt Ltd • Ahmedabad • <a href="mailto:info@corehrx.in">info@corehrx.in</a>
   </footer>
+
+  <script>
+    // navbar scroll effect
+    const header = document.getElementById("site-header");
+    window.addEventListener("scroll", () => {
+      if(window.scrollY > 20) header.classList.add("solid");
+      else header.classList.remove("solid");
+    });
+
+    // reveal animation
+    const fadeEls = document.querySelectorAll(".fade-up");
+    fadeEls.forEach((el,i)=>setTimeout(()=>el.classList.add("visible"),200+i*150));
+
+    // typed text
+    const words = ["automation.","clarity.","speed.","security."];
+    let i=0,j=0,forward=true;
+    const el=document.querySelector(".typed");
+
+    function type(){
+      let w = words[i];
+      if(forward){ j++; el.textContent=w.slice(0,j); if(j===w.length){forward=false;setTimeout(type,700);return;} }
+      else{ j--; el.textContent=w.slice(0,j); if(j===0){ forward=true; i=(i+1)%words.length; } }
+      setTimeout(type,80);
+    }
+    setTimeout(type,500);
+  </script>
+
 </body>
 </html>
