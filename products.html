@@ -1,14 +1,132 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Products — CoreHRX</title>
-<style>body{font-family:Arial;margin:0;padding:24px;background:#f7fbff} .wrap{max-width:1000px;margin:40px auto;background:#fff;padding:24px;border-radius:12px}</style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products — CoreHRX Pvt. Ltd.</title>
+
+<style>
+/* ---------- GLOBAL THEME ---------- */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* Neon Title */
+.neon {
+  color: #0aff9d;
+  text-shadow: 0 0 12px #0aff9d;
+}
+
+h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+p.sub {
+  color: #ccc;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+/* ---------- PRODUCT GRID ---------- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+/* Neomorphism Card */
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 32px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  transition: 0.35s;
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: #0aff9d;
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 20px rgba(10,255,157,0.35);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.card p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* Button */
+button {
+  background: #0aff9d;
+  color: #000;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #06d880;
+  box-shadow: 0 0 14px rgba(10,255,157,0.4);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  h2 { font-size: 32px; }
+}
+</style>
 </head>
+
 <body>
-<div class="wrap">
-  <h1 id="myco">MyCo</h1>
-  <p>MyCo is a lightweight ERP focused on small businesses to manage leads, clients and simple invoices. (Placeholder content)</p>
-  <h1 id="crm">CRM</h1>
-  <p>CoreHRX CRM helps track recruitment pipelines and customer leads for HR teams. (Placeholder content)</p>
+
+<div class="container">
+  <h2 class="neon">Our Products</h2>
+  <p class="sub">Cutting-edge HR & Business solutions designed for modern organizations.</p>
+
+  <div class="products-grid">
+
+    <!-- PRODUCT 1 -->
+    <div class="card">
+      <h3 class="neon">MyCo — HRMS & Payroll</h3>
+      <p>
+        A complete HR automation suite with Attendance, Payroll, Leave, ESS, Compliance & more.
+      </p>
+      <button onclick="window.location.href='myco.html'">Learn More</button>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="card">
+      <h3 class="neon">CRM — Customer Management</h3>
+      <p>
+        A smart CRM built to manage leads, customers, communication & performance analytics.
+      </p>
+      <button onclick="window.location.href='crm.html'">Learn More</button>
+    </div>
+
+  </div>
 </div>
+
 </body>
 </html>
