@@ -83,6 +83,12 @@ body {
 .slide-down {
   animation: slideDown 1.1s ease forwards;
 }
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
 
 @keyframes fadeIn {
   from {opacity:0;}
