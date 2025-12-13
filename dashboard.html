@@ -1,177 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mine-HR Dashboard</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: #f5f8ff;
-      color: #1a2b4c;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    /* Sidebar */
-    .sidebar {
-      width: 240px;
-      height: 100vh;
-      background: #ffffff;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      position: fixed;
-      padding-top: 30px;
-    }
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #0053ff;
-    }
-    .sidebar a {
-      display: block;
-      padding: 14px 25px;
-      color: #1a2b4c;
-      text-decoration: none;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-    .sidebar a:hover {
-      background: #e9f0ff;
-      color: #0053ff;
-    }
+<title>Mine-HR Dashboard</title>
 
-    /* Main Content */
-    .main {
-      margin-left: 240px;
-      padding: 25px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-    .header h1 {
-      font-size: 26px;
-    }
-    .user-box {
-      background: #fff;
-      padding: 10px 18px;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
+<style>
+:root{
+  --primary:#0B5ED7;
+  --primary-soft:#E9F1FF;
+  --bg:#F6F9FC;
+  --card:#ffffff;
+  --text:#0F172A;
+  --muted:#64748B;
+  --border:#E2E8F0;
+  font-family: Inter, system-ui, sans-serif;
+}
 
-    /* Cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .card {
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card h3 {
-      margin: 0;
-      font-size: 20px;
-    }
-    .card p {
-      font-size: 15px;
-      color: #4a5d7a;
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    /* Table Section */
-    .table-box {
-      background: #fff;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table th, table td {
-      padding: 14px;
-      border-bottom: 1px solid #e6e6e6;
-      text-align: left;
-    }
-    table th {
-      background: #f0f4ff;
-      color: #0053ff;
-    }
-  </style>
+/* TOP BAR */
+.topbar{
+  height:60px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.topbar h1{
+  font-size:16px;
+  margin:0;
+  color:var(--primary);
+}
+
+/* LAYOUT */
+.wrapper{
+  display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:#fff;
+  border-right:1px solid var(--border);
+  min-height:100vh;
+  padding:16px;
+}
+.sidebar a{
+  display:block;
+  padding:12px;
+  margin-bottom:6px;
+  border-radius:8px;
+  color:var(--text);
+  font-weight:500;
+}
+.sidebar a:hover,
+.sidebar a.active{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:16px;
+}
+
+/* CARDS */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+}
+.card h3{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+}
+.card strong{
+  font-size:26px;
+  color:var(--primary);
+}
+
+/* TABLE */
+.table-wrap{
+  margin-top:24px;
+  background:#fff;
+  border-radius:14px;
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:500px;
+}
+th,td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  text-align:left;
+}
+th{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+
+/* MOBILE FIX */
+@media(max-width:900px){
+  .sidebar{
+    display:none;
+  }
+  .wrapper{
+    flex-direction:column;
+  }
+  .topbar h1{
+    font-size:14px;
+  }
+}
+</style>
 </head>
+
 <body>
-  
-  <div class="sidebar">
-    <h2>Mine-HR</h2>
-    <a href="#">Dashboard</a>
-    <a href="#">Employees</a>
-    <a href="#">Attendance</a>
-    <a href="#">Payroll</a>
-    <a href="#">Performance</a>
-    <a href="#">Settings</a>
-  </div>
 
-  <div class="main">
-    <div class="header">
-      <h1>Dashboard Overview</h1>
-      <div class="user-box">Hello, Admin</div>
-    </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1>Mine-HR Dashboard</h1>
+  <span style="font-size:14px;color:var(--muted)">Admin</span>
+</div>
 
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a class="active">Dashboard</a>
+    <a>Employees</a>
+    <a>Attendance</a>
+    <a>Payroll</a>
+    <a>Leave</a>
+    <a>Settings</a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- STATS -->
     <div class="cards">
       <div class="card">
-        <h3>120</h3>
-        <p>Total Employees</p>
+        <h3>Total Employees</h3>
+        <strong>124</strong>
       </div>
       <div class="card">
-        <h3>95%</h3>
-        <p>Attendance Rate</p>
+        <h3>Present Today</h3>
+        <strong>110</strong>
       </div>
       <div class="card">
-        <h3>₹8,40,000</h3>
-        <p>Monthly Payroll</p>
+        <h3>Pending Leaves</h3>
+        <strong>6</strong>
       </div>
       <div class="card">
-        <h3>12</h3>
-        <p>Pending Requests</p>
+        <h3>Payroll Status</h3>
+        <strong>Processed</strong>
       </div>
     </div>
 
-    <div class="table-box">
-      <h2>Recent Activity</h2>
+    <!-- TABLE -->
+    <div class="table-wrap">
       <table>
-        <tr>
-          <th>Employee</th>
-          <th>Action</th>
-          <th>Date</th>
-        </tr>
-        <tr>
-          <td>Rohan Patel</td>
-          <td>Leave Request</td>
-          <td>12 Dec 2025</td>
-        </tr>
-        <tr>
-          <td>Neha Shah</td>
-          <td>Attendance Marked</td>
-          <td>12 Dec 2025</td>
-        </tr>
-        <tr>
-          <td>Harsh Chavda</td>
-          <td>Profile Updated</td>
-          <td>11 Dec 2025</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Department</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rahul Sharma</td>
+            <td>HR</td>
+            <td>Present</td>
+          </tr>
+          <tr>
+            <td>Anita Patel</td>
+            <td>Finance</td>
+            <td>Leave</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
-  </div>
+  </main>
+</div>
 
 </body>
 </html>
