@@ -82,6 +82,20 @@ body {
   font-weight: 600;
   transition: 0.3s ease;
 }
+.btn-outline {
+  margin-left: 12px;
+  padding: 12px 22px;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
 
 .btn-primary:hover {
   background: #084298;
