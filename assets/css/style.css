@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 10px 20px;
+  background: #0a2540;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+}
