@@ -1,21 +1,16 @@
-const texts = [
-  "Smarter HR",
-  "Faster Payroll",
-  "Stronger Compliance"
-];
+// Simple fade-in animation on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = "translateY(0)";
+    }
+  });
+}, { threshold: 0.1 });
 
-let index = 0;
-const rotateText = document.getElementById("rotateText");
-
-setInterval(() => {
-  rotateText.style.opacity = 0;
-  rotateText.style.transform = "translateY(10px)";
-
-  setTimeout(() => {
-    index = (index + 1) % texts.length;
-    rotateText.textContent = texts[index];
-    rotateText.style.opacity = 1;
-    rotateText.style.transform = "translateY(0)";
-  }, 400);
-
-}, 2500);
+document.querySelectorAll(".feature-card").forEach(card => {
+  card.style.opacity = 0;
+  card.style.transform = "translateY(20px)";
+  card.style.transition = "0.6s ease";
+  observer.observe(card);
+});
