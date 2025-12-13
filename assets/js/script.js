@@ -1,2 +1,2 @@
-// Future use: animations, navbar toggle, forms
-console.log("MineHR loaded successfully");
+// Keep clean – future animations / forms
+console.log("MineHR website loaded");
