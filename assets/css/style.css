@@ -49,7 +49,21 @@ body {
 .hero p {
   max-width: 600px;
 }
+.hero {
+  padding: 120px 20px 80px;
+  text-align: center;
+  background: #ffffff;
+}
 
+.hero::before {
+  content: "";
+  display: block;
+  margin: 0 auto 24px;
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  border-radius: 6px;
+}
 
 /* Button */
 .btn-primary {
