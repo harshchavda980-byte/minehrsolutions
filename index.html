@@ -1,229 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mine-HR Solutions</title>
-<link rel="stylesheet" href="assets/css/style.css">
-<style>
-/* ============================================
-   Blue & White Professional Theme
-================================================ */
+  <meta charset="UTF-8">
+  <title>Mine-HR Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-:root{
-  --blue:#1A73E8;
-  --blue-dark:#0F4EB3;
-  --blue-light:#E8F1FF;
-  --text-dark:#0A1A2A;
-  --text:#253447;
-  --muted:#6C7A8A;
-  --border:#E4E9F2;
-  --shadow:0 10px 40px rgba(0,0,0,0.08);
-  font-family: Inter, Arial, sans-serif;
-}
-<script src="assets/js/script.js"></script>
-body{
-  margin:0;
-  background:#F7FAFF;
-  color:var(--text);
-}
-
-/* NAVBAR */
-header{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:white;
-  padding:18px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:var(--shadow);
-  z-index:1000;
-}
-
-header a{
-  margin:0 14px;
-  font-weight:600;
-  text-decoration:none;
-  color:var(--text);
-  transition:0.2s;
-}
-header a:hover{
-  color:var(--blue-dark);
-}
-
-/* HERO SECTION */
-.hero{
-  padding-top:150px;
-  text-align:center;
-  max-width:900px;
-  margin:auto;
-}
-
-.hero img{
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  border:4px solid white;
-  box-shadow:var(--shadow);
-}
-
-.hero h1{
-  margin-top:20px;
-  font-size:47px;
-  font-weight:800;
-  color:var(--text-dark);
-}
-
-.hero span{
-  color:var(--blue-dark);
-}
-
-.hero p{
-  margin-top:20px;
-  font-size:17px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.btn-box{
-  margin-top:35px;
-}
-
-.btn{
-  padding:14px 28px;
-  border-radius:10px;
-  font-weight:700;
-  text-decoration:none;
-  margin:0 8px;
-  display:inline-block;
-  transition:0.2s;
-}
-
-.primary{
-  background:linear-gradient(90deg, var(--blue), var(--blue-dark));
-  color:white;
-  box-shadow:0 10px 25px rgba(26,115,232,0.3);
-}
-.primary:hover{
-  transform:translateY(-2px);
-}
-
-.outline{
-  border:1px solid var(--blue);
-  color:var(--blue-dark);
-  background:white;
-}
-.outline:hover{
-  background:var(--blue-light);
-}
-
-/* FEATURES */
-.section{
-  margin-top:80px;
-  text-align:center;
-}
-
-.section h2{
-  font-size:33px;
-  font-weight:800;
-  color:var(--text-dark);
-}
-
-.features{
-  margin-top:40px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-  gap:25px;
-  padding:20px 40px;
-}
-
-.card{
-  background:white;
-  padding:25px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-
-.card h3{
-  color:var(--blue-dark);
-}
-
-/* FOOTER */
-footer{
-  margin-top:100px;
-  padding:30px;
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
-
-</style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header>
-  <div class="logo">
-    <strong style="color:var(--blue-dark); font-size:20px;">Mine-HR</strong>
+<header class="navbar">
+  <div class="container">
+    <img src="assets/images/logo.png" class="logo" alt="Mine HR">
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">Pricing</a>
+      <a href="#">Contact</a>
+    </nav>
   </div>
-  <nav>
-    <a href="#">Products</a>
-    <a href="#">Services</a>
-    <a href="#">Pricing</a>
-    <a href="#">Hiring</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-  </nav>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="assets/images/logo.png" alt="Mine HR Solutions Logo">
+<section class="hero">
+  <h1 class="fade-in">Modern HR & Payroll Software</h1>
+  <p class="slide-down">
+    Simple. Secure. Built for growing businesses.
+  </p>
+  <a href="demo.html" class="btn-primary">Request Demo</a>
+</section>
 
-  <h1>Transforming HR with <span>Confidence</span></h1>
-
-  <p>Mine-HR delivers a next-gen HRMS — attendance, payroll, onboarding, compliance and employee experience.  
-     Built for Indian businesses. Fast. Secure. Easy to deploy.</p>
-
-  <div class="btn-box">
-    <a href="#" class="btn primary">Request Demo</a>
-    <a href="#" class="btn outline">See Plans</a>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<div class="section">
-  <h2>Why Choose Mine-HR?</h2>
-
-  <div class="features">
-    <div class="card">
-      <h3>✔ Smart Attendance</h3>
-      <p>AI-powered attendance with face & location validation.</p>
-    </div>
-
-    <div class="card">
-      <h3>✔ Payroll Automation</h3>
-      <p>Salary, compliance & reimbursements handled automatically.</p>
-    </div>
-
-    <div class="card">
-      <h3>✔ Hiring & Onboarding</h3>
-      <p>Paperless joining, offer letters & document tracking.</p>
-    </div>
-
-    <div class="card">
-      <h3>✔ Secure HR Cloud</h3>
-      <p>Your data is encrypted and stored safely with 24×7 uptime.</p>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  © 2025 Mine-HR Solutions Pvt. Ltd. All Rights Reserved.
+  © 2025 Mine-HR Solutions
 </footer>
 
+<!-- JS -->
+<script src="assets/js/script.js"></script>
 </body>
 </html>
