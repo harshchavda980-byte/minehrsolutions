@@ -68,6 +68,9 @@ body {
 .navbar-right a:hover {
   color: #2563eb;
 }
+.navbar.sticky {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
 
 /* CTA button */
 .nav-btn {
