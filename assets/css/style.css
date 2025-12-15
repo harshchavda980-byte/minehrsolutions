@@ -253,3 +253,24 @@ footer {
   color: #fff;
   border-radius: 8px;
 }
+
+/* Hero text animation */
+.animate-text {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.9s ease forwards;
+}
+
+.animate-sub {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
