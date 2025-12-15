@@ -29,3 +29,9 @@ const revealOnScroll = () => {
 
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
+
+document.querySelector(".demo-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  alert("Thank you! Our team will contact you shortly.");
+  this.reset();
+});
