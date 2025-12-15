@@ -1,22 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard | Mine-HR</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | MineHR</title>
+
+  <link rel="stylesheet" href="assets/css/pricing.css" />
 </head>
 <body>
 
-<section class="hero">
-  <h1>Dashboard</h1>
-  <p>Employees • Payroll • Attendance</p>
+<header class="pricing-header">
+  <h1>Simple, transparent pricing</h1>
+  <p>Choose a plan that fits your team today — scale anytime.</p>
+</header>
 
-  <div style="display:grid;gap:16px;max-width:600px;">
-    <div class="card">👥 Employees: 120</div>
-    <div class="card">💰 Payroll Status: Processed</div>
-    <div class="card">📅 Attendance: Live</div>
+<section class="pricing-section">
+
+  <div class="pricing-card">
+    <h3>Starter</h3>
+    <p class="price">₹49<span>/employee/month</span></p>
+    <ul>
+      <li>Core HR</li>
+      <li>Attendance & Leave</li>
+      <li>Email Support</li>
+    </ul>
+    <button class="btn outline">Get Started</button>
   </div>
+
+  <div class="pricing-card featured">
+    <span class="badge">Most Popular</span>
+    <h3>Growth</h3>
+    <p class="price">₹79<span>/employee/month</span></p>
+    <ul>
+      <li>Everything in Starter</li>
+      <li>Payroll (PF, ESI, TDS)</li>
+      <li>Compliance Reports</li>
+      <li>Priority Support</li>
+    </ul>
+    <button class="btn primary">Request Demo</button>
+  </div>
+
+  <div class="pricing-card">
+    <h3>Enterprise</h3>
+    <p class="price">Custom</p>
+    <ul>
+      <li>Advanced Security</li>
+      <li>Custom Integrations</li>
+      <li>Dedicated Manager</li>
+    </ul>
+    <button class="btn outline">Contact Sales</button>
+  </div>
+
 </section>
 
+<footer class="pricing-footer">
+  © MineHR Solutions Pvt Ltd
+</footer>
+
+<script src="assets/js/pricing.js"></script>
 </body>
 </html>
