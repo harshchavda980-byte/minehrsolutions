@@ -121,7 +121,15 @@ body {
   font-weight: 600;
   margin-bottom: 25px;
 }
+.hero-logo img {
+  width: 110px; /* safe size */
+  animation: floatLogo 5s ease-in-out infinite;
+}
 
+@keyframes floatLogo {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
 .hero-title {
   font-size: 48px;
   font-weight: 800;
@@ -194,6 +202,16 @@ body {
 
 .feature-card:hover {
   transform: translateY(-6px);
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ================= CTA ================= */
