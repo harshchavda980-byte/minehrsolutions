@@ -13,7 +13,6 @@ html {
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -49,14 +48,14 @@ body {
 }
 
 .brand img {
-  height: 36px;   /* ✅ FIXED LOGO SIZE */
+  height: 100px;   /* ✅ FIXED LOGO SIZE */
   width: auto;
 }
 
 .brand span {
   font-size: 20px;
   font-weight: 700;
-  color: #1d4ed8;
+  color: #2789FF;
 }
 
 /* NAV LINKS */
