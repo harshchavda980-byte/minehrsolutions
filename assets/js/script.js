@@ -1,64 +1,30 @@
-/* ================= HERO TITLE ANIMATION ================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const title = document.querySelector(".hero-title");
+// Mobile menu
+const toggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
 
-  if (title) {
-    title.style.opacity = "0";
-    title.style.transform = "translateY(30px)";
-
-    setTimeout(() => {
-      title.style.transition = "0.8s ease";
-      title.style.opacity = "1";
-      title.style.transform = "translateY(0)";
-    }, 200);
-  }
+toggle.addEventListener("click", () => {
+  mobileNav.style.display =
+    mobileNav.style.display === "flex" ? "none" : "flex";
 });
 
-/* ================= HEADER SHADOW ON SCROLL ================= */
-window.addEventListener("scroll", () => {
-  const header = document.querySelector(".header"); // FIXED
-
-  if (header) {
-    header.classList.toggle("scrolled", window.scrollY > 10);
-  }
-});
-
-/* ================= REVEAL ON SCROLL ================= */
+// Reveal animation
 const reveals = document.querySelectorAll(".reveal");
 
-function revealOnScroll() {
-  const windowHeight = window.innerHeight;
-
+const revealOnScroll = () => {
   reveals.forEach(el => {
     const top = el.getBoundingClientRect().top;
-    if (top < windowHeight - 100) {
+    if (top < window.innerHeight - 100) {
       el.classList.add("active");
     }
   });
-}
+};
 
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
 
-/* ================= DEMO FORM SUBMIT ================= */
-const demoForm = document.querySelector(".demo-form");
-
-if (demoForm) {
-  demoForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Thank you! Our team will contact you shortly.");
-    this.reset();
-  });
-}
-
-const menuToggle = document.querySelector(".menu-toggle");
-const mobileNav = document.querySelector(".mobile-nav");
-
-if (menuToggle && mobileNav) {
-  menuToggle.addEventListener("click", () => {
-    mobileNav.classList.toggle("open");
-  });
-}
-.mobile-nav.open {
-  display: flex;
-}
+// Demo form
+document.querySelector(".demo-form").addEventListener("submit", e => {
+  e.preventDefault();
+  alert("Thanks! Our team will contact you shortly.");
+  e.target.reset();
+});
