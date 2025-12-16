@@ -11,46 +11,57 @@ body {
   background: #ffffff;
 }
 
-/* ===== HEADER ===== */
+/* =====================================================
+   HEADER – DESKTOP FIRST
+===================================================== */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  height: 72px;
+  justify-content: space-between;
   padding: 0 40px;
+  height: 72px;
+  background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
 .header.scrolled {
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
-.nav-left, .nav-right {
+
+/* LEFT & RIGHT LINKS */
+.nav-left,
+.nav-right {
   display: flex;
   align-items: center;
   gap: 22px;
 }
 
-.nav-left { justify-content: flex-start; }
-.nav-right { justify-content: flex-end; }
-
+/* LINKS */
 .header a {
   font-size: 14px;
   font-weight: 500;
   color: #334155;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .header a:hover {
   color: #2563eb;
 }
 
-/* LOGO */
+/* CENTER LOGO */
 .nav-center {
   text-align: center;
 }
 
 .logo-img {
-  height: 36px;
-  margin: 0 auto 4px;
+  height: 40px;   /* 👈 CONTROL LOGO SIZE HERE */
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .logo-text {
@@ -58,6 +69,7 @@ body {
   letter-spacing: 0.18em;
   color: #475569;
   font-weight: 600;
+  margin-top: 4px;
 }
 
 /* DEMO BUTTON */
@@ -67,10 +79,55 @@ body {
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-/* ===== HERO ===== */
+/* =====================================================
+   MOBILE MENU (HIDDEN BY DEFAULT)
+===================================================== */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #2563eb;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  position: absolute;
+  width: 100%;
+  top: 72px;
+  left: 0;
+  z-index: 999;
+}
+
+.mobile-nav a {
+  padding: 14px 20px;
+  text-decoration: none;
+  color: #0f172a;
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 500;
+}
+
+.demo-mobile-btn {
+  background: #2563eb;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 600;
+  margin: 12px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
 .hero {
   padding: 90px 20px;
   text-align: center;
@@ -108,7 +165,6 @@ body {
   margin-bottom: 32px;
 }
 
-/* BUTTONS */
 .hero-actions {
   display: flex;
   justify-content: center;
@@ -132,7 +188,9 @@ body {
   color: #2563eb;
 }
 
-/* ===== FEATURES ===== */
+/* =====================================================
+   FEATURES
+===================================================== */
 .features {
   padding: 80px 20px;
   text-align: center;
@@ -152,7 +210,9 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-/* ===== CTA ===== */
+/* =====================================================
+   CTA & FOOTER
+===================================================== */
 .cta {
   background: #1d4ed8;
   color: white;
@@ -160,7 +220,6 @@ body {
   padding: 70px 20px;
 }
 
-/* ===== FOOTER ===== */
 footer {
   background: #0f172a;
   color: #cbd5f5;
@@ -168,7 +227,9 @@ footer {
   padding: 20px;
 }
 
-/* ===== REVEAL ===== */
+/* =====================================================
+   REVEAL ANIMATION
+===================================================== */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -180,79 +241,48 @@ footer {
   transform: translateY(0);
 }
 
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .header {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    height: auto;
-    padding: 16px;
-  }
-
-  .nav-left, .nav-right {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero-title {
-    font-size: 32px;
-  }
-}
-/* ================= MOBILE HEADER ================= */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.mobile-nav {
-  display: none;
-  flex-direction: column;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
-}
-
-.mobile-nav a {
-  padding: 14px 20px;
-  text-decoration: none;
-  color: #0f172a;
-  border-bottom: 1px solid #f1f5f9;
-  font-weight: 500;
-}
-
-/* MOBILE VIEW */
+/* =====================================================
+   MOBILE VIEW (ONLY BELOW 768px)
+===================================================== */
 @media (max-width: 768px) {
 
   .header {
-    grid-template-columns: auto 1fr auto;
     padding: 0 16px;
     height: 60px;
   }
 
-  .menu-toggle {
-    display: block;
-  }
-
+  /* Hide desktop links */
   .nav-left,
   .nav-right {
     display: none;
   }
 
-  .nav-center img {
-    width: 32px;
-    margin: auto;
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Center logo perfectly */
+  .nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logo-img {
+    height: 32px;   /* 👈 MOBILE LOGO SIZE */
   }
 
   .logo-text {
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-size: 10px;
+    letter-spacing: 0.12em;
   }
 
-  .demo-btn {
-    padding: 6px 10px;
-    font-size: 14px;
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .mobile-nav {
+    top: 60px;
   }
 }
-
