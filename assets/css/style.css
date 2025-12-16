@@ -9,59 +9,78 @@ img {
 html {
   scroll-behavior: smooth;
 }
-  /* =================RESET ================= */
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 body {
   background: #ffffff;
-  color: #1f2937;
+  color: #0f172a;
 }
 
-/* ================= NAVBAR ================= */
-.navbar {
-  display: flex;
+/* ===== HEADER ===== */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 
-  height: 64px;                 /* KEY: smaller header */
-  padding: 0 40px;              /* reduced vertical space */
+  height: 72px;
+  padding: 0 40px;
 
-  background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  background: #fff;
 }
-.nav-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 16px 20px;
+
+/* LEFT */
+.nav-left,
+.nav-right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 22px;
 }
 
-/* LOGO */
-.logo {
+.nav-left {
+  justify-content: flex-start;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.header a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+}
+
+.header a:hover {
+  color: #2563eb;
+}
+
+/* CENTER LOGO */
+.nav-center {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  line-height: 1;
 }
 
-.logo img {
-  height: 36px;      /* PERFECT for compact header */
-  width: auto;
-}
-
-.brand span {
-  font-size: 20px;
+.logo-mark {
+  font-size: 22px;
   font-weight: 700;
-  color: #2789FF;
+  color: #2563eb;
+}
+
+.logo-text {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: #475569;
 }
 
 /* NAV LINKS */
@@ -116,7 +135,20 @@ body {
   color: white;
   background: rgba(37,99,235,0.08);
 }
+/* DEMO BUTTON */
+.demo-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
+.demo-btn:hover {
+  background: #1e40af;
+}
 /* ================= HERO ================= */
 .hero {
   padding: 90px 20px;
