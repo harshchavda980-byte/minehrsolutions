@@ -15,13 +15,16 @@ document.querySelector(".menu-toggle")
   });
 
 // Reveal animation
-const reveals = document.querySelectorAll(".reveal");
-const revealOnScroll = () => {
-  reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-      el.classList.add("active");
-    }
-  });
-};
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
+document.addEventListener("DOMContentLoaded", () => {
+  const title = document.querySelector(".hero-title");
+  if (!title) return;
+
+  title.style.opacity = "0";
+  title.style.transform = "translateY(30px)";
+
+  setTimeout(() => {
+    title.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+    title.style.opacity = "1";
+    title.style.transform = "translateY(0)";
+  }, 200);
+});
