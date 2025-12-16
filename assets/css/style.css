@@ -233,3 +233,8 @@ footer {
     flex-direction: column;
   }
 }
+.hero,
+.hero * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
