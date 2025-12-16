@@ -50,3 +50,15 @@ if (demoForm) {
     this.reset();
   });
 }
+
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
+
+if (menuToggle && mobileNav) {
+  menuToggle.addEventListener("click", () => {
+    mobileNav.classList.toggle("open");
+  });
+}
+.mobile-nav.open {
+  display: flex;
+}
