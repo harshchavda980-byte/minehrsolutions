@@ -23,14 +23,20 @@ body {
 
 /* ================= NAVBAR ================= */
 .navbar {
-  position: sticky;
-  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 64px;                 /* KEY: smaller header */
+  padding: 0 40px;              /* reduced vertical space */
+
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  z-index: 1000;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
 
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 .nav-container {
   max-width: 1200px;
   margin: auto;
@@ -41,14 +47,14 @@ body {
 }
 
 /* LOGO */
-.brand {
+.logo {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.brand img {
-  height: 100px;   /* ✅ FIXED LOGO SIZE */
+.logo img {
+  height: 50px;      /* PERFECT for compact header */
   width: auto;
 }
 
