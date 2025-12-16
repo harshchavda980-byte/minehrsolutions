@@ -397,3 +397,76 @@ footer {
     padding: 60px 20px;
   }
 }
+.trust-hero {
+  padding: 90px 20px;
+  text-align: center;
+  background: #f1f5f9;
+}
+
+.trust-numbers {
+  padding: 60px 20px;
+}
+
+.trust-grid {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  text-align: center;
+  gap: 30px;
+}
+
+.trust-grid h3 {
+  font-size: 28px;
+  color: #2563eb;
+}
+
+.security {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+.security-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.industries {
+  padding: 80px 20px;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.industry-grid {
+  margin-top: 30px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.industry-grid div {
+  padding: 14px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.testimonials {
+  padding: 80px 20px;
+}
+
+.testimonial-grid {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.testimonial {
+  background: white;
+  padding: 26px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
