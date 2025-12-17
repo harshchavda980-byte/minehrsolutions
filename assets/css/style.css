@@ -71,12 +71,23 @@ body {
   cursor: pointer;
 }
 
-/* ================= MOBILE MENU ================= */
+/* ================= MOBILE MENU (ANIMATED) ================= */
 .mobile-menu {
-  display: none;
-  flex-direction: column;
+  position: absolute;
+  top: 64px; /* height of header */
+  left: 0;
+  width: 100%;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
+
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+
+  transition: max-height 0.35s ease,
+              opacity 0.25s ease,
+              transform 0.35s ease;
 }
 
 .mobile-menu a,
@@ -89,13 +100,11 @@ body {
   font-size: 16px;
 }
 
+/* ACTIVE STATE */
 .mobile-menu.active {
-  display: flex;
-}
-
-.demo-btn.full {
-  width: 100%;
-  text-align: center;
+  max-height: 500px; /* enough for menu items */
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ================= HERO ================= */
