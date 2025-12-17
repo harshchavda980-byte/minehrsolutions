@@ -1,211 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mine HR Solutions Pvt. Ltd.</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MineHR – Smart HR Platform</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg-dark:#0B1220;
-  --panel:#121A2F;
-  --accent:#2FD4FF;
-  --text:#EAF2FF;
-  --muted:#8FA4C4;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,system-ui;
-  background:radial-gradient(circle at top,#101A33,var(--bg-dark));
-  color:var(--text);
-}
-
-/* HEADER */
-header{
-  padding:22px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-header img{
-  height:56px;
-  filter:drop-shadow(0 0 12px rgba(47,212,255,0.35));
-}
-
-/* HERO */
-.hero{
-  max-width:1200px;
-  margin:120px auto 80px;
-  padding:0 40px;
-  display:grid;
-  grid-template-columns:1.1fr 0.9fr;
-  gap:60px;
-}
-.hero h1{
-  font-size:56px;
-  font-weight:900;
-  line-height:1.02;
-}
-.hero h1 span{color:var(--accent)}
-.hero p{
-  margin-top:22px;
-  font-size:18px;
-  color:var(--muted);
-  max-width:520px;
-}
-
-/* COMMAND PANEL */
-.panel{
-  background:linear-gradient(180deg,#131C34,#0F1628);
-  border-radius:22px;
-  padding:30px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 30px 80px rgba(0,0,0,0.7);
-}
-.panel-row{
-  display:flex;
-  justify-content:space-between;
-  padding:16px 0;
-  border-bottom:1px dashed rgba(255,255,255,0.08);
-}
-.panel-row:last-child{border-bottom:none}
-.status{
-  color:var(--accent);
-  font-weight:800;
-}
-
-/* STATS */
-.stats{
-  max-width:1100px;
-  margin:140px auto;
-  padding:0 40px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:28px;
-}
-.stat{
-  background:var(--panel);
-  padding:30px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,0.06);
-}
-.stat h3{
-  font-size:42px;
-  color:var(--accent);
-  margin:0;
-}
-.stat p{color:var(--muted)}
-
-/* PROCESS */
-.process{
-  max-width:1100px;
-  margin:160px auto;
-  padding:0 40px;
-}
-.steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:22px;
-}
-.step{
-  padding:26px;
-  background:linear-gradient(180deg,#121A2F,#0C1224);
-  border-radius:16px;
-  border-top:3px solid var(--accent);
-}
-
-/* CTA */
-.cta{
-  max-width:1000px;
-  margin:180px auto;
-  padding:70px 40px;
-  text-align:center;
-  background:linear-gradient(135deg,#0C1326,#0F2E47);
-  border-radius:28px;
-}
-.cta h2{
-  font-size:40px;
-  margin-bottom:10px;
-}
-.cta button{
-  margin-top:26px;
-  padding:16px 46px;
-  font-size:17px;
-  font-weight:800;
-  border:none;
-  border-radius:50px;
-  background:var(--accent);
-  color:#00131F;
-  cursor:pointer;
-}
-
-/* MOBILE */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}
-  .hero h1{font-size:38px}
-  .steps{grid-template-columns:1fr}
-}
-</style>
+  <link rel="stylesheet" href="assets/css/harsh.css" />
 </head>
-
 <body>
 
-<header>
-  <img src="./assets/images/logo.jpg" alt="Mine HR Solutions Logo">
+<!-- ================= HEADER ================= -->
+<header class="header">
+
+  <!-- LEFT NAV -->
+  <div class="nav-left">
+    <a href="#">Services</a>
+    <a href="#">Careers</a>
+  </div>
+
+  <!-- CENTER LOGO -->
+  <div class="nav-center">
+    <div class="logo-mark">M⚡H</div>
+    <div class="logo-text">MineHR</div>
+  </div>
+
+  <!-- RIGHT NAV -->
+  <div class="nav-right">
+    <a href="#">Contact</a>
+    <a href="#">Privacy & Terms</a>
+    <a href="#">Trust</a>
+
+    <button class="demo-btn">
+      📅 Book Demo
+    </button>
+  </div>
+
 </header>
 
+<!-- ================= HERO ================= -->
 <section class="hero">
-  <div>
-    <h1>Command your <span>HR ecosystem</span></h1>
-    <p>
-      Mine HR Solutions builds structured, compliant and scalable
-      HR systems for fast-moving organizations.
-    </p>
-  </div>
+  <p class="pill">HRMS • Payroll • Compliance • Attendance</p>
 
-  <div class="panel">
-    <div class="panel-row"><span>Payroll Engine</span><span class="status">ACTIVE</span></div>
-    <div class="panel-row"><span>Attendance Grid</span><span class="status">SYNCED</span></div>
-    <div class="panel-row"><span>Compliance Layer</span><span class="status">SECURE</span></div>
-    <div class="panel-row"><span>Hiring Ops</span><span class="status">OPTIMIZED</span></div>
+  <h1>
+    One platform to manage <br />
+    people, payroll & compliance
+  </h1>
+
+  <p class="hero-sub">
+    MineHR helps modern companies run HR operations smoothly, securely and globally.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn primary">Request Demo</button>
+    <button class="btn outline">Explore Platform</button>
   </div>
 </section>
 
-<section class="stats">
-  <div class="stat">
-    <h3>99.9%</h3>
-    <p>Payroll accuracy</p>
-  </div>
-  <div class="stat">
-    <h3>10k+</h3>
-    <p>Employees managed</p>
-  </div>
-  <div class="stat">
-    <h3>100%</h3>
-    <p>Compliance coverage</p>
-  </div>
-</section>
+<footer>
+  © MineHR Solutions Pvt. Ltd.
+</footer>
 
-<section class="process">
-  <h2>Execution flow</h2>
-  <div class="steps">
-    <div class="step">Audit HR systems</div>
-    <div class="step">Design workflows</div>
-    <div class="step">Deploy tools</div>
-    <div class="step">Optimize continuously</div>
-  </div>
-</section>
-
-<section class="cta">
-  <h2>HR is a system. Treat it like one.</h2>
-  <p>Let experts take control.</p>
-  <button>Start conversation</button>
-</section>
-
+<script src="assets/js/harsh.js"></script>
 </body>
 </html>
