@@ -275,7 +275,19 @@ body {
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.05);
 }
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
 
+.image-grid img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 /* ================= TRUST ================= */
 .trust {
   background: #2563eb;
