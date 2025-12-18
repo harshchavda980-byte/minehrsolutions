@@ -432,3 +432,27 @@ body {
     transform: translateY(20px);
   }
 }
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-image {
+    order: -1;
+  }
+}
