@@ -557,3 +557,8 @@ body {
   opacity: 0.15;
 }
 
+.hero {
+  background-color: #f9fafb;
+  background-image: radial-gradient(#c7d2fe 1px, transparent 1px);
+  background-size: 24px 24px;
+}
