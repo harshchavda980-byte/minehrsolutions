@@ -2,54 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Services — Mine HR Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Services — MineHR Solutions</title>
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/services.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="brand" href="index.html"><img src="assets/images/Logo.jpg" alt="logo"><div><h1>Mine HR Solutions Pvt. Ltd.</h1></div></a>
-      <nav class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html" class="btn btn-ghost">Contact</a></nav>
-    </div>
-  </header>
 
-  <main style="padding-top:92px">
-    <section class="section container">
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner container">
+
+    <!-- Mobile Toggle -->
+    <button class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Brand -->
+    <a class="brand" href="index.html">
+      <img src="assets/images/Logo.jpg" alt="MineHR Logo">
+      <strong>MineHR</strong>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="nav-links" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="careers.html">Careers</a>
+      <a href="trust.html">Trust</a>
+      <a href="contact.html" class="btn btn-primary">Book Demo</a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="page-offset">
+
+  <section class="section container">
+    <div class="section-head">
       <h2>Our Services</h2>
-      <p style="color:var(--muted)">We deliver practical HR solutions — choose the service or ask for a tailored package.</p>
+      <p>Practical, scalable HR solutions designed for Indian businesses.</p>
+    </div>
 
-      <div class="cards mt-8">
-        <div class="feature-box">
-          <h4>Recruitment & Onboarding</h4>
-          <p style="color:var(--muted)">Sourcing, screening, interviews, offer letters and onboarding checklists.</p>
-        </div>
-
-        <div class="feature-box">
-          <h4>Payroll Processing</h4>
-          <p style="color:var(--muted)">Monthly payroll, statutory filings, payslip distribution and reconciliations.</p>
-        </div>
-
-        <div class="feature-box">
-          <h4>Statutory Compliance</h4>
-          <p style="color:var(--muted)">PF, ESI, Professional Tax, TDS assistance and record maintenance.</p>
-        </div>
-
-        <div class="feature-box">
-          <h4>HR Outsourcing</h4>
-          <p style="color:var(--muted)">We act as your HR back-office so you can focus on core business.</p>
-        </div>
+    <div class="cards">
+      <div class="feature-box">
+        <h4>Recruitment & Onboarding</h4>
+        <p>Sourcing, screening, interviews, offer letters and onboarding workflows.</p>
       </div>
 
-      <div class="center mt-8">
-        <a href="contact.html" class="btn btn-primary">Get a quote</a>
+      <div class="feature-box">
+        <h4>Payroll Processing</h4>
+        <p>Accurate payroll, payslips, compliance, and salary disbursement.</p>
       </div>
-    </section>
-  </main>
 
-  <footer class="site-footer container">
-    <div class="footer-grid"><div><strong>Mine HR Solutions Pvt. Ltd.</strong><div style="color:var(--muted)">Ahmedabad • <a href="mailto:info@corehrx.in">info@corehrx.in</a></div></div><div style="display:flex;gap:14px"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div>
-  </footer>
+      <div class="feature-box">
+        <h4>Statutory Compliance</h4>
+        <p>PF, ESI, PT, TDS filings with audit-ready documentation.</p>
+      </div>
+
+      <div class="feature-box">
+        <h4>HR Outsourcing</h4>
+        <p>Your extended HR team so you can focus on growth.</p>
+      </div>
+    </div>
+
+    <div class="center mt-40">
+      <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <strong>MineHR Solutions Pvt. Ltd.</strong>
+      <p>Ahmedabad, India</p>
+      <a href="mailto:info@corehrx.in">info@corehrx.in</a>
+    </div>
+
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
