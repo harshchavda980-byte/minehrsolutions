@@ -26,3 +26,6 @@ const revealOnScroll = () => {
 
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
+function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+  }
