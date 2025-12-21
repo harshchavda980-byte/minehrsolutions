@@ -1,95 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us – MineHR</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Contact — MineHR Solutions</title>
 
-  <meta name="description" content="Contact MineHR for demos, support and business enquiries.">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/contact.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="logo">M⚡neHR</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="trust.html">Trust</a>
-    <a href="contact.html" class="active">Contact</a>
-    <a href="#contact-form" class="nav-cta">Book Demo</a>
-  </nav>
-</header>
-
-<!-- CONTACT HERO -->
-<section class="contact-hero">
-  <h1>Let’s talk</h1>
-  <p>Have questions? Want a demo? We’re here to help.</p>
-</section>
-
-<!-- CONTACT SECTION -->
-<section class="contact-section">
-  <div class="contact-grid">
-
-    <!-- LEFT: INFO -->
-    <div class="contact-info">
-      <h2>MineHR Solutions Pvt Ltd</h2>
-
-      <p><strong>Email:</strong><br>
-        <a href="mailto:info@minehr.com">info@minehr.com</a>
-      </p>
-
-      <p><strong>Phone:</strong><br>
-        +91 XXXXX XXXXX
-      </p>
-
-      <p><strong>Location:</strong><br>
-        Ahmedabad, Gujarat, India
-      </p>
-
-      <p class="note">
-        Business hours: Monday – Friday, 10 AM – 6 PM (IST)
-      </p>
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <div class="brand">
+      <span class="logo">M⚡H</span>
+      <strong>MineHR</strong>
     </div>
 
-    <!-- RIGHT: FORM -->
-    <div class="contact-form" id="contact-form">
-      <h3>Request a Demo</h3>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="careers.html">Careers</a>
+      <a class="active">Contact</a>
+    </nav>
+  </div>
+</header>
 
-      <form action="https://formsubmit.co/info@minehr.com" method="POST">
-        <input type="hidden" name="_subject" value="MineHR Contact Request">
+<!-- ===== HERO ===== -->
+<section class="contact-hero">
+  <div class="bg-shape s1"></div>
+  <div class="bg-shape s2"></div>
 
-        <input type="text" name="Name" placeholder="Full Name" required>
-        <input type="email" name="Email" placeholder="Work Email" required>
-        <input type="text" name="Company" placeholder="Company Name">
-        <textarea name="Message" placeholder="Your message"></textarea>
+  <div class="container">
+    <h1>Let’s Talk HR</h1>
+    <p>
+      Tell us about your company and challenges — our HR experts
+      will guide you with the right solution.
+    </p>
+  </div>
+</section>
 
-        <button type="submit" class="btn primary">Submit</button>
-      </form>
+<!-- ===== CONTACT SECTION ===== -->
+<section class="contact-section">
+  <div class="container contact-grid">
+
+    <!-- FORM -->
+    <form class="contact-form reveal">
+      <h3>Send us a message</h3>
+
+      <div class="field">
+        <input type="text" required />
+        <label>Full Name</label>
+      </div>
+
+      <div class="field">
+        <input type="email" required />
+        <label>Email Address</label>
+      </div>
+
+      <div class="field">
+        <input type="text" />
+        <label>Company Name</label>
+      </div>
+
+      <div class="field">
+        <textarea rows="4" required></textarea>
+        <label>Your Message</label>
+      </div>
+
+      <button type="submit">Submit Request</button>
+
+      <p class="trust-text">
+        🔒 We respect your privacy. No spam. No sales pressure.
+      </p>
+    </form>
+
+    <!-- INFO -->
+    <div class="contact-info reveal delay-1">
+      <h3>Contact Information</h3>
+
+      <p><strong>📍 Location</strong><br>Ahmedabad, Gujarat – India</p>
+      <p><strong>📧 Email</strong><br>info@corehrx.in</p>
+      <p><strong>📞 Phone</strong><br>+91 9XXXXXXXXX</p>
+
+      <div class="info-box">
+        <h4>Why MineHR?</h4>
+        <ul>
+          <li>✔ Indian compliance expertise</li>
+          <li>✔ Dedicated HR professionals</li>
+          <li>✔ Transparent pricing</li>
+        </ul>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- MAP -->
-<section class="map-section">
-  <iframe 
-    src="https://www.google.com/maps?q=Ahmedabad%20Gujarat&output=embed"
-    loading="lazy">
-  </iframe>
-</section>
-
-<!-- WHATSAPP BUTTON -->
-<a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-btn" target="_blank">
-  💬
+<!-- ===== QUICK CTA ===== -->
+<a class="whatsapp-cta" href="#">
+  💬 Chat with HR Expert
 </a>
 
-<footer>
-  © 2025 MineHR Solutions Pvt Ltd
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <strong>MineHR Solutions Pvt. Ltd.</strong>
+      <p>Ahmedabad, India</p>
+      <p>info@corehrx.in</p>
+    </div>
+
+    <div>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
 </footer>
 
-<script src="assets/js/script.js"></script>
+<script src="assets/js/contact.js"></script>
 </body>
 </html>
