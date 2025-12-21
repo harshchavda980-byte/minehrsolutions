@@ -6,84 +6,126 @@
   <title>Services — MineHR Solutions</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/services.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ===== HEADER ===== -->
 <header class="header">
-  <div class="logo">
-    <span>M⚡H</span> MineHR Solutions
-  </div>
+  <div class="container header-inner">
+    <div class="brand">
+      <span class="logo">M⚡H</span>
+      <strong>MineHR</strong>
+    </div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">
-    ☰
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a class="active">Services</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="btn">Book Demo</a>
+    </nav>
   </div>
-
-  <nav class="nav" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="careers.html">Careers</a>
-    <a href="trust.html">Trust</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 </header>
 
-<!-- ================= MAIN ================= -->
-<main class="page-offset">
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
 
-  <section class="section container reveal">
-    <div class="section-head">
-      <h2>Our Services</h2>
-      <p>Practical, scalable HR solutions designed for Indian businesses.</p>
+  <div class="container hero-content">
+    <h1>HR Services Built for<br><span>Growing Indian Businesses</span></h1>
+    <p>
+      From recruitment to compliance, MineHR handles your HR operations
+      while you focus on scaling your business.
+    </p>
+  </div>
+</section>
+
+<!-- ===== SERVICES GRID ===== -->
+<section class="section">
+  <div class="container">
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <h3>Recruitment & Onboarding</h3>
+        <p>End-to-end hiring support with structured onboarding workflows.</p>
+      </div>
+
+      <div class="service-card reveal delay-1">
+        <h3>Payroll Processing</h3>
+        <p>Accurate salary processing, payslips, tax & statutory filings.</p>
+      </div>
+
+      <div class="service-card reveal delay-2">
+        <h3>Statutory Compliance</h3>
+        <p>PF, ESI, PT, TDS handled with audit-ready documentation.</p>
+      </div>
+
+      <div class="service-card reveal delay-3">
+        <h3>HR Outsourcing</h3>
+        <p>Your extended HR team for smooth daily operations.</p>
+      </div>
     </div>
 
-    <div class="cards">
-      <div class="feature-box reveal delay-1">
-        <h4>Recruitment & Onboarding</h4>
-        <p>Sourcing, screening, interviews, offer letters and onboarding workflows.</p>
+  </div>
+</section>
+
+<!-- ===== PROCESS TIMELINE ===== -->
+<section class="timeline">
+  <div class="container">
+    <h2>How We Work</h2>
+
+    <div class="timeline-track">
+      <div class="step reveal">
+        <span>01</span>
+        <h4>Understand</h4>
+        <p>We study your business & HR needs.</p>
       </div>
 
-      <div class="feature-box reveal delay-2">
-        <h4>Payroll Processing</h4>
-        <p>Accurate payroll, payslips, compliance, and salary disbursement.</p>
+      <div class="step reveal delay-1">
+        <span>02</span>
+        <h4>Plan</h4>
+        <p>Customized HR strategy & roadmap.</p>
       </div>
 
-      <div class="feature-box reveal delay-3">
-        <h4>Statutory Compliance</h4>
-        <p>PF, ESI, PT, TDS filings with audit-ready documentation.</p>
+      <div class="step reveal delay-2">
+        <span>03</span>
+        <h4>Execute</h4>
+        <p>Payroll, compliance & HR delivery.</p>
       </div>
 
-      <div class="feature-box reveal delay-4">
-        <h4>HR Outsourcing</h4>
-        <p>Your extended HR team so you can focus on growth.</p>
+      <div class="step reveal delay-3">
+        <span>04</span>
+        <h4>Support</h4>
+        <p>Continuous improvements & reporting.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="center mt-40 reveal delay-4">
-      <a href="contact.html" class="btn btn-primary">Get a Quote</a>
-    </div>
-  </section>
+<!-- ===== STICKY CTA ===== -->
+<div class="sticky-cta">
+  <span>Need HR support for your company?</span>
+  <a href="contact.html">Talk to Expert</a>
+</div>
 
-</main>
-
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
   <div class="container footer-grid">
     <div>
       <strong>MineHR Solutions Pvt. Ltd.</strong>
       <p>Ahmedabad, India</p>
-      <a href="mailto:info@corehrx.in">info@corehrx.in</a>
+      <p>info@corehrx.in</p>
     </div>
 
-    <div class="footer-links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
+    <div>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
     </div>
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/services.js"></script>
 </body>
 </html>
