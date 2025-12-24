@@ -307,3 +307,31 @@ a {
     transform:none;
   }
 }
+/* ===== FORCE TEXT VISIBILITY FIX ===== */
+
+/* Services section text */
+.service-card h3,
+.service-card p {
+  color: #0f172a;
+}
+
+/* Timeline text fix */
+.timeline h2,
+.timeline h4,
+.timeline p {
+  color: #ffffff;
+}
+
+/* Generic section text safety */
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section p {
+  color: #0f172a;
+}
+
+/* Footer links visibility */
+.footer a {
+  color: #cbd5f5;
+}
