@@ -1,28 +1,25 @@
-/* REVEAL ON SCROLL */
-const reveals = document.querySelectorAll(".reveal");
+const toggle = document.getElementById("menuToggle");
+const menu = document.getElementById("navMenu");
+const header = document.getElementById("siteHeader");
 
-const revealOnScroll = () => {
-  reveals.forEach(el => {
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    const revealPoint = 80;
+/* Toggle menu */
+toggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  menu.classList.toggle("show");
+});
 
-    if (elementTop < windowHeight - revealPoint) {
-      el.classList.add("active");
-    }
-  });
-};
+/* Click outside to close */
+document.addEventListener("click", (e) => {
+  if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+    menu.classList.remove("show");
+  }
+});
 
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
-
-/* HEADER SHADOW ON SCROLL */
-const header = document.querySelector(".header");
-
+/* Sticky shadow on scroll */
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 20) {
-    header.style.boxShadow = "0 10px 30px rgba(0,0,0,0.08)";
+  if (window.scrollY > 10) {
+    header.classList.add("scrolled");
   } else {
-    header.style.boxShadow = "none";
+    header.classList.remove("scrolled");
   }
 });
