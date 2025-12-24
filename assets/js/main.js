@@ -1,60 +1,69 @@
+/* ================= MOBILE MENU TOGGLE ================= */
 function toggleMenu(el) {
   const menu = document.getElementById("mobileMenu");
-  menu.classList.toggle("active");
 
+  if (!menu) return;
+
+  menu.classList.toggle("active");
   el.classList.toggle("open");
 }
-window.addEventListener("scroll", function () {
-  const header = document.getElementById("siteHeader");
 
-  if (window.scrollY > 10) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-/* STICKY HEADER EFFECT */
+/* ================= STICKY HEADER ================= */
 window.addEventListener("scroll", () => {
   const header = document.querySelector(".header");
+  if (!header) return;
+
   if (window.scrollY > 40) {
     header.classList.add("scrolled");
   } else {
     header.classList.remove("scrolled");
   }
 });
-/* SMOOTH SCROLL WITH OFFSET */
+
+/* ================= CLOSE MOBILE MENU ON LINK CLICK ================= */
+document.querySelectorAll(".mobile-menu a, .mobile-menu button").forEach(item => {
+  item.addEventListener("click", () => {
+    const menu = document.getElementById("mobileMenu");
+    const toggle = document.querySelector(".mobile-toggle");
+
+    if (menu) menu.classList.remove("active");
+    if (toggle) toggle.classList.remove("open");
+  });
+});
+
+/* ================= SMOOTH SCROLL WITH OFFSET ================= */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-
     const targetId = this.getAttribute("href");
     const target = document.querySelector(targetId);
 
     if (!target) return;
 
-    const headerOffset = 80;
-    const elementPosition = target.offsetTop;
-    const offsetPosition = elementPosition - headerOffset;
+    e.preventDefault();
+
+    const headerOffset = 90;
+    const offsetPosition = target.offsetTop - headerOffset;
 
     window.scrollTo({
       top: offsetPosition,
       behavior: "smooth"
     });
-
-    /* Close mobile menu after click */
-    document.getElementById("mobileMenu").classList.remove("active");
   });
 });
-/* INTRO SPLASH AUTO HIDE */
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("intro-splash").classList.add("hide");
-  }, 1800); // 1.8 seconds
-});
-/* SCROLL REVEAL */
-const reveals = document.querySelectorAll(".reveal");
 
+/* ================= INTRO SPLASH (ONLY IF EXISTS) ================= */
+window.addEventListener("load", () => {
+  const splash = document.getElementById("intro-splash");
+  if (!splash) return;
+
+  setTimeout(() => {
+    splash.classList.add("hide");
+  }, 1800);
+});
+
+/* ================= SCROLL REVEAL ================= */
 function revealOnScroll() {
+  const reveals = document.querySelectorAll(".reveal");
   const windowHeight = window.innerHeight;
 
   reveals.forEach(el => {
