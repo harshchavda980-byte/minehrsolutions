@@ -139,7 +139,9 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-
+.page-offset {
+  padding-top: 90px; /* height of header */
+}
 /* ================= MOBILE TOGGLE ================= */
 .mobile-toggle {
   display: none;
