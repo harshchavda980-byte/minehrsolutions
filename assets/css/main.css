@@ -307,31 +307,66 @@ a {
     transform:none;
   }
 }
-/* ===== FORCE TEXT VISIBILITY FIX ===== */
+/* ================= TEXT VISIBILITY FIX ================= */
 
-/* Services section text */
-.service-card h3,
-.service-card p {
-  color: #0f172a;
+/* SERVICES CONTENT TEXT */
+.services-grid .service-card h3,
+.services-grid .service-card p {
+  color: #1D3C70 !important; /* Dark blue (visible on light bg) */
+  font-weight: 500;
 }
 
-/* Timeline text fix */
+/* HERO SECTION TEXT */
+.hero-content h1,
+.hero-content p {
+  color: #1D3C70;
+}
+
+/* TIMELINE TEXT */
+/* Timeline has dark background, so keep white */
 .timeline h2,
+.timeline .step span,
 .timeline h4,
 .timeline p {
-  color: #ffffff;
+  color: #fff !important;
 }
 
-/* Generic section text safety */
-.section h1,
+/* STICKY CTA TEXT */
+.sticky-cta span,
+.sticky-cta a {
+  color: #1D3C70;
+}
+
+/* NAV LINK ACTIVE STATE */
+.nav-links a.active,
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+/* GENERIC SECTION HEADLINES */
 .section h2,
 .section h3,
-.section h4,
-.section p {
-  color: #0f172a;
+.section h4 {
+  color: #1D3C70;
 }
 
-/* Footer links visibility */
+/* BODY TEXT GENERIC */
+.section p,
+.footer p {
+  color: #475569;
+}
+
+/* FIX ANY LINKS IN SERVICES GRID TO BE VISIBLE */
+.services-grid a {
+  color: var(--primary);
+}
+
+/* LINKS ON LIGHT BG */
+.section.light a {
+  color: var(--primary);
+}
+
+/* ENSURE FOOTER LINKS VISIBILITY */
 .footer a {
   color: #cbd5f5;
 }
