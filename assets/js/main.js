@@ -1,42 +1,17 @@
-/* ================= MOBILE MENU ================= */
-function toggleMenu(el) {
+/* ===== MOBILE MENU ===== */
+function toggleMenu(btn) {
   const menu = document.getElementById("mobileMenu");
-  menu.classList.toggle("active");
-  el.classList.toggle("open");
-  document.body.classList.toggle("menu-open");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
 
-/* CLOSE MOBILE MENU ON CLICK */
-document.addEventListener("click", e => {
-  if (e.target.closest(".mobile-menu a")) {
-    document.getElementById("mobileMenu").classList.remove("active");
-    document.querySelector(".mobile-toggle").classList.remove("open");
-    document.body.classList.remove("menu-open");
-  }
-});
-
-/* ================= STICKY HEADER ================= */
-window.addEventListener("scroll", () => {
-  const header = document.querySelector(".header");
-  if (!header) return;
-  header.classList.toggle("scrolled", window.scrollY > 20);
-});
-
-/* ================= ACTIVE MENU ================= */
-const currentPage = location.pathname.split("/").pop() || "index.html";
-document.querySelectorAll(".desktop-nav a, .mobile-menu a").forEach(link => {
-  if (link.getAttribute("href") === currentPage) {
-    link.classList.add("active");
-  }
-});
-
-/* ================= SCROLL REVEAL ================= */
+/* ===== REVEAL ON SCROLL ===== */
 const reveals = document.querySelectorAll(".reveal");
 
 function revealOnScroll() {
-  const height = window.innerHeight;
+  const windowHeight = window.innerHeight;
   reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < height - 120) {
+    const top = el.getBoundingClientRect().top;
+    if (top < windowHeight - 80) {
       el.classList.add("active");
     }
   });
