@@ -76,4 +76,23 @@ window.addEventListener("scroll", () => {
     cta.style.pointerEvents = "none";
   }
 });
+function toggleMenu(el) {
+  const menu = document.getElementById("mobileMenu");
+
+  menu.classList.toggle("active");
+  el.classList.toggle("open");
+
+  if (menu.classList.contains("active")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.remove("active");
+    document.querySelector(".mobile-toggle").classList.remove("open");
+    document.body.style.overflow = "";
+  });
+});
 
