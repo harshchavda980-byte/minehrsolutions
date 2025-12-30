@@ -260,7 +260,19 @@ a {
     margin: auto;
   }
 }
+.hero {
+    padding: 60px 0;
+    text-align: center;
+  }
 
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .service-card {
+    padding: 22px;
+  }
+}
 /* Lock scroll when menu open */
 body.menu-open {
   overflow: hidden;
