@@ -236,7 +236,47 @@ a {
 .footer {
   background: #0f172a;
   color: #cbd5f5;
-  padding: 40px 0;
+  padding: 60px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.footer-brand p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #cbd5f5;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #60a5fa;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 15px;
+  border-top: 1px solid #1e293b;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
 }
 
 /* ================= REVEAL ================= */
@@ -281,6 +321,10 @@ a {
 }
   .service-card {
     padding: 22px;
+  }
+
+.footer {
+    text-align: center;
   }
 }
 /* Lock scroll when menu open */
