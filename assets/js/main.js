@@ -65,3 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
   revealOnScroll();
 
 });
+const cta = document.querySelector(".sticky-cta");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > document.body.scrollHeight * 0.3) {
+    cta.style.opacity = "1";
+    cta.style.pointerEvents = "auto";
+  } else {
+    cta.style.opacity = "0";
+    cta.style.pointerEvents = "none";
+  }
+});
+
