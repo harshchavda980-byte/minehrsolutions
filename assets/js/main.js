@@ -1,7 +1,22 @@
+/* ===== LOAD HEADER & FOOTER ===== */
+fetch("partials/header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header").innerHTML = data;
+  });
+
+fetch("partials/footer.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
+
 /* ===== MOBILE MENU ===== */
-function toggleMenu(btn) {
+function toggleMenu() {
   const menu = document.getElementById("mobileMenu");
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  if (menu) {
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
 }
 
 /* ===== REVEAL ON SCROLL ===== */
