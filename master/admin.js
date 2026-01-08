@@ -20,3 +20,18 @@ function toggleCompanyMenu() {
   menu.style.display = menu.style.display === "block" ? "none" : "block";
   arrow.classList.toggle("rotate");
 }
+function loadPage(pageName) {
+  const loader = document.getElementById("pageLoader");
+  loader.style.display = "flex";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+
+    document.querySelector(".content").innerHTML = `
+      <div class="panel">
+        <h2>${pageName.replace("-", " ").toUpperCase()}</h2>
+        <p>This section UI will be implemented next.</p>
+      </div>
+    `;
+  }, 700);
+}
