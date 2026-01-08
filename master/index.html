@@ -21,7 +21,25 @@
 
     <nav>
       <a class="active">Dashboard</a>
-      <a>Companies</a>
+      <div class="menu-item" onclick="toggleCompanyMenu()">
+  <span>🏢 Companies</span>
+  <span class="arrow" id="companyArrow">▾</span>
+</div>
+
+<div class="submenu" id="companySubmenu">
+  <div class="submenu-item" onclick="loadPage('company-management')">
+    Company Management
+  </div>
+  <div class="submenu-item" onclick="loadPage('company-renewals')">
+    Company Renewals
+  </div>
+  <div class="submenu-item" onclick="loadPage('employee-count')">
+    Employee Count
+  </div>
+  <div class="submenu-item" onclick="loadPage('recent-activity')">
+    Recent Activity
+  </div>
+</div>
       <a>Users</a>
       <a>Tickets</a>
       <a>Reports</a>
