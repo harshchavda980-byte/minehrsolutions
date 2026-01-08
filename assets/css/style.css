@@ -11,7 +11,7 @@
 
 /* HERO CONTENT */
 .hero-content {
-  max-width: 600px;
+  max-width: 520px;
 }
 
 /* PILL */
@@ -100,7 +100,7 @@
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 
   .hero-image {
