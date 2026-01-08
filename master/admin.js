@@ -13,3 +13,10 @@ function openModal() {
 function closeModal() {
   document.getElementById("companyModal").style.display = "none";
 }
+function toggleCompanyMenu() {
+  const menu = document.getElementById("companySubmenu");
+  const arrow = document.getElementById("companyArrow");
+
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+  arrow.classList.toggle("rotate");
+}
