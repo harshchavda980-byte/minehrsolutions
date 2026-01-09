@@ -48,6 +48,9 @@ body {
 /* Submenu */
 .submenu {
   margin-left: 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  margin-top: 6px;
   border-left: 2px solid #e9d5ff;
   padding-left: 10px;
   display: none;
@@ -68,7 +71,8 @@ body {
 .submenu a {
   display: block;
   padding: 8px 12px;
-  font-size: 14px;
+  padding-left: 32px;
+  font-size: 13.5px;
   color: #e9d5ff;
   opacity: 0.85;
 }
@@ -117,7 +121,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
 
 .topbar input {
@@ -313,6 +317,15 @@ th, td {
   justify-content: center;
   z-index: 9999;
 }
+#pageLoader::after {
+  content: "";
+  width: 48px;
+  height: 48px;
+  border: 5px solid #c4b5fd;
+  border-top-color: #6d28d9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
 
 .loader-circle {
   width: 48px;
@@ -331,7 +344,14 @@ th, td {
 .sidebar {
   background: linear-gradient(180deg, #6d28d9, #7c3aed);
 }
+.sidebar a.active {
+  background: rgba(255,255,255,0.18);
+  border-left: 4px solid #fff;
+}
 
+.sidebar a:hover {
+  background: rgba(255,255,255,0.12);
+}
 .menu-item.active {
   background: rgba(255,255,255,0.15);
   border-left: 4px solid #fff;
@@ -342,7 +362,7 @@ th, td {
 
 .stat-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 .stat-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -351,4 +371,18 @@ th, td {
 .stat-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+table tr:hover {
+  background: #f4f2ff;
+}
+
+.status.completed {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.status.pending {
+  color: #f59e0b;
+  font-weight: 600;
 }
