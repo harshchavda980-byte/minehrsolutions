@@ -2,189 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MineHR | Master Panel</title>
+  <title>MineHR – Master Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader"></div>
 
 <div class="admin-layout">
 
   <!-- SIDEBAR -->
-
-<div class="sidebar-section">CORE</div>
-
-  <div class="logo">M ⚡ H MineHR</div>
-
-  <a href="#" class="nav-link active">Dashboard</a>
-
-  <!-- DROPDOWN MODULE -->
-  <div class="nav-item has-dropdown">
-    <div class="nav-link dropdown-toggle">
-      <span>🏢 Companies</span>
-      <span class="arrow">▾</span>
+  <aside class="sidebar">
+    <div class="brand">
+      <strong>MineHR</strong>
+      <small>Internal Master Panel</small>
     </div>
-    <div class="submenu">
-      <a href="#">Company Management</a>
-      <a href="#">Company Renewals</a>
-      <a href="#">Employee Count</a>
-      <a href="#">Recent Activity</a>
-    </div>
-  </div>
 
-  <!-- DROPDOWN MODULE -->
-  <div class="nav-item has-dropdown">
-    <div class="nav-link dropdown-toggle">
-      <span>👤 Users</span>
-      <span class="arrow">▾</span>
-    </div>
-    <div class="submenu">
-      <a href="#">Admin Users</a>
-      <a href="#">Employees</a>
-    </div>
-  </div>
+    <nav>
+      <div class="sidebar-section">CORE</div>
 
-  <!-- DROPDOWN MODULE -->
-  <div class="nav-item has-dropdown">
-    <div class="nav-link dropdown-toggle">
-      <span>🎫 Tickets</span>
-      <span class="arrow">▾</span>
-    </div>
-    <div class="submenu">
-      <a href="#">Open Tickets</a>
-      <a href="#">Closed Tickets</a>
-    </div>
-  </div>
+      <a class="menu-item active" onclick="loadPage('dashboard')">Dashboard</a>
 
-  <a href="#" class="nav-link">Reports</a>
-  <a href="#" class="nav-link">Settings</a>
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Companies <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('company-management')">Company Management</a>
+          <a onclick="loadPage('company-renewals')">Company Renewals</a>
+          <a onclick="loadPage('employee-count')">Employee Count</a>
+          <a onclick="loadPage('recent-activity')">Recent Activity</a>
+        </div>
+      </div>
 
-</div>
+      <div class="sidebar-section">OPERATIONS</div>
+      <a class="menu-item" onclick="loadPage('payroll')">Payroll</a>
+      <a class="menu-item" onclick="loadPage('compliance')">Compliance</a>
+      <a class="menu-item" onclick="loadPage('reports')">Reports</a>
+    </nav>
+  </aside>
 
   <!-- MAIN -->
   <main class="main">
 
     <!-- TOPBAR -->
     <header class="topbar">
-      <input type="search" placeholder="Search anything..." />
+      <input type="text" placeholder="Search..." />
       <div class="profile">
-        <span>Harsh</span>
+        <span>Admin</span>
         <img src="https://i.pravatar.cc/40" />
       </div>
     </header>
 
     <!-- CONTENT -->
-    <section class="content">
+    <section class="content" id="contentArea">
 
-      <h1>Dashboard Overview</h1>
+      <div class="page-title">
+        <h1>Dashboard</h1>
+        <p>Overview of MineHR internal operations</p>
+      </div>
 
-      <!-- KPI CARDS -->
       <div class="cards">
-
         <div class="card purple">
-          <h3>Companies</h3>
-          <p>128</p>
+          <h3>Total Companies</h3>
+          <p>48</p>
         </div>
-
         <div class="card blue">
-          <h3>Active Users</h3>
-          <p>1,204</p>
+          <h3>Employees</h3>
+          <p>1,260</p>
         </div>
-
         <div class="card green">
-          <h3>Open Tickets</h3>
-          <p>32</p>
+          <h3>Active Clients</h3>
+          <p>42</p>
         </div>
-
         <div class="card orange">
-          <h3>Pending Requests</h3>
-          <p>9</p>
+          <h3>Pending Tasks</h3>
+          <p>7</p>
         </div>
-
       </div>
 
-      <!-- TABLE -->
       <div class="panel">
-        <h2>Recent Activities</h2>
-        <table>
-          <tr>
-            <th>Company</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>ABC Pvt Ltd</td>
-            <td>Payroll Updated</td>
-            <td class="success">Completed</td>
-          </tr>
-          <tr>
-            <td>XYZ Solutions</td>
-            <td>New User Added</td>
-            <td class="pending">Pending</td>
-          </tr>
-        </table>
+        <h2>System Status</h2>
+        <p>All services are running smoothly.</p>
       </div>
-  <div class="content-header">
-    <h1>Company Management</h1>
-    <button class="btn-primary" onclick="openModal()">+ Add Company</button>
-  </div>
-
-  <div class="panel">
-    <table>
-      <tr>
-        <th>Company Name</th>
-        <th>Email</th>
-        <th>Employees</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-
-      <tr>
-        <td>ABC Pvt Ltd</td>
-        <td>hr@abc.com</td>
-        <td>120</td>
-        <td><span class="badge active">Active</span></td>
-        <td><button class="btn-small">View</button></td>
-      </tr>
-
-      <tr>
-        <td>XYZ Solutions</td>
-        <td>admin@xyz.com</td>
-        <td>58</td>
-        <td><span class="badge inactive">Inactive</span></td>
-        <td><button class="btn-small">View</button></td>
-      </tr>
-    </table>
-  </div>
-
-</section>
-
-<!-- ADD COMPANY MODAL -->
-<div class="modal" id="companyModal">
-  <div class="modal-box">
-    <h3>Add New Company</h3>
-
-    <input type="text" placeholder="Company Name">
-    <input type="email" placeholder="Company Email">
-    <input type="number" placeholder="No. of Employees">
-
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn-primary">Save</button>
-    </div>
-  </div>
-</div>
 
     </section>
   </main>
-
 </div>
 
 <script src="admin.js"></script>
-  <div class="page-loader" id="pageLoader">
-  <div class="loader-circle"></div>
-</div>
 </body>
 </html>
