@@ -13,31 +13,55 @@
 <div class="admin-layout">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="brand">
-      <span>M⚡H</span>
-      <strong>MineHR</strong>
+
+<div class="sidebar">
+
+  <div class="logo">M ⚡ H MineHR</div>
+
+  <a href="#" class="nav-link active">Dashboard</a>
+
+  <!-- DROPDOWN MODULE -->
+  <div class="nav-item has-dropdown">
+    <div class="nav-link dropdown-toggle">
+      <span>🏢 Companies</span>
+      <span class="arrow">▾</span>
     </div>
+    <div class="submenu">
+      <a href="#">Company Management</a>
+      <a href="#">Company Renewals</a>
+      <a href="#">Employee Count</a>
+      <a href="#">Recent Activity</a>
+    </div>
+  </div>
 
-    <nav>
-      <a class="active">Dashboard</a>
-      <div class="menu-item" onclick="toggleSubmenu('companiesMenu')">
-  <span>🏢 Companies</span>
-  <span class="arrow">▾</span>
-</div>
+  <!-- DROPDOWN MODULE -->
+  <div class="nav-item has-dropdown">
+    <div class="nav-link dropdown-toggle">
+      <span>👤 Users</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="submenu">
+      <a href="#">Admin Users</a>
+      <a href="#">Employees</a>
+    </div>
+  </div>
 
-<div class="submenu" id="companiesMenu">
-  <a href="#">Company Management</a>
-  <a href="#">Company Renewals</a>
-  <a href="#">Employee Count</a>
-  <a href="#">Recent Activity</a>
+  <!-- DROPDOWN MODULE -->
+  <div class="nav-item has-dropdown">
+    <div class="nav-link dropdown-toggle">
+      <span>🎫 Tickets</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="submenu">
+      <a href="#">Open Tickets</a>
+      <a href="#">Closed Tickets</a>
+    </div>
+  </div>
+
+  <a href="#" class="nav-link">Reports</a>
+  <a href="#" class="nav-link">Settings</a>
+
 </div>
-      <a>Users</a>
-      <a>Tickets</a>
-      <a>Reports</a>
-      <a>Settings</a>
-    </nav>
-  </aside>
 
   <!-- MAIN -->
   <main class="main">
