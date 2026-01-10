@@ -85,3 +85,21 @@ window.addEventListener("load", () => {
     document.body.classList.add("dark");
   }
 });
+// SIDEBAR TOGGLE
+function toggleSidebar() {
+  document.body.classList.toggle("sidebar-collapsed");
+
+  if (document.body.classList.contains("sidebar-collapsed")) {
+    localStorage.setItem("sidebar", "collapsed");
+  } else {
+    localStorage.setItem("sidebar", "expanded");
+  }
+}
+
+// Load saved state
+window.addEventListener("load", () => {
+  if (localStorage.getItem("sidebar") === "collapsed") {
+    document.body.classList.add("sidebar-collapsed");
+  }
+});
+
