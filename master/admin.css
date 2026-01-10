@@ -22,6 +22,8 @@ body {
   background: linear-gradient(180deg, #6d28d9, #7c3aed);
   color: #fff;
   padding: 20px;
+  transition: width 0.3s ease;
+  overflow: hidden;
 }
 
 .brand strong {
@@ -97,6 +99,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+.main-content {
+  margin-left: 240px;
+  transition: margin-left 0.3s ease;
+}
+
 
 /* TOPBAR */
 .topbar {
@@ -324,7 +331,22 @@ body.dark {
 body.dark .sidebar {
   background: linear-gradient(180deg, #1e1b4b, #312e81);
 }
+/* COLLAPSED SIDEBAR */
+body.sidebar-collapsed .sidebar {
+  width: 70px;
+}
 
+body.sidebar-collapsed .main-content {
+  margin-left: 70px;
+}
+/* COLLAPSED SIDEBAR */
+body.sidebar-collapsed .sidebar {
+  width: 70px;
+}
+
+body.sidebar-collapsed .main-content {
+  margin-left: 70px;
+}
 /* Topbar */
 body.dark .topbar {
   background: #020617;
