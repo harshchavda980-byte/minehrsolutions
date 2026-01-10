@@ -102,4 +102,11 @@ window.addEventListener("load", () => {
     document.body.classList.add("sidebar-collapsed");
   }
 });
+function toggleSidebar() {
+  if (window.innerWidth < 768) {
+    document.body.classList.toggle("sidebar-open");
+  } else {
+    document.body.classList.toggle("sidebar-collapsed");
+  }
+}
 
