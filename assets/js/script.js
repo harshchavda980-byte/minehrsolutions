@@ -14,6 +14,9 @@ fetch("partials/header.html")
 
     // ✅ SET ACTIVE NAV AFTER HEADER LOAD
     setActiveNav();
+
+    // ✅ ADD GET STARTED BUTTON LISTENERS
+    addGetStartedListeners();
   });
 
 fetch("partials/footer-index.html")
@@ -86,6 +89,16 @@ function hideHomeLinkOnHomePage() {
   }
 }
 
+/* ===== GET STARTED BUTTON LISTENERS ===== */
+function addGetStartedListeners() {
+  // Header "Get Started" button
+  document.querySelectorAll(".demo-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.location.href = "contact.html";
+    });
+  });
+}
+
 /* =============================================
    INDEX.HTML SPECIFIC CODE
 ============================================= */
@@ -99,4 +112,20 @@ window.addEventListener("load", () => {
       splash.style.visibility = "hidden";
     }, 1500);
   }
+
+  // ✅ ADD LISTENERS FOR HERO BUTTONS
+  document.querySelectorAll(".btn.primary").forEach(btn => {
+    if (btn.textContent.includes("Request Demo")) {
+      btn.addEventListener("click", () => {
+        window.location.href = "contact.html";
+      });
+    }
+  });
+
+  // ✅ ADD LISTENER FOR CTA BUTTON
+  document.querySelectorAll(".cta .btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.location.href = "contact.html";
+    });
+  });
 });

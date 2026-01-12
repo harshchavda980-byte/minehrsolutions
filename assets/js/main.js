@@ -15,6 +15,9 @@ fetch("partials/header.html")
 
     // ✅ SET ACTIVE NAV AFTER HEADER LOAD
     setActiveNav();
+
+    // ✅ ADD GET STARTED BUTTON LISTENERS
+    addGetStartedListeners();
   });
 
 fetch("partials/footer.html")
@@ -85,4 +88,14 @@ function hideHomeLinkOnHomePage() {
       .querySelectorAll('.mobile-menu a[href="index.html"]')
       .forEach(link => link.remove());
   }
+}
+
+/* ===== GET STARTED BUTTON LISTENERS ===== */
+function addGetStartedListeners() {
+  // Header "Get Started" buttons (desktop and mobile)
+  document.querySelectorAll(".demo-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.location.href = "contact.html";
+    });
+  });
 }
