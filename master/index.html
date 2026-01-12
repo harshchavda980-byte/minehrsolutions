@@ -154,13 +154,13 @@ async function updateStats(){
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      window.location.href = "../login.html";
+      window.location.href = "master/login.html";
     }
   });
 
   window.logout = async function(){
     await signOut(auth);
-    window.location.href = "../login.html";
+    window.location.href = "master/login.html";
   }
 </script>
 
