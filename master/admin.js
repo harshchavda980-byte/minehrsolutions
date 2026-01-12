@@ -109,4 +109,16 @@ function toggleSidebar() {
     document.body.classList.toggle("sidebar-collapsed");
   }
 }
+import { db } from "./firebase.js";
+import { collection, addDoc } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+async function addRecord() {
+  await addDoc(collection(db, "masterData"), {
+    title: "Test Data",
+    createdAt: new Date()
+  });
+  alert("Data Saved");
+}
+
+window.addRecord = addRecord;
