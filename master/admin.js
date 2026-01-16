@@ -118,7 +118,6 @@ function toggleSidebar() {
   }
 }
 
-<<<<<<< HEAD
 // Load saved preferences
 window.addEventListener("load", () => {
   // Load theme
@@ -142,26 +141,3 @@ window.addEventListener("resize", () => {
     document.body.classList.remove("sidebar-open");
   }
 });
-=======
-import { db } from "./firebase.js";
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-// SAVE STATS
-async function saveStats(data) {
-  await setDoc(doc(db, "dashboard", "stats"), data);
-}
-
-// LOAD STATS
-async function loadStats() {
-  const snap = await getDoc(doc(db, "dashboard", "stats"));
-  if (snap.exists()) {
-    const stats = snap.data();
-    document.getElementById("totalCompanies").innerText = stats.totalCompanies;
-    document.getElementById("employees").innerText = stats.employees;
-    document.getElementById("activeClients").innerText = stats.activeClients;
-  }
-}
-
-// Call loadStats on page load
-loadStats();
->>>>>>> 1cc98037f1c14ff60ba3dfbccc044fddde2c7073
