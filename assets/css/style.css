@@ -99,7 +99,7 @@
   max-width: 460px;
 }
 
-/* ================= TRUST METRICS ================= */
+/* ================= TRUST METRICS WITH HOVER EFFECT ================= */
 .trust {
   background: linear-gradient(135deg, #f3f1ff, #ffffff);
   padding: 60px 8%;
@@ -118,6 +118,32 @@
   border-radius: 14px;
   border: 1px solid var(--border);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  padding-left: 35px;
+  overflow: hidden;
+}
+
+/* Purple vertical line on hover */
+.trust-grid div::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 6px;
+  background: #7c3aed;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 13px 0 0 13px;
+}
+
+.trust-grid div:hover::before {
+  opacity: 1;
+}
+
+.trust-grid div:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.15);
 }
 
 .trust-grid strong {
@@ -224,6 +250,16 @@
   .cta h2 {
     font-size: 26px;
   }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .trust-grid div {
+    padding: 25px 15px;
+    padding-left: 30px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -238,5 +274,13 @@
 
   .cta h2 {
     font-size: 22px;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .trust-grid strong {
+    font-size: 32px;
   }
 }

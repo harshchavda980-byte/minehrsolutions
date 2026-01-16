@@ -5,7 +5,7 @@
   <title>MineHR – Master Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css" />
 </head>
 
 <body>
@@ -26,46 +26,47 @@
     <nav>
       <div class="sidebar-section">CORE</div>
 
-      <a class="menu-item active" onclick="loadPage('dashboard')">Dashboard</a>
+      <a class="menu-item active" onclick="loadPage('dashboard', event)">Dashboard</a>
 
       <div class="has-dropdown">
         <div class="menu-item dropdown-toggle">
           Companies <span class="arrow">▾</span>
         </div>
         <div class="submenu">
-          <a onclick="loadPage('company-management')">Company Management</a>
-          <a onclick="loadPage('company-renewals')">Company Renewals</a>
-          <a onclick="loadPage('employee-count')">Employee Count</a>
-          <a onclick="loadPage('recent-activity')">Recent Activity</a>
+          <a onclick="loadPage('company-management', event)">Company Management</a>
+          <a onclick="loadPage('company-renewals', event)">Company Renewals</a>
+          <a onclick="loadPage('employee-count', event)">Employee Count</a>
+          <a onclick="loadPage('recent-activity', event)">Recent Activity</a>
         </div>
       </div>
 
       <div class="sidebar-section">OPERATIONS</div>
-      <a class="menu-item" onclick="loadPage('payroll')">Payroll</a>
-      <a class="menu-item" onclick="loadPage('compliance')">Compliance</a>
-      <a class="menu-item" onclick="loadPage('reports')">Reports</a>
+      <a class="menu-item" onclick="loadPage('payroll', event)">Payroll</a>
+      <a class="menu-item" onclick="loadPage('compliance', event)">Compliance</a>
+      <a class="menu-item" onclick="loadPage('reports', event)">Reports</a>
     </nav>
   </aside>
 
   <!-- MAIN -->
-  <main class="main">
+  <main class="main main-content">
     
     <!-- TOPBAR -->
     <header class="topbar">
-      <div class="sidebar-toggle" onclick="toggleSidebar()">
-  ☰
-</div>
-      <input type="text" placeholder="Search..." />
-      <div class="profile">
-        <span>Admin</span>
-        <img src="https://i.pravatar.cc/40" />
+      <div class="topbar-left">
+        <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+        <input type="text" placeholder="Search..." />
       </div>
-      <!-- Dark Mode Toggle -->
-<div class="theme-toggle" onclick="toggleTheme()">
-  <span class="sun">☀️</span>
-  <span class="moon">🌙</span>
-  <div class="toggle-ball"></div>
-</div>
+      <div class="topbar-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span class="sun">☀️</span>
+          <span class="moon">🌙</span>
+          <div class="toggle-ball"></div>
+        </div>
+        <div class="profile">
+          <span>Admin</span>
+          <img src="https://i.pravatar.cc/40" alt="Admin" />
+        </div>
+      </div>
     </header>
 
     <!-- CONTENT -->
@@ -99,42 +100,42 @@
         <h2>System Status</h2>
         <p>All services are running smoothly.</p>
       </div>
-<!-- ANALYTICS SECTION -->
-<div class="analytics-grid">
 
-  <!-- BAR CHART -->
-  <div class="panel chart-box">
-    <h3>Employee Growth</h3>
-    <div class="bar-chart" id="employeeChart"></div>
-  </div>
+      <!-- ANALYTICS SECTION -->
+      <div class="analytics-grid">
 
-  <!-- DONUT CHART -->
-  <div class="panel chart-box">
-    <h3>Company Status</h3>
-    <div class="donut-chart">
-      <svg viewBox="0 0 36 36">
-        <path class="donut-bg"
-          d="M18 2.0845
-             a 15.9155 15.9155 0 0 1 0 31.831
-             a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <path class="donut-fill"
-          stroke-dasharray="75, 25"
-          d="M18 2.0845
-             a 15.9155 15.9155 0 0 1 0 31.831
-             a 15.9155 15.9155 0 0 1 0 -31.831" />
-      </svg>
-      <div class="donut-text">
-        <strong>75%</strong>
-        <span>Active</span>
+        <!-- BAR CHART -->
+        <div class="panel chart-box">
+          <h3>Employee Growth</h3>
+          <div class="bar-chart" id="employeeChart"></div>
+        </div>
+
+        <!-- DONUT CHART -->
+        <div class="panel chart-box">
+          <h3>Company Status</h3>
+          <div class="donut-chart">
+            <svg viewBox="0 0 36 36">
+              <path class="donut-bg"
+                d="M18 2.0845
+                   a 15.9155 15.9155 0 0 1 0 31.831
+                   a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="donut-fill"
+                stroke-dasharray="75, 25"
+                d="M18 2.0845
+                   a 15.9155 15.9155 0 0 1 0 31.831
+                   a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="donut-text">
+              <strong>75%</strong>
+              <span>Active</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
-
-</div>
     </section>
   </main>
 </div>
-
 <script src="admin.js"></script>
 </body>
 </html>

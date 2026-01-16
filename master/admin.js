@@ -1,14 +1,18 @@
 // PAGE LOADER
 function showLoader() {
-  document.getElementById("pageLoader").style.display = "block";
+  document.getElementById("pageLoader").classList.add("active");
 }
 
 function hideLoader() {
-  document.getElementById("pageLoader").style.display = "none";
+  document.getElementById("pageLoader").classList.remove("active");
 }
 
 // LOAD PAGE CONTENT
-function loadPage(page) {
+function loadPage(page, event) {
+  if (event) {
+    event.preventDefault();
+  }
+  
   showLoader();
 
   setTimeout(() => {
@@ -16,7 +20,7 @@ function loadPage(page) {
 
     content.innerHTML = `
       <div class="page-title">
-        <h1>${page.replace("-", " ").toUpperCase()}</h1>
+        <h1>${page.replace(/-/g, " ").toUpperCase()}</h1>
         <p>This section will be implemented next.</p>
       </div>
       <div class="panel">
@@ -25,22 +29,46 @@ function loadPage(page) {
     `;
 
     document.querySelectorAll(".menu-item").forEach(i => i.classList.remove("active"));
+    if (event && event.target) {
+      event.target.classList.add("active");
+    }
+    
+    // Close sidebar on mobile after selecting
+    if (window.innerWidth < 768) {
+      document.body.classList.remove("sidebar-open");
+    }
+    
     hideLoader();
   }, 700);
 }
 
 // DROPDOWN TOGGLE
-document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
-  toggle.addEventListener("click", () => {
-    const parent = toggle.closest(".has-dropdown");
+function toggleDropdown(element) {
+  const parent = element.closest(".has-dropdown");
+  
+  // Close all other dropdowns first
+  document.querySelectorAll(".has-dropdown").forEach(dropdown => {
+    if (dropdown !== parent) {
+      dropdown.classList.remove("open");
+    }
+  });
+  
+  // Toggle the clicked dropdown
+  parent.classList.toggle("open");
+}
 
-    document.querySelectorAll(".has-dropdown").forEach(item => {
-      if (item !== parent) item.classList.remove("open");
+// Initialize dropdown listeners
+document.addEventListener("DOMContentLoaded", () => {
+  // Add click listeners to all dropdown toggles
+  document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+    toggle.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleDropdown(this);
     });
-
-    parent.classList.toggle("open");
   });
 });
+
 // BAR CHART DATA
 function renderEmployeeChart() {
   const data = [40, 55, 70, 90, 120, 150];
@@ -64,9 +92,6 @@ function renderEmployeeChart() {
   });
 }
 
-// Run on load
-window.addEventListener("load", renderEmployeeChart);
-
 // DARK MODE TOGGLE
 function toggleTheme() {
   document.body.classList.toggle("dark");
@@ -78,35 +103,41 @@ function toggleTheme() {
   }
 }
 
-// Load saved theme
-window.addEventListener("load", () => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark");
-  }
-});
-// SIDEBAR TOGGLE
-function toggleSidebar() {
-  document.body.classList.toggle("sidebar-collapsed");
-
-  if (document.body.classList.contains("sidebar-collapsed")) {
-    localStorage.setItem("sidebar", "collapsed");
-  } else {
-    localStorage.setItem("sidebar", "expanded");
-  }
-}
-
-// Load saved state
-window.addEventListener("load", () => {
-  if (localStorage.getItem("sidebar") === "collapsed") {
-    document.body.classList.add("sidebar-collapsed");
-  }
-});
+// SIDEBAR TOGGLE - FIXED
 function toggleSidebar() {
   if (window.innerWidth < 768) {
     document.body.classList.toggle("sidebar-open");
   } else {
     document.body.classList.toggle("sidebar-collapsed");
+    
+    if (document.body.classList.contains("sidebar-collapsed")) {
+      localStorage.setItem("sidebar", "collapsed");
+    } else {
+      localStorage.setItem("sidebar", "expanded");
+    }
   }
 }
 
+// Load saved preferences
+window.addEventListener("load", () => {
+  // Load theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+  }
+  
+  // Load sidebar state (desktop only)
+  if (window.innerWidth >= 768 && localStorage.getItem("sidebar") === "collapsed") {
+    document.body.classList.add("sidebar-collapsed");
+  }
+  
+  // Render chart
+  renderEmployeeChart();
+});
+
+// Handle window resize
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 768) {
+    document.body.classList.remove("sidebar-open");
+  }
+});
