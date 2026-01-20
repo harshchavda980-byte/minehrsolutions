@@ -1,59 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Login | MineHR Solutions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>MineHR | Secure Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-  <div class="login-wrapper">
-    <div class="login-overlay"></div>
+<div class="login-wrapper">
+  <div class="login-overlay"></div>
 
-    <div class="login-card fade-in">
-      <div class="brand">
-        <div class="logo">M⚡H</div>
-        <h2>MineHR</h2>
-        <p>HRMS & Payroll Platform</p>
-      </div>
+  <div class="login-card fade-in">
 
-      <form>
-        <div class="form-group">
-          <label>Email / Mobile</label>
-          <input type="text" placeholder="Enter email or mobile number" required />
-        </div>
-
-        <div class="form-group password-group">
-          <label>Password</label>
-          <input type="password" id="password" placeholder="Enter password" required />
-          <span class="toggle-password" onclick="togglePassword()">👁</span>
-        </div>
-
-        <div class="options">
-          <label class="remember">
-            <input type="checkbox"> Remember me
-          </label>
-          <a href="#">Forgot password?</a>
-        </div>
-
-        <button type="button" class="btn primary" onclick="login()">Sign In</button>
-
-        <div class="divider">OR</div>
-
-        <button type="button" class="btn secondary">Login with OTP</button>
-      </form>
-
-      <div class="footer-text">
-        © 2026 MineHR Solutions
-      </div>
+    <!-- BRAND -->
+    <div class="brand">
+      <div class="logo">M⚡H</div>
+      <h2>MineHR</h2>
+      <p>HRMS & Payroll Platform</p>
     </div>
-  </div>
 
-  <script src="login.js"></script>
+    <!-- STEP 1 -->
+    <div id="step-login">
+      <div class="form-group">
+        <label>Email / Mobile</label>
+        <input type="text" placeholder="Enter registered email or mobile">
+      </div>
+
+      <div class="form-group password-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password">
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+      </div>
+
+      <button class="btn primary" onclick="sendOTP()">Sign In</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step-otp" class="hidden">
+      <p class="otp-text">Enter the 6-digit OTP sent to your registered contact</p>
+
+      <div class="otp-box">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+      </div>
+
+      <button class="btn primary" onclick="verifyOTP()">Verify & Login</button>
+      <button class="btn secondary" onclick="goBack()">Change details</button>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+      <p>Signing you in...</p>
+    </div>
+
+    <div class="footer-text">© 2026 MineHR Solutions</div>
+  </div>
+</div>
+
+<script src="login.js"></script>
 </body>
 </html>
