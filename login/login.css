@@ -7,15 +7,16 @@
 
 body {
   height: 100vh;
-  background: url("https://images.unsplash.com/photo-1556761175-129418cb2dfe") center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1556761175-129418cb2dfe")
+    center/cover no-repeat;
 }
 
 .login-wrapper {
   height: 100vh;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .login-overlay {
@@ -23,32 +24,27 @@ body {
   inset: 0;
   background: linear-gradient(
     120deg,
-    rgba(79, 70, 229, 0.85),
-    rgba(124, 58, 237, 0.85),
-    rgba(37, 99, 235, 0.75)
+    rgba(79,70,229,0.85),
+    rgba(124,58,237,0.85),
+    rgba(37,99,235,0.75)
   );
 }
 
 .login-card {
-  position: relative;
-  background: #ffffff;
+  background: #fff;
   width: 380px;
-  border-radius: 18px;
   padding: 35px;
+  border-radius: 20px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.25);
   z-index: 2;
+  text-align: center;
 }
 
 /* BRAND */
-.brand {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
 .logo {
-  width: 54px;
-  height: 54px;
-  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg,#7c3aed,#2563eb);
   color: #fff;
   font-weight: 700;
   font-size: 20px;
@@ -59,38 +55,30 @@ body {
   margin: 0 auto 10px;
 }
 
-.brand h2 {
-  font-size: 22px;
-  color: #4f46e5;
-}
-
-.brand p {
-  font-size: 13px;
-  color: #64748b;
-}
+.brand h2 { color: #4f46e5; }
+.brand p { font-size: 13px; color: #64748b; }
 
 /* FORM */
 .form-group {
+  text-align: left;
   margin-bottom: 18px;
 }
 
-.form-group label {
-  display: block;
+label {
   font-size: 13px;
-  margin-bottom: 6px;
   color: #334155;
 }
 
-.form-group input {
+input {
   width: 100%;
-  padding: 12px 14px;
+  padding: 12px;
   border-radius: 10px;
   border: 1px solid #d1d5db;
-  outline: none;
-  font-size: 14px;
+  margin-top: 6px;
 }
 
-.form-group input:focus {
+input:focus {
+  outline: none;
   border-color: #7c3aed;
 }
 
@@ -101,29 +89,8 @@ body {
 .toggle-password {
   position: absolute;
   right: 12px;
-  top: 36px;
+  top: 38px;
   cursor: pointer;
-  font-size: 14px;
-}
-
-/* OPTIONS */
-.options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  margin-bottom: 20px;
-}
-
-.options a {
-  text-decoration: none;
-  color: #4f46e5;
-}
-
-.remember {
-  display: flex;
-  gap: 6px;
-  align-items: center;
 }
 
 /* BUTTONS */
@@ -133,40 +100,68 @@ body {
   border-radius: 12px;
   border: none;
   font-weight: 600;
+  margin-top: 12px;
   cursor: pointer;
-  margin-bottom: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: 0.3s;
 }
 
 .primary {
-  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  background: linear-gradient(135deg,#7c3aed,#2563eb);
   color: #fff;
 }
 
 .secondary {
-  background: #f1f5f9;
-  color: #334155;
+  background: #eef2ff;
+  color: #4338ca;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* DIVIDER */
-.divider {
-  text-align: center;
-  font-size: 12px;
-  color: #94a3b8;
-  margin: 15px 0;
+/* OTP */
+.otp-text {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 15px;
 }
 
-/* FOOTER */
-.footer-text {
+.otp-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.otp-box input {
+  width: 45px;
+  height: 50px;
+  font-size: 20px;
   text-align: center;
-  font-size: 12px;
-  color: #94a3b8;
-  margin-top: 10px;
+}
+
+/* LOADER */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 46px;
+  height: 46px;
+  border: 5px solid #e9d5ff;
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none;
 }
 
 /* ANIMATION */
@@ -185,9 +180,8 @@ body {
   }
 }
 
-/* MOBILE */
-@media (max-width: 480px) {
-  .login-card {
-    width: 90%;
-  }
+.footer-text {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 15px;
 }
