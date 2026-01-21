@@ -41,3 +41,20 @@ function login() {
   })
   .catch(() => alert("Login failed"));
 }
+
+function verifyOTP() {
+  const otp = document.getElementById("otp").value;
+  const email = document.getElementById("email").value;
+
+  fetch("http://localhost:5000/api/verify-otp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp })
+  })
+  .then(res => res.json())
+  .then(data => {
+    localStorage.setItem("token", data.token);
+    window.location.href = "dashboard.html";
+  })
+  .catch(() => alert("Invalid OTP"));
+}
