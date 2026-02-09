@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payroll Calculator | Mine HR Solutions</title>
-  <link rel="stylesheet" href="website/payrollcalculator/payrollcalculator.css">
+<meta charset="UTF-8">
+<title>Payroll Calculator | Mine HR Solutions</title>
+<link rel="stylesheet" href="payrollcalculator/payrollcalculator.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<div class="payroll-container">
+<div class="card">
   <h2>Payroll Calculator</h2>
-  <p class="subtitle">Calculate Monthly Salary Easily</p>
+  <p class="sub">CTC → Net Salary Breakdown</p>
 
-  <div class="form-group">
-    <label>Basic Salary (₹)</label>
-    <input type="number" id="basic" placeholder="Enter basic salary">
+  <div class="grid">
+    <div>
+      <label>Annual CTC (₹)</label>
+      <input type="number" id="ctc" placeholder="Eg: 600000">
+    </div>
+
+    <div>
+      <label>State (PT)</label>
+      <select id="state">
+        <option value="MH">Maharashtra</option>
+        <option value="KA">Karnataka</option>
+        <option value="TN">Tamil Nadu</option>
+        <option value="DL">Delhi</option>
+        <option value="DL">Gujarat</option>
+        <option value="DL">Gandhinagar</option>
+        <option value="DL">Rajstan</option>
+        <option value="DL">Madhya Pradesh</option>
+      </select>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label>HRA (₹)</label>
-    <input type="number" id="hra" placeholder="Enter HRA">
+  <button onclick="calculate()">Calculate Salary</button>
+
+  <div class="result">
+    <div><span>Basic</span><strong id="basic">₹0</strong></div>
+    <div><span>HRA</span><strong id="hra">₹0</strong></div>
+    <div><span>Gross Salary</span><strong id="gross">₹0</strong></div>
+
+    <hr>
+
+    <div><span>PF (12%)</span><strong id="pf">₹0</strong></div>
+    <div><span>ESIC (0.75%)</span><strong id="esic">₹0</strong></div>
+    <div><span>Professional Tax</span><strong id="pt">₹0</strong></div>
+
+    <hr>
+
+    <div class="net">
+      <span>Net Salary</span>
+      <strong id="net">₹0</strong>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label>Other Allowances (₹)</label>
-    <input type="number" id="allowances" placeholder="Enter allowances">
-  </div>
-
-  <div class="form-group">
-    <label>Deductions (PF / Tax) (₹)</label>
-    <input type="number" id="deductions" placeholder="Enter deductions">
-  </div>
-
-  <button onclick="calculateSalary()">Calculate Salary</button>
-
-  <div class="result-box">
-    <p>Gross Salary: <span id="gross">₹0</span></p>
-    <p>Total Deductions: <span id="totalDeduction">₹0</span></p>
-    <p class="net">Net Salary: <span id="netSalary">₹0</span></p>
-  </div>
+  <button class="secondary" onclick="downloadPDF()">Download Salary Slip</button>
 </div>
 
-<script src="website/payrollcalculator/payrollcalculator.js"></script>
+<script src="payrollcalculator/payrollcalculator.js"></script>
 </body>
 </html>
