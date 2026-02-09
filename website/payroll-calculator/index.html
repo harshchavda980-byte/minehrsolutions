@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payroll Calculator | Mine HR Solutions</title>
+  <link rel="stylesheet" href="website/payroll-calculator/payroll-calculator.css">
+</head>
+<body>
+
+<div class="payroll-container">
+  <h2>Payroll Calculator</h2>
+  <p class="subtitle">Calculate Monthly Salary Easily</p>
+
+  <div class="form-group">
+    <label>Basic Salary (₹)</label>
+    <input type="number" id="basic" placeholder="Enter basic salary">
+  </div>
+
+  <div class="form-group">
+    <label>HRA (₹)</label>
+    <input type="number" id="hra" placeholder="Enter HRA">
+  </div>
+
+  <div class="form-group">
+    <label>Other Allowances (₹)</label>
+    <input type="number" id="allowances" placeholder="Enter allowances">
+  </div>
+
+  <div class="form-group">
+    <label>Deductions (PF / Tax) (₹)</label>
+    <input type="number" id="deductions" placeholder="Enter deductions">
+  </div>
+
+  <button onclick="calculateSalary()">Calculate Salary</button>
+
+  <div class="result-box">
+    <p>Gross Salary: <span id="gross">₹0</span></p>
+    <p>Total Deductions: <span id="totalDeduction">₹0</span></p>
+    <p class="net">Net Salary: <span id="netSalary">₹0</span></p>
+  </div>
+</div>
+
+<script src="website/payroll-calculator/payroll-calculator.js"></script>
+</body>
+</html>
