@@ -1,0 +1,1464 @@
+<html lang="en" data-qb-installed="true"><head><style type="text/css">.swal-icon--error{border-color:#f27474;-webkit-animation:animateErrorIcon .5s;animation:animateErrorIcon .5s}.swal-icon--error__x-mark{position:relative;display:block;-webkit-animation:animateXMark .5s;animation:animateXMark .5s}.swal-icon--error__line{position:absolute;height:5px;width:47px;background-color:#f27474;display:block;top:37px;border-radius:2px}.swal-icon--error__line--left{-webkit-transform:rotate(45deg);transform:rotate(45deg);left:17px}.swal-icon--error__line--right{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);right:16px}@-webkit-keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@-webkit-keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}@keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}.swal-icon--warning{border-color:#f8bb86;-webkit-animation:pulseWarning .75s infinite alternate;animation:pulseWarning .75s infinite alternate}.swal-icon--warning__body{width:5px;height:47px;top:10px;border-radius:2px;margin-left:-2px}.swal-icon--warning__body,.swal-icon--warning__dot{position:absolute;left:50%;background-color:#f8bb86}.swal-icon--warning__dot{width:7px;height:7px;border-radius:50%;margin-left:-4px;bottom:-11px}@-webkit-keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}@keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}.swal-icon--success{border-color:#a5dc86}.swal-icon--success:after,.swal-icon--success:before{content:"";border-radius:50%;position:absolute;width:60px;height:120px;background:#fff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal-icon--success:before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.swal-icon--success:after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px;-webkit-animation:rotatePlaceholder 4.25s ease-in;animation:rotatePlaceholder 4.25s ease-in}.swal-icon--success__ring{width:80px;height:80px;border:4px solid hsla(98,55%,69%,.2);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.swal-icon--success__hide-corners{width:5px;height:90px;background-color:#fff;padding:1px;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal-icon--success__line{height:5px;background-color:#a5dc86;display:block;border-radius:2px;position:absolute;z-index:2}.swal-icon--success__line--tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg);-webkit-animation:animateSuccessTip .75s;animation:animateSuccessTip .75s}.swal-icon--success__line--long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-animation:animateSuccessLong .75s;animation:animateSuccessLong .75s}@-webkit-keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@-webkit-keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@-webkit-keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}@keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}.swal-icon--info{border-color:#c9dae1}.swal-icon--info:before{width:5px;height:29px;bottom:17px;border-radius:2px;margin-left:-2px}.swal-icon--info:after,.swal-icon--info:before{content:"";position:absolute;left:50%;background-color:#c9dae1}.swal-icon--info:after{width:7px;height:7px;border-radius:50%;margin-left:-3px;top:19px}.swal-icon{width:80px;height:80px;border-width:4px;border-style:solid;border-radius:50%;padding:0;position:relative;box-sizing:content-box;margin:20px auto}.swal-icon:first-child{margin-top:32px}.swal-icon--custom{width:auto;height:auto;max-width:100%;border:none;border-radius:0}.swal-icon img{max-width:100%;max-height:100%}.swal-title{color:rgba(0,0,0,.65);font-weight:600;text-transform:none;position:relative;display:block;padding:13px 16px;font-size:27px;line-height:normal;text-align:center;margin-bottom:0}.swal-title:first-child{margin-top:26px}.swal-title:not(:first-child){padding-bottom:0}.swal-title:not(:last-child){margin-bottom:13px}.swal-text{font-size:16px;position:relative;float:none;line-height:normal;vertical-align:top;text-align:left;display:inline-block;margin:0;padding:0 10px;font-weight:400;color:rgba(0,0,0,.64);max-width:calc(100% - 20px);overflow-wrap:break-word;box-sizing:border-box}.swal-text:first-child{margin-top:45px}.swal-text:last-child{margin-bottom:45px}.swal-footer{text-align:right;padding-top:13px;margin-top:13px;padding:13px 16px;border-radius:inherit;border-top-left-radius:0;border-top-right-radius:0}.swal-button-container{margin:5px;display:inline-block;position:relative}.swal-button{background-color:#7cd1f9;color:#fff;border:none;box-shadow:none;border-radius:5px;font-weight:600;font-size:14px;padding:10px 24px;margin:0;cursor:pointer}.swal-button[not:disabled]:hover{background-color:#78cbf2}.swal-button:active{background-color:#70bce0}.swal-button:focus{outline:none;box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(43,114,165,.29)}.swal-button[disabled]{opacity:.5;cursor:default}.swal-button::-moz-focus-inner{border:0}.swal-button--cancel{color:#555;background-color:#efefef}.swal-button--cancel[not:disabled]:hover{background-color:#e8e8e8}.swal-button--cancel:active{background-color:#d7d7d7}.swal-button--cancel:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}.swal-button--danger{background-color:#e64942}.swal-button--danger[not:disabled]:hover{background-color:#df4740}.swal-button--danger:active{background-color:#cf423b}.swal-button--danger:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(165,43,43,.29)}.swal-content{padding:0 20px;margin-top:20px;font-size:medium}.swal-content:last-child{margin-bottom:20px}.swal-content__input,.swal-content__textarea{-webkit-appearance:none;background-color:#fff;border:none;font-size:14px;display:block;box-sizing:border-box;width:100%;border:1px solid rgba(0,0,0,.14);padding:10px 13px;border-radius:2px;transition:border-color .2s}.swal-content__input:focus,.swal-content__textarea:focus{outline:none;border-color:#6db8ff}.swal-content__textarea{resize:vertical}.swal-button--loading{color:transparent}.swal-button--loading~.swal-button__loader{opacity:1}.swal-button__loader{position:absolute;height:auto;width:43px;z-index:2;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);text-align:center;pointer-events:none;opacity:0}.swal-button__loader div{display:inline-block;float:none;vertical-align:baseline;width:9px;height:9px;padding:0;border:none;margin:2px;opacity:.4;border-radius:7px;background-color:hsla(0,0%,100%,.9);transition:background .2s;-webkit-animation:swal-loading-anim 1s infinite;animation:swal-loading-anim 1s infinite}.swal-button__loader div:nth-child(3n+2){-webkit-animation-delay:.15s;animation-delay:.15s}.swal-button__loader div:nth-child(3n+3){-webkit-animation-delay:.3s;animation-delay:.3s}@-webkit-keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}@keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}.swal-overlay{position:fixed;top:0;bottom:0;left:0;right:0;text-align:center;font-size:0;overflow-y:auto;background-color:rgba(0,0,0,.4);z-index:10000;pointer-events:none;opacity:0;transition:opacity .3s}.swal-overlay:before{content:" ";display:inline-block;vertical-align:middle;height:100%}.swal-overlay--show-modal{opacity:1;pointer-events:auto}.swal-overlay--show-modal .swal-modal{opacity:1;pointer-events:auto;box-sizing:border-box;-webkit-animation:showSweetAlert .3s;animation:showSweetAlert .3s;will-change:transform}.swal-modal{width:478px;opacity:0;pointer-events:none;background-color:#fff;text-align:center;border-radius:5px;position:static;margin:20px auto;display:inline-block;vertical-align:middle;-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;z-index:10001;transition:opacity .2s,-webkit-transform .3s;transition:transform .3s,opacity .2s;transition:transform .3s,opacity .2s,-webkit-transform .3s}@media (max-width:500px){.swal-modal{width:calc(100% - 20px)}}@-webkit-keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}@keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}</style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Welcome | MyCo </title>
+  <!--favicon-->
+  <link rel="icon" href="../img/fav.png" type="image/png">
+  <style type="text/css">:root {
+    --primary: #2f648e;
+    --primary_new: #2FBBA4;
+    --border-color: #1e405b;
+    --suceess-color: #329b51;
+    --sidebar-bg: #273143;
+}</style>  <!-- simplebar CSS-->
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet">
+  <!-- Bootstrap core CSS-->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- animate CSS-->
+  <link href="assets/css/animate.css" rel="stylesheet" type="text/css">
+  <!-- Icons CSS-->
+  <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+  <!-- Sidebar CSS-->
+  <link href="assets/css/sidebar-menu.css" rel="stylesheet">
+  <!-- Custom Style-->
+  <link href="assets/css/app-style.css" rel="stylesheet">
+  <link href="assets/css/custom.css" rel="stylesheet">
+
+  <link href="assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+  
+  <!-- ColReorder CSS -->
+<link href="assets/plugins/bootstrap-datatable/css/colReorder.dataTables.css" rel="stylesheet" type="text/css">
+
+  <!--Lightbox Css-->
+  <link href="assets/plugins/fancybox/css/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+  <!-- notifications css -->
+  <link rel="stylesheet" href="assets/plugins/notifications/css/lobibox.min.css">
+
+  <!--Select Plugins-->
+  <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+  <!--inputtags-->
+  <link href="assets/plugins/inputtags/css/bootstrap-tagsinput.css" rel="stylesheet">
+  <!--multi select-->
+  <link href="assets/plugins/jquery-multi-select/multi-select.css" rel="stylesheet" type="text/css">
+  <!--Bootstrap Datepicker-->
+  <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+
+  <!--material datepicker css-->
+  <link rel="stylesheet" href="assets/plugins/material-datepicker/css/bootstrap-material-datetimepicker.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!--Select Plugins-->
+  <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/plugins/summernote/dist/summernote-bs4.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/daterangepicker.css">
+
+  <link href="assets/css/jquery-ui.css" rel="stylesheet">
+<style type="text/css">
+.ui-autocomplete {
+    z-index: 9999 !important; 
+    position: absolute;      
+    background-color: white; 
+    border: 1px solid #ccc;  
+    width: auto;               
+}
+</style><link rel="manifest" href="../manifest.json"><meta name="theme-color" content="#000000"><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-icon-animations: true;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:all}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem;container-name:swal2-popup}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:all}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}@container swal2-popup style(--swal2-icon-animations:true){.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">.lf-progress {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  width: 100%;
+  /* margin: 0 10px; */
+  height: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lf-progress:focus {
+  outline: none;
+  border: none;
+}
+.lf-progress::-moz-range-track {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.lf-progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-moz-range-thumb {
+  -moz-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-ms-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.lf-progress::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-thumb {
+  border: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress:focus::-ms-fill-lower {
+  background: #ccc;
+}
+.lf-progress:focus::-ms-fill-upper {
+  background: #ccc;
+}
+.lf-player-container :focus {
+  outline: 0;
+}
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-player-btn-container {
+  display: flex;
+  align-items: center;
+}
+.lf-player-btn {
+  cursor: pointer;
+  fill: #999;
+  width: 14px;
+}
+
+.lf-player-btn.active {
+  fill: #555;
+}
+
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 1;
+
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  padding: 10px;
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-arrow {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  bottom: -9px;
+  border-style: solid;
+  border-width: 10px 10px 0px 10px;
+}
+
+.lf-left-align,
+.lf-left-align .lfarrow {
+  left: 0;
+  right: unset;
+}
+
+.lf-right-align,
+.lf-right-align .lf-arrow {
+  right: 0;
+  left: unset;
+}
+
+.lf-text-input {
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  padding: 3px;
+  width: 60px;
+  margin: 0;
+}
+
+.lf-color-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.lf-color-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lf-color-component {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lf-color-component strong {
+  width: 40px;
+}
+
+.lf-color-component input[type='range'] {
+  margin: 0 0 0 10px;
+}
+
+.lf-color-component input[type='number'] {
+  width: 50px;
+  margin: 0 0 0 10px;
+}
+
+.lf-color-preview {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+
+.lf-preview {
+  height: 60px;
+  width: 60px;
+}
+
+.lf-popover-snapshot {
+  width: 150px;
+}
+.lf-popover-snapshot h5 {
+  margin: 5px 0 10px 0;
+  font-size: 0.75rem;
+}
+.lf-popover-snapshot a {
+  display: block;
+  text-decoration: none;
+}
+.lf-popover-snapshot a:before {
+  content: '⥼';
+  margin-right: 5px;
+}
+.lf-popover-snapshot .lf-note {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+}
+.lf-player-controls > div {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.lf-player-controls > div:first-child {
+  margin-left: 0px;
+}
+.lf-player-controls > div:last-child {
+  margin-right: 0px;
+}
+</style><style type="text/css">.lf-progress {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  width: 100%;
+  /* margin: 0 10px; */
+  height: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lf-progress:focus {
+  outline: none;
+  border: none;
+}
+.lf-progress::-moz-range-track {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.lf-progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-moz-range-thumb {
+  -moz-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-ms-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.lf-progress::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-thumb {
+  border: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress:focus::-ms-fill-lower {
+  background: #ccc;
+}
+.lf-progress:focus::-ms-fill-upper {
+  background: #ccc;
+}
+.lf-player-container :focus {
+  outline: 0;
+}
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-player-btn-container {
+  display: flex;
+  align-items: center;
+}
+.lf-player-btn {
+  cursor: pointer;
+  fill: #999;
+  width: 14px;
+}
+
+.lf-player-btn.active {
+  fill: #555;
+}
+
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 1;
+
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  padding: 10px;
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-arrow {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  bottom: -9px;
+  border-style: solid;
+  border-width: 10px 10px 0px 10px;
+}
+
+.lf-left-align,
+.lf-left-align .lfarrow {
+  left: 0;
+  right: unset;
+}
+
+.lf-right-align,
+.lf-right-align .lf-arrow {
+  right: 0;
+  left: unset;
+}
+
+.lf-text-input {
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  padding: 3px;
+  width: 60px;
+  margin: 0;
+}
+
+.lf-color-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.lf-color-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lf-color-component {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lf-color-component strong {
+  width: 40px;
+}
+
+.lf-color-component input[type='range'] {
+  margin: 0 0 0 10px;
+}
+
+.lf-color-component input[type='number'] {
+  width: 50px;
+  margin: 0 0 0 10px;
+}
+
+.lf-color-preview {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+
+.lf-preview {
+  height: 60px;
+  width: 60px;
+}
+
+.lf-popover-snapshot {
+  width: 150px;
+}
+.lf-popover-snapshot h5 {
+  margin: 5px 0 10px 0;
+  font-size: 0.75rem;
+}
+.lf-popover-snapshot a {
+  display: block;
+  text-decoration: none;
+}
+.lf-popover-snapshot a:before {
+  content: '⥼';
+  margin-right: 5px;
+}
+.lf-popover-snapshot .lf-note {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+}
+.lf-player-controls > div {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.lf-player-controls > div:first-child {
+  margin-left: 0px;
+}
+.lf-player-controls > div:last-child {
+  margin-right: 0px;
+}
+</style></head>
+
+
+
+<body>
+  <div class="ajax-loader">
+    <img src="../img/ajax-loader.gif" class="img-responsive">
+  </div>
+  <div id="spinner" style="display: none;"> </div>
+
+  <!-- Start wrapper-->
+  <div id="wrapper">
+
+    <!--Start sidebar-wrapper-->
+    <div id="sidebar-wrapper" data-simplebar="init" data-simplebar-auto-hide="true" class="active"><div class="simplebar-track vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="visibility: visible; top: 0px; height: 301px;"></div></div><div class="simplebar-track horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="visibility: visible; left: 0px; width: 232px;"></div></div><div class="simplebar-scroll-content" style="padding-right: 19px; margin-bottom: -38px;"><div class="simplebar-content" style="padding-bottom: 19px; margin-right: -19px;">
+      <div class="brand-logo">
+        <a href="welcome">
+          <img src="../img/logo.png" class="logo-icon" alt="logo">
+          <h5 class="logo-text">MASTER </h5>
+        </a>
+      </div>
+      <ul class="sidebar-menu do-nicescrol in">
+          <li class="active">
+          <a href="welcome" class="waves-effect  active">
+            <i class="fa fa-home"></i> <span>Dashboard</span>
+          </a>
+        </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-users"></i>
+          <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="manageUsers"><i class="fa fa-angle-double-right "></i>Manage Users</a>
+              </li>
+                            <li class=""><a href="addUsers"><i class="fa fa-angle-double-right "></i>Add User</a>
+              </li>
+                      </ul>
+      </li>
+              <li class="">
+          <a href="appUsage" class="waves-effect ">
+            <i class="fa fa-bar-chart-o"></i> <span>App Usage</span>
+          </a>
+        </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-building"></i>
+          <span>Manage Company</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="buildings"><i class="fa fa-angle-double-right "></i>View Company</a>
+              </li>
+                            <li class=""><a href="analytics"><i class="fa fa-angle-double-right "></i>Company Analytics</a>
+              </li>
+                            <li class=""><a href="crmPlanExpire"><i class="fa fa-angle-double-right "></i>CRM Plan Expire</a>
+              </li>
+                            <li class=""><a href="societyPlanExpire"><i class="fa fa-angle-double-right "></i>Plan Expire</a>
+              </li>
+                            <li class=""><a href="trackingLimit"><i class="fa fa-angle-double-right "></i>Employee Limit</a>
+              </li>
+                            <li class=""><a href="recentActivitiesAnalytics"><i class="fa fa-angle-double-right "></i>Recent Activities</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-bank"></i>
+          <span>Company Requests</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="building"><i class="fa fa-angle-double-right "></i>Add Company</a>
+              </li>
+                            <li class=""><a href="manageSocietyRequests"><i class="fa fa-angle-double-right "></i>New Company Requests</a>
+              </li>
+                            <li class=""><a href="createdSocietiesRequest"><i class="fa fa-angle-double-right "></i>Created Company</a>
+              </li>
+                            <li class=""><a href="rejectedSocietiesRequest"><i class="fa fa-angle-double-right "></i>Rejected Company</a>
+              </li>
+                            <li class=""><a href="mySocietyRequests"><i class="fa fa-angle-double-right "></i>My Company</a>
+              </li>
+                            <li class=""><a href="requestsCrm"><i class="fa fa-angle-double-right "></i>Requests CRM</a>
+              </li>
+                            <li class=""><a href="crmRequestsList"><i class="fa fa-angle-double-right "></i>Requests CRM List</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-support"></i>
+          <span>Support</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="feedback"><i class="fa fa-angle-double-right "></i>App Support</a>
+              </li>
+                            <li class=""><a href="websiteFeedback"><i class="fa fa-angle-double-right "></i>Web Feedback</a>
+              </li>
+                            <li class=""><a href="feedbackApp"><i class="fa fa-angle-double-right "></i>Comapny Request</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-th"></i>
+          <span>App Menu</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="societyAppMenu"><i class="fa fa-angle-double-right "></i>Company Menu</a>
+              </li>
+                      </ul>
+      </li>
+              <li class="">
+          <a href="sliderImages" class="waves-effect ">
+            <i class="fa fa-film"></i> <span>App Banner</span>
+          </a>
+        </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-file-archive-o"></i>
+          <span>Reports</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="crmReport"><i class="fa fa-angle-double-right "></i>CRM Report</a>
+              </li>
+                            <li class=""><a href="companyAnalyticsReport"><i class="fa fa-angle-double-right "></i>Analytics Report</a>
+              </li>
+                            <li class=""><a href="transactionReport"><i class="fa fa-angle-double-right "></i>Transaction Report</a>
+              </li>
+                            <li class=""><a href="salesInquiryReports"><i class="fa fa-angle-double-right "></i>Sales Inquiry Report</a>
+              </li>
+                            <li class=""><a href="engagementReport"><i class="fa fa-angle-double-right "></i>Engagement Report</a>
+              </li>
+                            <li class=""><a href="companyDeletedReport"><i class="fa fa-angle-double-right "></i>Deleted Company Report</a>
+              </li>
+                            <li class=""><a href="feedbackReports"><i class="fa fa-angle-double-right "></i>Feedback</a>
+              </li>
+                            <li class=""><a href="crmPlanExpireReport"><i class="fa fa-angle-double-right "></i>CRM Plan Expire Report</a>
+              </li>
+                            <li class=""><a href="societyCount"><i class="fa fa-angle-double-right "></i>Company Count</a>
+              </li>
+                            <li class=""><a href="recentActivitiesAnalyticsReport"><i class="fa fa-angle-double-right "></i>Recent Activities Report</a>
+              </li>
+                            <li class=""><a href="userWiseCreateQuery"><i class="fa fa-angle-double-right "></i>Employee Wise Create Tickets</a>
+              </li>
+                            <li class=""><a href="planExpireReport"><i class="fa fa-angle-double-right "></i>Plan Expire Report</a>
+              </li>
+                            <li class=""><a href="appSupportReport"><i class="fa fa-angle-double-right "></i>App Support Report</a>
+              </li>
+                            <li class=""><a href="companyReport"><i class="fa fa-angle-double-right "></i>Company Report</a>
+              </li>
+                            <li class=""><a href="smartSocietyWhiteLabelAnalytics"><i class="fa fa-angle-double-right "></i>Smart Society Analytics</a>
+              </li>
+                            <li class=""><a href="myAssociationWhiteLabelAnalytics"><i class="fa fa-angle-double-right "></i>My Association Analytics</a>
+              </li>
+                            <li class=""><a href="mycoWhiteLabelAnalytics"><i class="fa fa-angle-double-right "></i>MyCo White Label Analytics</a>
+              </li>
+                            <li class=""><a href="setupReport"><i class="fa fa-angle-double-right "></i>Setup Report</a>
+              </li>
+                            <li class=""><a href="productTrainingReport"><i class="fa fa-angle-double-right "></i>Product Training Report</a>
+              </li>
+                            <li class=""><a href="supportHandoverReport"><i class="fa fa-angle-double-right "></i>Support Handover Report</a>
+              </li>
+                            <li class=""><a href="biometricDeviceReport"><i class="fa fa-angle-double-right "></i>Biometric Device Report</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-cubes"></i>
+          <span>Country State City</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="manageCity"><i class="fa fa-angle-double-right "></i>Manage City</a>
+              </li>
+                            <li class=""><a href="manageState"><i class="fa fa-angle-double-right "></i>Manage State</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-cog"></i>
+          <span>Settings</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="manageBusinessEntity"><i class="fa fa-angle-double-right "></i>Industry type</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-database"></i>
+          <span>Cron Job</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="crons"><i class="fa fa-angle-double-right "></i>Manage Cron Jobs</a>
+              </li>
+                            <li class=""><a href="managecron"><i class="fa fa-angle-double-right "></i>Add/Edit Cron</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-building-o"></i>
+          <span>Onboarding Process</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="companyOnboarding"><i class="fa fa-angle-double-right "></i>Welcome Process</a>
+              </li>
+                            <li class=""><a href="trainingDashboard"><i class="fa fa-angle-double-right "></i>Training Dashboard</a>
+              </li>
+                            <li class=""><a href="companyInformation"><i class="fa fa-angle-double-right "></i>Company Dashboard</a>
+              </li>
+                            <li class=""><a href="manageTraining"><i class="fa fa-angle-double-right "></i>Manage Setup</a>
+              </li>
+                            <li class=""><a href="manageBatch"><i class="fa fa-angle-double-right "></i>Manage Training Batch</a>
+              </li>
+                            <li class=""><a href="manageTrainingSlots"><i class="fa fa-angle-double-right "></i>Manage Training Slots</a>
+              </li>
+                            <li class=""><a href="manageTrainingModule"><i class="fa fa-angle-double-right "></i>Manage Training Modules</a>
+              </li>
+                            <li class=""><a href="manageSession"><i class="fa fa-angle-double-right "></i>Manage Session </a>
+              </li>
+                            <li class=""><a href="manageTrainingPriority"><i class="fa fa-angle-double-right "></i>Manage Training  Priority</a>
+              </li>
+                            <li class=""><a href="manageParticipants"><i class="fa fa-angle-double-right "></i>Manage participants</a>
+              </li>
+                            <li class=""><a href="manageDailyReports"><i class="fa fa-angle-double-right "></i>Manage Daily Reports</a>
+              </li>
+                            <li class=""><a href="manageTemplate"><i class="fa fa-angle-double-right "></i>Email Templates</a>
+              </li>
+                      </ul>
+      </li>
+            <li class="">
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="fa fa-handshake-o"></i>
+          <span>Engagement Portal</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+                        <li class=""><a href="engagementDashboard"><i class="fa fa-angle-double-right "></i>Engagement Dashboard</a>
+              </li>
+                            <li class=""><a href="engagementWorkReport"><i class="fa fa-angle-double-right "></i>Engagement Work Report</a>
+              </li>
+                      </ul>
+      </li>
+              <li class="">
+          <a href="manageBiometricDevices" class="waves-effect ">
+            <i class="fa fa-plug"></i> <span>Manage Devices</span>
+          </a>
+        </li>
+      
+  <li class="sidebar-header no-border"></li>
+  <li class="sidebar-header no-border"></li>
+  <li class="sidebar-header no-border"></li>
+</ul>    </div></div></div>
+    <!--End sidebar-wrapper-->
+
+    <!--Start topbar header-->
+    <header class="topbar-nav">
+      <nav class="navbar navbar-expand fixed-top bg-primary">
+        <ul class="navbar-nav mr-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link toggle-menu" href="javascript:void();">
+              <i class="icon-menu menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <form autocomplete="off" class="search-bar" action="">
+              <input type="text" id="searchMenu" class="form-control ui-autocomplete-input" placeholder="Search.." autocomplete="off">
+              <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+            <input type="hidden" name="csrf" value="89231246959fb0bb786a5b5b10bf558e"></form>
+          </li>
+        </ul>
+        <ul class="navbar-nav align-items-center right-nav-link">
+                    <li class="nav-item dropdown-lg">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+              <i class="fa fa-bell-o"></i><span class="badge badge-info badge-up">11</span></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <ul class="list-group list-group-flush">
+                        
+          <li class="list-group-item">
+            <a onclick="readNotification('feedbackTimeline?id=31658',6121)" href="javascript:void(0)">
+              <div class="media">
+                <i class="fa fa-bell fa-2x mr-3 text-primary"></i>
+                <div class="media-body">
+                  <h6 class="mt-0 msg-title">Reply for Feedback - #TKT31658</h6>
+                  <p class="msg-info">We have updated the MyCo Lens app to capture more detailed attendance logs, which will help identify</p>
+                </div>
+              </div>
+            </a>
+          </li>
+                  
+          <li class="list-group-item">
+            <a onclick="readNotification('feedbackTimeline?id=31331',6112)" href="javascript:void(0)">
+              <div class="media">
+                <i class="fa fa-bell fa-2x mr-3 text-primary"></i>
+                <div class="media-body">
+                  <h6 class="mt-0 msg-title">Reply for Feedback - #TKT31331</h6>
+                  <p class="msg-info">We have updated the MyCo Lens app to capture more detailed attendance logs, which will help identify</p>
+                </div>
+              </div>
+            </a>
+          </li>
+                  
+          <li class="list-group-item">
+            <a onclick="readNotification('feedbackTimeline?id=31331',6111)" href="javascript:void(0)">
+              <div class="media">
+                <i class="fa fa-bell fa-2x mr-3 text-primary"></i>
+                <div class="media-body">
+                  <h6 class="mt-0 msg-title">Reply for Feedback - #TKT31331</h6>
+                  <p class="msg-info"></p>
+                </div>
+              </div>
+            </a>
+          </li>
+                  
+          <li class="list-group-item">
+            <a onclick="readNotification('feedbackTimeline?id=31331',6101)" href="javascript:void(0)">
+              <div class="media">
+                <i class="fa fa-bell fa-2x mr-3 text-primary"></i>
+                <div class="media-body">
+                  <h6 class="mt-0 msg-title">Reply for Feedback - #TKT31331</h6>
+                  <p class="msg-info">We are updating the MyCo Lens app to capture more detailed attendance logs, which will help identify</p>
+                </div>
+              </div>
+            </a>
+          </li>
+                  
+          <li class="list-group-item">
+            <a onclick="readNotification('feedbackTimeline?id=30156',5970)" href="javascript:void(0)">
+              <div class="media">
+                <i class="fa fa-bell fa-2x mr-3 text-primary"></i>
+                <div class="media-body">
+                  <h6 class="mt-0 msg-title">Reply for Feedback - #TKT30156</h6>
+                  <p class="msg-info">We have reviewed the attendance data for the three employees.
+There may have been an issue while sa</p>
+                </div>
+              </div>
+            </a>
+          </li>
+                <li class="list-group-item"><a href="adminNotification">See All Notifications</a></li>
+        </ul>
+  </div>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+      <span class="user-profile"><img onerror="this.src='img/user.png'" src="../img/profile/user.png" class="img-circle" alt="user avatar"> Harsh <i class="fa fa-angle-down"></i></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li class="dropdown-item user-details">
+        <a href="javascript:void();">
+          <div class="media">
+            <div class="avatar"><img onerror="this.src='img/user.png'" class="align-self-start mr-3" src="../img/profile/user.png" alt="user avatar"></div>
+            <div class="media-body">
+              <h6 class="mt-2 user-title">Harsh Chavda</h6>
+              <p class="user-subtitle">harshchavda980@gmail.com</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="dropdown-divider"></li>
+      <a href="profile">
+        <li class="dropdown-item"><i class="icon-wallet mr-2"></i> My Profile</li>
+      </a>
+      <li class="dropdown-divider"></li>
+      <form method="POST" action="logout.php">
+        <button class="form-btn dropdown-item p-0">
+          <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+        </button>
+      <input type="hidden" name="csrf" value="89231246959fb0bb786a5b5b10bf558e"></form>
+    </ul>
+  </li>
+ 
+  </ul>
+  </nav>
+  </header>
+  <!--End topbar header-->
+  <div class="clearfix"></div><div class="content-wrapper">
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="buildings">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Companies</p>
+                  <h4 class="text-dark line-height-5">  </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_company_info.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="crmReport">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">CRM</p>
+                  <h4 class="text-dark line-height-5">  </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_crm.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="manageSocietyRequests">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">New Company Requests</p>
+                  <h4 class="text-dark line-height-5"> 1 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_lms.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="crmRequestsList">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">New CRM Requests</p>
+                  <h4 class="text-dark line-height-5"> 0 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_leave.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="feedback">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Tickets with Support Team</p>
+                  <h4 class="text-dark line-height-5"> 454                  </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_support.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="feedback?tab=3">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Tickets Requiring More Information</p>
+                  <h4 class="text-dark line-height-5"> 7 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/tickets_requiring_more_information.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="feedback?tab=4">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Tickets Resolved in Next Update</p>
+                  <h4 class="text-dark line-height-5"> 2 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/tickets_resolved_in_next_update.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="feedback?tab=1">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Tickets with Developer</p>
+                  <h4 class="text-dark line-height-5"> 0 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_complaints.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="manageUsers">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Active Admin Count</p>
+                  <h4 class="text-dark line-height-5"> 123 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_employee_profile.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="sliderImages">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark"> Banners</p>
+                  <h4 class="text-dark line-height-5"> 677 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_gallery.png">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-3 col-xl-3">
+        <div class="card border border-2 border-dark rounded-0">
+          <a href="manageFestivals">
+            <div class="p-2">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <p class="text-dark">Festival Banner Current Year</p>
+                  <h4 class="text-dark line-height-5"> 0 </h4>
+                </div>
+                <div class="w-circle-icon rounded-circle border-white">
+                  <img class="myIcon" src="https://chplmyco.s3.ap-south-1.amazonaws.com/master-myco/icons/ic_new_ui_holiday.png" style="width:60px; height: 60px;">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+          </div>
+  </div>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script type="text/javascript">
+  $(function() {
+    "use strict";
+    var canvasElement = document.getElementById("unitStatus");
+    if (canvasElement) {
+      var ctx = canvasElement.getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["Open", "With Developer"],
+          datasets: [{
+            backgroundColor: [
+              "#2FBBA4",
+              "#FFC026"
+            ],
+            data: [
+              0,
+              0            ]
+          }]
+        },
+        options: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: {
+              boxWidth: 40
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<div class="modal fade" id="notification">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-primary">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title text-white">Send Notification</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="notificationValidation" action="controller/sendNotificationController.php" method="post" enctype="multipart/form-data" novalidate="novalidate">
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Company <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              
+              <select name="noti_society_id" id="noti_society_id" required="" class="form-control single-select select2-hidden-accessible" data-select2-id="noti_society_id" tabindex="-1" aria-hidden="true">
+              </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: 100px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-noti_society_id-container"><span class="select2-selection__rendered" id="select2-noti_society_id-container" role="textbox" aria-readonly="true"><span class="select2-selection__placeholder">-- Select-- </span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Title <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              <input required="" maxlength="200" id="title" type="text" name="noti_title" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Description <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              <textarea maxlength="500" required="" name="noti_description" class="form-control"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Image </label>
+            <div class="col-sm-8">
+              <input type="file" accept="image/*" maxlength="500" name="noti_notiUrl" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Send to <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              <select name="noti_send_to" required="" class="form-control">
+                <option value="Users">Employees</option>
+                <option value="Admin">Admins</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-footer text-center">
+            <button type="submit" name="sendNoti" value="sendNoti" class="btn  btn-success"><i class="fa fa-check-square-o"></i> Send</button>
+          </div>
+
+        <input type="hidden" name="csrf" value="89231246959fb0bb786a5b5b10bf558e"></form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="webNotification">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-primary">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title text-white">Send Notification</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="notificationWebValidation" action="controller/sendWebNotiController.php" method="post" enctype="multipart/form-data" novalidate="novalidate">
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Title <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              <input required="" maxlength="200" autocomplete="off" id="title" type="text" name="noti_title" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Description <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+              <textarea maxlength="500" required="" name="noti_description" class="form-control"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="input-10" class="col-sm-4 col-form-label">Image </label>
+            <div class="col-sm-8">
+              <input type="file" accept="image/*" maxlength="500" name="noti_notiUrl" class="form-control-file border">
+            </div>
+          </div>
+
+          <div class="form-footer text-center">
+            <input type="hidden" name="sendWebNoti">
+            <button type="submit" class="btn  btn-success"><i class="fa fa-check-square-o"></i> Send</button>
+          </div>
+
+        <input type="hidden" name="csrf" value="89231246959fb0bb786a5b5b10bf558e"></form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- <style>
+  #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+  }
+  #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+  }
+</style>
+<div id="overlay"></div>
+<div id="popup">
+    <p>This is your 2-hour reminder popup!</p>
+    <button id="closePopup">Close</button>
+</div> -->
+
+<audio id="notificationSound" src="../img/chat_notification.wav" preload="auto" muted=""></audio>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-messaging.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  var csrf = "89231246959fb0bb786a5b5b10bf558e";
+</script>
+<!-- Bootstrap core JavaScript-->
+<script src="assets/js/jquery.min.js"></script>
+<!-- <script src="assets/js/timeout.js"></script> -->
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery-ui.js"></script>
+
+<!-- simplebar js -->
+<script src="assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- waves effect js -->
+<script src="assets/js/waves.js"></script>
+<!-- sidebar-menu js -->
+<script src="assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="assets/js/app-script.js"></script>
+
+<!--Data Tables js-->
+<script src="assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/jszip.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/pdfmake.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/vfs_fonts.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/buttons.html5.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/buttons.print.min.js"></script>
+<script src="assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js"></script>
+<!-- ColReorder JS -->
+<script src="assets/plugins/bootstrap-datatable/js/dataTables.colReorder.min.js"></script>
+
+<!--notification js -->
+<script src="assets/plugins/notifications/js/lobibox.min.js"></script>
+<script src="assets/plugins/notifications/js/notifications.min.js"></script>
+<script src="assets/plugins/notifications/js/notification-custom-script.js"></script>
+
+
+<!--Sweet Alerts -->
+<script src="assets/plugins/alerts-boxes/js/sweetalert.min.js"></script>
+<script src="assets/plugins/alerts-boxes/js/sweet-alert-script.js"></script>
+
+<!-- Chart js -->
+<script src="assets/plugins/Chart.js/Chart.min.js"></script>
+<!--Peity Chart -->
+<script src="assets/plugins/peity/jquery.peity.min.js"></script>
+<!-- Index js -->
+<!-- <script src="assets/js/index.js"></script> -->
+<!--Lightbox-->
+<script src="assets/plugins/fancybox/js/jquery.fancybox.min.js"></script>
+
+<script src="assets/js/custom.js"></script>
+
+
+<script src="assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+
+ 
+<!--Form Validatin Script-->
+<script src="assets/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/js/validate.js"></script>
+
+<!--Select Plugins Js-->
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+<!--Inputtags Js-->
+<script src="assets/plugins/inputtags/js/bootstrap-tagsinput.js"></script>
+
+<!--Bootstrap Datepicker Js-->
+<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+<!--Multi Select Js-->
+<script src="assets/plugins/jquery-multi-select/jquery.multi-select.js"></script>
+<script src="assets/plugins/jquery-multi-select/jquery.quicksearch.js"></script>
+<script type="text/javascript" src="assets/js/select.js"></script>
+
+<!--material date picker js-->
+<script src="assets/plugins/material-datepicker/js/moment.min.js"></script>
+<script src="assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js"></script>
+<script src="assets/plugins/material-datepicker/js/ja.js"></script>
+
+<script src="assets/js/datepicker.js"></script>
+<script type="text/javascript" src="assets/js/daterangepicker.min.js"></script>
+
+<script type="text/javascript" src="assets/js/lazyload.js"></script>
+<script type="text/javascript">
+  window.addEventListener("load", function(event) {
+    lazyload();
+  });
+</script>
+
+
+
+
+<script type="text/javascript">
+  $('form').append('<input type="hidden" name="csrf" value="89231246959fb0bb786a5b5b10bf558e" />');
+</script>
+<script type="text/javascript">
+  function readNotification(link, id) {
+    $.ajax({
+      url: "controller/notificationController.php",
+      cache: false,
+      type: "POST",
+      data: {
+        id: id,
+        readNoti: "readNoti"
+      },
+      success: function(response) {
+        window.location = link;
+      }
+    });
+  }
+
+  $(window).load(function() {
+    $("#spinner").fadeOut("slow");
+  });
+
+  window.onpageshow = function(event) {
+    if (event.persisted) {
+      location.reload();
+    }
+  };
+</script>
+<script>
+  $(document).ready(function() {
+    $('#notification').on('shown.bs.modal', function() {
+      $.ajax({
+        url: './companyListAjax.php',
+        type: 'POST',
+        data: {
+          getCompanyList: "getCompanyList",
+          csrf: csrf,
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.success == true) {
+            let societyDropdown = $('#noti_society_id');
+            societyDropdown.empty();
+            societyDropdown.append(`<option value="" selected disabled>Select</option>`);
+            response.data.societies.forEach(function(society) {
+              societyDropdown.append(
+                `<option value="${society.society_id}">${society.society_name} (${society.city_name})</option>`
+              );
+            });
+          } else {}
+        },
+        error: function(xhr, status, error) {},
+      });
+    });
+  });
+</script>
+
+
+<script>
+  // $(document).ready(function() {
+  //   function showPopup() {
+  //     $("#overlay, #popup").fadeIn();
+  //     localStorage.setItem("lastPopupTime", Date.now());
+  //   }
+
+  //   function checkPopup() {
+  //     let lastPopupTime = localStorage.getItem("lastPopupTime");
+  //     let currentTime = Date.now();
+  //     let twoHours = 2 * 60 * 60 * 1000;
+  //     if (!lastPopupTime || (currentTime - lastPopupTime) > twoHours) {
+  //       showPopup();
+  //     }
+  //   }
+  //   checkPopup();
+  //   $("#closePopup").click(function() {
+  //     $("#overlay, #popup").fadeOut();
+  //   });
+  //   setInterval(checkPopup, 60 * 1000);
+  // });
+</script>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;befe89e8f2b44f4fa95da722a8287950&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul>
+  <div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div></body><chatgpt-sidebar data-gpts-theme="light">
+  
+</chatgpt-sidebar>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MineHR | Secure Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="apAdmin/login.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-overlay"></div>
+
+  <div class="login-card fade-in">
+
+    <!-- BRAND -->
+    <div class="brand">
+      <div class="logo">M⚡H</div>
+      <h2>MineHR</h2>
+      <p>HRMS & Payroll Platform</p>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step-login">
+      <div class="form-group">
+        <label>Email / Mobile</label>
+        <input type="text" placeholder="Enter registered email or mobile">
+      </div>
+
+      <div class="form-group password-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password">
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+      </div>
+
+      <button class="btn primary" onclick="sendOTP()">Sign In</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step-otp" class="hidden">
+      <p class="otp-text">Enter the 6-digit OTP sent to your registered contact</p>
+
+      <div class="otp-box">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+      </div>
+
+      <button class="btn primary" onclick="verifyOTP()">Verify & Login</button>
+      <button class="btn secondary" onclick="goBack()">Change details</button>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+      <p>Signing you in...</p>
+    </div>
+
+    <div class="footer-text">© 2026 MineHR Solutions</div>
+  </div>
+</div>
+
+<script src="apAdmin/login.js"></script>
+</body>
+</html>

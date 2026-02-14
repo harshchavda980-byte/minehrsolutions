@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MineHR — Master Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader"></div>
+
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    
+    <div class="brand">
+      <strong>MineHR</strong>
+      <small>Internal Master Panel</small>
+    </div>
+
+    <nav>
+      <div class="sidebar-section">CORE</div>
+
+      <a class="menu-item active" onclick="loadPage('dashboard', event)">Dashboard</a>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          User <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('manage-user', event)">Manage user</a>
+          <a onclick="loadPage('add-user', event)">Add user</a>
+          <a onclick="loadPage('admins-roles', event)">Admins & Roles</a>
+        </div>
+      </div>
+
+      <a class="menu-item" onclick="loadPage('app-usage', event)">App Usage</a>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Company Management <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('companies', event)">Companies</a>
+          <a onclick="loadPage('company-requests', event)">Company Requests</a>
+          <a onclick="loadPage('plans-expire', event)">Plans Expire</a>
+          <a onclick="loadPage('employee-count', event)">Employee Count</a>
+          <a onclick="loadPage('recent-activity', event)">Recent Activity</a>
+        </div>
+      </div>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Company Request <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('add-new-company', event)">Add New Company</a>
+          <a onclick="loadPage('new-company-request', event)">New Company request</a>
+          <a onclick="loadPage('created-company', event)">created company</a>
+          <a onclick="loadPage('rejected-company', event)">rejected company</a>
+          <a onclick="loadPage('my-company', event)">my company</a>
+        </div>
+      </div>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Operations <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('tickets', event)">Tickets</a>
+          <a onclick="loadPage('escalations', event)">Escalations</a>
+          <a onclick="loadPage('feedback', event)">Feedback</a>
+        </div>
+      </div>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          CRM <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('leads', event)">Leads</a>
+          <a onclick="loadPage('demo-requests', event)">Demo Requests</a>
+        </div>
+      </div>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Reports <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('xyz-reports', event)">XYZ reports(From above data)</a>
+        </div>
+      </div>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Country-State-City <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('city', event)">city</a>
+          <a onclick="loadPage('state', event)">state</a>
+          <a onclick="loadPage('country', event)">country</a>
+        </div>
+      </div>
+
+      <a class="menu-item" onclick="loadPage('ats', event)">ATS</a>
+
+      <div class="has-dropdown">
+        <div class="menu-item dropdown-toggle">
+          Intimation automation <span class="arrow">▾</span>
+        </div>
+        <div class="submenu">
+          <a onclick="loadPage('whatsapp', event)">Whatsapp</a>
+          <a onclick="loadPage('gmail', event)">Gmail</a>
+          <a onclick="loadPage('sms', event)">SMS</a>
+        </div>
+      </div>
+
+      <a class="menu-item" onclick="loadPage('onboarding-process', event)">Onboarding process</a>
+      <a class="menu-item" onclick="loadPage('engagement-process', event)">Engagement Process</a>
+      <a class="menu-item" onclick="loadPage('manage-device', event)">Mange device</a>
+      <a class="menu-item" onclick="loadPage('settings', event)">Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main main-content">
+    
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+        <input type="text" placeholder="Search..." />
+      </div>
+      <div class="topbar-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span class="sun">☀️</span>
+          <span class="moon">🌙</span>
+          <div class="toggle-ball"></div>
+        </div>
+        <div class="profile" id="profileDropdown">
+          <div class="profile-trigger" onclick="toggleProfileMenu()">
+            <span>Admin</span>
+            <img src="https://i.pravatar.cc/40" alt="Admin" />
+          </div>
+          <div class="profile-menu">
+            <div class="profile-info">
+              <strong>Admin User</strong>
+              <p>admin@minehr.com</p>
+            </div>
+            <button class="profile-menu-item" onclick="loadPage('settings', event)">
+              <span>⚙️</span> Settings
+            </button>
+            <button class="profile-menu-item" onclick="window.location.reload()">
+              <span>🔄</span> Refresh
+            </button>
+            <div class="profile-divider"></div>
+            <button class="profile-menu-item danger" onclick="logout()">
+              <span>🚪</span> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="content" id="contentArea">
+
+      <div class="page-title">
+        <h1>Dashboard</h1>
+        <p>Overview of MineHR internal operations</p>
+      </div>
+
+      <div class="cards">
+        <div class="card purple">
+          <h3>Total Companies</h3>
+          <p>48</p>
+        </div>
+        <div class="card blue">
+          <h3>Total Employees</h3>
+          <p>1,260</p>
+        </div>
+        <div class="card green">
+          <h3>Active Clients</h3>
+          <p>42</p>
+        </div>
+        <div class="card orange">
+          <h3>Pending Tasks</h3>
+          <p>7</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>System Status</h2>
+        <p>All services are running smoothly.</p>
+      </div>
+
+      <!-- ANALYTICS SECTION -->
+      <div class="analytics-grid">
+
+        <!-- BAR CHART -->
+        <div class="panel chart-box">
+          <h3>Employee Growth</h3>
+          <div class="bar-chart" id="employeeChart"></div>
+        </div>
+
+        <!-- DONUT CHART -->
+        <div class="panel chart-box">
+          <h3>Company Status</h3>
+          <div class="donut-chart">
+            <svg viewBox="0 0 36 36">
+              <path class="donut-bg"
+                d="M18 2.0845
+                   a 15.9155 15.9155 0 0 1 0 31.831
+                   a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="donut-fill"
+                stroke-dasharray="75, 25"
+                d="M18 2.0845
+                   a 15.9155 15.9155 0 0 1 0 31.831
+                   a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="donut-text">
+              <strong>75%</strong>
+              <span>Active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Load Firebase as module -->
+<script type="module" src="admin.js"></script>
+
+<script>
+  // Profile dropdown toggle
+  function toggleProfileMenu() {
+    const profile = document.getElementById('profileDropdown');
+    if (profile) {
+      profile.classList.toggle('active');
+    }
+  }
+
+  // Close profile menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const profile = document.getElementById('profileDropdown');
+    if (profile && !profile.contains(event.target)) {
+      profile.classList.remove('active');
+    }
+  });
+
+  // Prevent profile menu from closing when clicking inside it
+  document.addEventListener('DOMContentLoaded', function() {
+    const profileMenu = document.querySelector('.profile-menu');
+    if (profileMenu) {
+      profileMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
