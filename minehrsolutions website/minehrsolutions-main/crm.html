@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart CRM | MineHR</title>
+  <meta name="description"
+    content="Manage leads, customers, follow-ups, and sales activities efficiently through a centralized and easy-to-use platform.">
+  <link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="public/components/navbar-premium.css">
+  <link rel="stylesheet" href="public/css/styles.css">
+  <link rel="stylesheet" href="public/css/crm.css">
+  <link rel="stylesheet" href="public/css/responsive.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ================= PREMIUM NAVBAR ================= -->
+  <header class="site-header-premium" id="navbar">
+    <div class="navbar-container">
+      <div class="navbar-inner">
+        <!-- Logo -->
+        <div class="navbar-logo">
+          <a href="index.html" class="logo-link">
+            <img src="public/assets/logo.png" alt="MineHR Logo" class="logo-img" />
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navbar-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="trust.html" class="nav-link">Trust</a>
+          <a href="career.html" class="nav-link">Career</a>
+          <a href="blog.html" class="nav-link">Blog</a>
+          <a href="ats.html" class="nav-link">ATS</a>
+          <a href="crm.html" class="nav-link active">CRM</a>
+        </nav>
+
+        <!-- Right Side Actions -->
+        <div class="navbar-actions">
+          <button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="9" cy="9" r="6" stroke-width="2" />
+              <path d="M14 14L18 18" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <button class="nav-icon-btn theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="10" r="3" stroke-width="2" />
+              <line x1="10" y1="1" x2="10" y2="3" stroke-width="2" stroke-linecap="round" />
+              <line x1="10" y1="17" x2="10" y2="19" stroke-width="2" stroke-linecap="round" />
+              <line x1="1" y1="10" x2="3" y2="10" stroke-width="2" stroke-linecap="round" />
+              <line x1="17" y1="10" x2="19" y2="10" stroke-width="2" stroke-linecap="round" />
+              <line x1="3.5" y1="3.5" x2="5" y2="5" stroke-width="2" stroke-linecap="round" />
+              <line x1="15" y1="15" x2="16.5" y2="16.5" stroke-width="2" stroke-linecap="round" />
+              <line x1="16.5" y1="3.5" x2="15" y2="5" stroke-width="2" stroke-linecap="round" />
+              <line x1="5" y1="15" x2="3.5" y2="16.5" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          </button>
+
+          <a href="contact.html" class="nav-cta-btn">
+            <span>Contact Us</span>
+            <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-container">
+        <div class="search-box">
+          <svg class="search-box-icon" width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <circle cx="9" cy="9" r="6" stroke-width="2" />
+            <path d="M14 14L18 18" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input type="text" class="search-input" placeholder="Search services, blog posts..." id="searchInput"
+            autocomplete="off" />
+          <button class="search-close" id="searchClose" aria-label="Close search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M4 4L16 16M16 4L4 16" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div class="search-suggestions">
+          <div class="search-suggestion-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+            </svg>
+            <span>HRMS Software</span>
+          </div>
+          <div class="search-suggestion-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+            </svg>
+            <span>Payroll Management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CRM HERO ================= -->
+  <section class="crm-hero">
+    <div class="container">
+      <div class="crm-hero-grid">
+        <div class="crm-hero-content">
+          <h1>Smart CRM for<br><span>Better Relationships</span></h1>
+          <p>Manage leads, customers, follow-ups, and sales activities from one centralized platform with MineHR CRM. Designed to simplify communication and improve productivity, our CRM helps businesses build stronger customer relationships and close deals faster.</p>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn-primary">Get Started Now</a>
+          </div>
+        </div>
+        <div class="crm-hero-visual">
+          <div class="visual-card">
+            <!-- Using an unsplash placeholder for the CRM dashboard -->
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200" alt="MineHR CRM Dashboard Preview">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KEY FEATURES ================= -->
+  <section class="crm-features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Key Features</h2>
+        <p>Your Complete CRM Solution - Manage Leads, Track Sales, Grow Faster.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">🎯</div>
+          <h3>Lead Management</h3>
+          <p>Track and organize leads efficiently from inquiry to conversion.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📇</div>
+          <h3>Contact Database</h3>
+          <p>Store all customer information securely in one place for easy access.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">⏰</div>
+          <h3>Follow-Up Reminders</h3>
+          <p>Never miss an important follow-up with automated reminders and notifications.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📈</div>
+          <h3>Sales Pipeline</h3>
+          <p>Monitor every stage of the sales process with a clear visual pipeline.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✅</div>
+          <h3>Task Management</h3>
+          <p>Assign tasks, track activities, and improve team collaboration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✉️</div>
+          <h3>Email Tracking</h3>
+          <p>Keep records of customer interactions and communication history.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Reports & Analytics</h3>
+          <p>Generate insights on sales performance, lead conversion, and team productivity.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔐</div>
+          <h3>Role-Based Access</h3>
+          <p>Control data visibility and access permissions for different users.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📁</div>
+          <h3>Document Management</h3>
+          <p>Attach important documents, notes, and files directly to customer profiles.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">⚙️</div>
+          <h3>Customizable Workflow</h3>
+          <p>Adapt the CRM according to your business process and requirements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BENEFITS ================= -->
+  <section class="crm-benefits">
+    <div class="container">
+      <div class="benefits-inner">
+        <div class="benefits-title">
+          <h2>Benefits of MineHR CRM</h2>
+          <p>Smarter CRM for Smarter Business.</p>
+        </div>
+        <div class="benefits-list">
+          <div class="benefit-item"><span>✔</span> Improve customer engagement</div>
+          <div class="benefit-item"><span>✔</span> Increase sales efficiency</div>
+          <div class="benefit-item"><span>✔</span> Organize customer data effectively</div>
+          <div class="benefit-item"><span>✔</span> Enhance team collaboration</div>
+          <div class="benefit-item"><span>✔</span> Reduce manual work</div>
+          <div class="benefit-item"><span>✔</span> Make data-driven decisions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE ================= -->
+  <section class="crm-why">
+    <div class="container">
+      <div class="crm-why-inner">
+        <h2>Why Choose MineHR CRM?</h2>
+        <p>MineHR CRM provides a user-friendly and scalable solution suitable for startups, SMEs, and enterprises. With automation, centralized data management, and real-time tracking, businesses can improve customer satisfaction and accelerate growth.</p>
+        <a href="contact.html" class="btn-primary" style="display:inline-block;">Build Stronger Customer Relationships</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-content-wrapper">
+        <div class="footer-brand-section">
+          <a href="index.html" class="footer-logo-link">
+            <img src="public/assets/logo-footer.png" alt="MineHR Logo" class="footer-logo">
+          </a>
+        </div>
+        <div class="footer-links-section">
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="trust.html">Trust</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="ats.html">ATS</a></li>
+              <li><a href="crm.html">CRM</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="services/hrms-software.html">HR Solutions</a></li>
+              <li><a href="services/payroll-management.html">Payroll Management</a></li>
+              <li><a href="services/recruitment-staffing.html">Talent Acquisition</a></li>
+              <li><a href="services/employee-relations.html">Employee Relations</a></li>
+            </ul>
+          </div>
+          <div class="footer-col contact-col">
+            <h3>Contact Us</h3>
+            <ul class="contact-list">
+              <li><div class="contact-link"><span class="icon">📍</span> 509, Ananta Elysium, Hill Town Circle,<br>Ankur Chokadi, New India Colony,<br>Ankur Tenement, Nikol, Ahmedabad - 380049</div></li>
+              <li><a href="mailto:info@minehrsolutions.com" class="contact-link"><span class="icon">✉️</span> info@minehrsolutions.com</a></li>
+              <li><a href="tel:+917574063353" class="contact-link"><span class="icon">📞</span> +91 75740 63353</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 MineHR. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="public/components/navbar-premium.js"></script>
+</body>
+</html>
