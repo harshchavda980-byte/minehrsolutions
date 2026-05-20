@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"> <meta name="description" content="Free Payroll Calculator India – Calculate PF, ESIC, Professional Tax & Net Salary. Powered by Mine HR Solutions.">
+<title>Payroll Calculator | Mine HR Solutions</title>
+<link rel="stylesheet" href="payrollcalculator.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div class="card">
+  <h2>Payroll Calculator</h2>
+  <p class="sub">CTC → Net Salary Breakdown</p>
+
+  <div class="grid">
+    <div>
+      <label>Annual CTC (₹)</label>
+      <input type="number" id="ctc" placeholder="Eg: 600000">
+    </div>
+
+    <div>
+      <label>State (PT)</label>
+      <select id="state">
+        <option value="MH">Maharashtra</option>
+        <option value="KA">Karnataka</option>
+        <option value="TN">Tamil Nadu</option>
+        <option value="DL">Delhi</option>
+        <option value="DL">Gujarat</option>
+        <option value="DL">Gandhinagar</option>
+        <option value="DL">Rajstan</option>
+        <option value="DL">Madhya Pradesh</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="calculate()">Calculate Salary</button>
+
+  <div class="result">
+    <div><span>Basic</span><strong id="basic">₹0</strong></div>
+    <div><span>HRA</span><strong id="hra">₹0</strong></div>
+    <div><span>Gross Salary</span><strong id="gross">₹0</strong></div>
+
+    <hr>
+
+    <div><span>PF (12%)</span><strong id="pf">₹0</strong></div>
+    <div><span>ESIC (0.75%)</span><strong id="esic">₹0</strong></div>
+    <div><span>Professional Tax</span><strong id="pt">₹0</strong></div>
+
+    <hr>
+
+    <div class="net">
+      <span>Net Salary</span>
+      <strong id="net">₹0</strong>
+    </div>
+  </div>
+<p style="text-align:center;font-size:13px;margin-top:15px;">
+Need complete payroll services?
+<a href="contact.html" style="color:#4f46e5;">Talk to our HR experts</a>
+</p>
+  <button class="secondary" onclick="downloadPDF()">Download Salary Slip</button>
+</div>
+
+<script src="payrollcalculator.js"></script>
+</body>
+</html>
