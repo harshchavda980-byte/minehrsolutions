@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard — MineHR Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .section-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 35px 0 15px 5px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .stat-card {
+            background: var(--bg-panel); /* Deep dark blue */
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 26px 28px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stat-card:hover {
+            border-color: rgba(129, 140, 248, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .stat-info h3 {
+            font-size: 11.5px; font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1px;
+            margin: 0;
+        }
+        .stat-info .value {
+            font-size: 32px; font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .stat-icon {
+            width: 52px; height: 52px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: #818cf8;
+            border: 1.5px solid rgba(129, 140, 248, 0.25);
+            box-shadow: 0 0 15px rgba(129, 140, 248, 0.1) inset;
+            background: transparent;
+            transition: all 0.2s;
+        }
+        .stat-card:hover .stat-icon {
+            border-color: #818cf8;
+            color: #c7d2fe;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3) inset;
+        }
+        .analytics-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        @media (max-width: 1200px) { .analytics-container { grid-template-columns: 1fr; } }
+
+        .chart-filter-bar {
+            display: flex; gap: 6px;
+        }
+        .chart-filter-btn {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chart-filter-btn.active, .chart-filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Activity Feed */
+        .activity-item {
+            display: flex; gap: 14px; align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .activity-dot.login { background: #10b981; }
+        .activity-dot.logout { background: #64748b; }
+        .activity-dot.register { background: #6366f1; }
+        .activity-dot.delete { background: #ef4444; }
+        .activity-dot.update { background: #f59e0b; }
+        .activity-dot.default { background: #a855f7; }
+    </style>
+</head>
+<body>
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search operations, companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 700; color: var(--text-primary);">Admin User</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Super Admin</span>
+                            </div>
+                            <div id="userAvatarContainer" style="width: 42px; height: 42px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 16px; border: 2px solid var(--glass-border);">
+                                AU
+                            </div>
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin User</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title">
+                    <h1>Command Center</h1>
+                    <p>Real-time intelligence and enterprise operations overview.</p>
+                </div>
+
+                <h2 class="section-title" style="margin-top:15px;">BUSINESS OVERVIEW</h2>
+                <div class="dashboard-grid">
+                    <div class="stat-card" onclick="window.location.href='companies.html'">
+                        <div class="stat-info">
+                            <h3>COMPANIES</h3>
+                            <div class="value" id="totalCompanies">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='crm-leads.html'">
+                        <div class="stat-info">
+                            <h3>CRM</h3>
+                            <div class="value" id="totalCRM">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='companies-requests-new.html'">
+                        <div class="stat-info">
+                            <h3>COMPANY REQUESTS</h3>
+                            <div class="value" id="newCompanyRequests">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='crm-leads.html'">
+                        <div class="stat-info">
+                            <h3>CRM REQUESTS</h3>
+                            <div class="value" id="newCRMRequests">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">OPERATIONS & SUPPORT</h2>
+                <div class="dashboard-grid">
+                    <div class="stat-card" onclick="window.location.href='operations-tickets.html'">
+                        <div class="stat-info">
+                            <h3>TICKETS WITH SUPPORT TEAM</h3>
+                            <div class="value" id="ticketsSupport">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='operations-tickets.html'">
+                        <div class="stat-info">
+                            <h3>TICKETS REQUIRING INFO</h3>
+                            <div class="value" id="ticketsInfo">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='operations-tickets.html'">
+                        <div class="stat-info">
+                            <h3>TICKETS RESOLVED</h3>
+                            <div class="value" id="ticketsResolved">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='operations-tickets.html'">
+                        <div class="stat-info">
+                            <h3>TICKETS WITH DEVELOPER</h3>
+                            <div class="value" id="ticketsDeveloper">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">USER ADMINISTRATION</h2>
+                <div class="dashboard-grid">
+                    <div class="stat-card" onclick="window.location.href='users.html'">
+                        <div class="stat-info">
+                            <h3>ACTIVE ADMIN COUNT</h3>
+                            <div class="value" id="activeAdmins">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='banners.html'">
+                        <div class="stat-info">
+                            <h3>BANNERS</h3>
+                            <div class="value" id="totalBanners">0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='festival-banners.html'">
+                        <div class="stat-info">
+                            <h3>FESTIVAL BANNER (YEAR)</h3>
+                            <div class="value" id="festivalBanners">0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="window.location.href='activities.html'">
+                        <div class="stat-info">
+                            <h3>SYSTEM ACTIVITY</h3>
+                            <div class="value" id="todayActivityCount">—</div>
+                        </div>
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Growth Chart -->
+                <div class="analytics-container">
+                    <div class="panel" style="padding: 20px 24px 12px 24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                            <div>
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <h2 style="font-size:18px;font-weight:800;">Company Growth</h2>
+                                    <div id="growthPercent" style="color:#10b981;font-weight:800;font-size:13px;background:rgba(16,185,129,0.1);padding:4px 10px;border-radius:8px;">+0%</div>
+                                </div>
+                                <p style="font-size:12px;color:var(--text-muted);margin-top:2px;">Real-time registration intelligence</p>
+                            </div>
+                            <div class="chart-filter-bar">
+                                <select class="premium-filter" id="chartRangeSelector" onchange="loadChart(this.value)" style="min-width: 120px; height:36px; font-size:12px;">
+                                    <option value="daily">Daily (24h)</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly" selected>Monthly</option>
+                                    <option value="halfyearly">Half Yearly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="height:190px;">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Activity Feed -->
+                    <div class="panel">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                            <h2 style="font-size:18px;font-weight:800;">Activity Logs</h2>
+                            <a href="activities.html" style="font-size:12px;color:var(--primary);font-weight:600;text-decoration:none;">View All →</a>
+                        </div>
+                        <div id="activitiesList" style="display:flex;flex-direction:column;">
+                            <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px;">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Operations Intelligence Chart -->
+                <div class="panel" style="margin-top:25px; padding: 20px 24px 15px 24px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;">
+                        <div>
+                            <h2 style="font-size:18px;font-weight:800;margin-bottom:4px;">Operations Distribution</h2>
+                            <p style="font-size:13px;color:var(--text-muted);">Real-time status of support tickets and enterprise requests</p>
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:30px; padding-top:10px;">
+                         <div style="width: 260px; height: 260px; position:relative;">
+                            <canvas id="operationsChart"></canvas>
+                         </div>
+                         <div style="flex:1; min-width:300px;">
+                             <div id="opsLegend" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                                 <!-- Legend items will be injected here -->
+                             </div>
+                             <div style="margin-top:20px; background:var(--primary-glow); padding:15px; border-radius:14px; border:1px solid var(--primary);">
+                                 <h3 style="font-size:14px; font-weight:800; color:white; margin-bottom:5px;">Live Intelligence</h3>
+                                 <p style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.4;">System is actively monitoring all service modules. All support systems are operational.</p>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Banner Preview -->
+                <div class="panel" style="margin-top:25px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+                        <h2 style="font-size:18px;font-weight:800;">System Banners</h2>
+                        <div style="display:flex;gap:12px;">
+                            <a href="/festival-banners" style="font-size:13px;color:#f59e0b;font-weight:600;text-decoration:none;">🎉 Festival Banners</a>
+                            <a href="/banners" style="font-size:13px;color:var(--primary);font-weight:600;text-decoration:none;">Manage All</a>
+                        </div>
+                    </div>
+                    <div id="bannerPreview" style="display:flex;gap:15px;overflow-x:auto;padding-bottom:10px;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let performanceChart = null;
+        let operationsChart = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            loadDashboardStats();
+            loadChart('monthly');
+            loadRecentActivity();
+            loadBanners();
+        });
+
+        async function loadDashboardStats() {
+            try {
+                const res = await fetch('/api/dashboard/stats');
+                const data = await res.json();
+                if (data.success) {
+                    const s = data.stats;
+                    document.getElementById('totalCompanies').innerText = (s.totalCompanies || 0).toLocaleString();
+                    document.getElementById('newCompanyRequests').innerText = (s.newCompanyRequests || 0).toLocaleString();
+                    document.getElementById('totalCRM').innerText = (s.totalCRM || 0).toLocaleString();
+                    document.getElementById('newCRMRequests').innerText = (s.newCRMRequests || 0).toLocaleString();
+                    document.getElementById('ticketsSupport').innerText = (s.ticketsSupport || 0).toLocaleString();
+                    document.getElementById('ticketsInfo').innerText = (s.ticketsInfo || 0).toLocaleString();
+                    document.getElementById('ticketsResolved').innerText = (s.ticketsResolved || 0).toLocaleString();
+                    document.getElementById('ticketsDeveloper').innerText = (s.ticketsDeveloper || 0).toLocaleString();
+                    document.getElementById('activeAdmins').innerText = (s.activeAdmins || 0).toLocaleString();
+                    const activityEl = document.getElementById('todayActivityCount');
+                    if (activityEl) activityEl.innerText = (s.todayActivityCount || 0).toLocaleString();
+
+                    updateOperationsChart(s);
+                }
+            } catch (err) { 
+                console.error('Stats error', err);
+            }
+        }
+
+        function updateOperationsChart(s) {
+            const ctx = document.getElementById('operationsChart').getContext('2d');
+            let data = [
+                s.ticketsSupport || 0,
+                s.ticketsInfo || 0,
+                s.ticketsResolved || 0,
+                s.ticketsDeveloper || 0
+            ];
+            
+            const isAllZero = data.every(v => v === 0);
+            const chartData = isAllZero ? [1, 0, 0, 0] : data;
+            const chartColors = isAllZero ? ['rgba(148,163,184,0.1)'] : ['#6366f1', '#f59e0b', '#10b981', '#ef4444'];
+            const labels = ['Support Team', 'Requiring Info', 'Resolved', 'With Developer'];
+
+            if (operationsChart) operationsChart.destroy();
+
+            operationsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: chartData,
+                        backgroundColor: chartColors,
+                        borderWidth: 0,
+                        hoverOffset: isAllZero ? 0 : 15,
+                        borderRadius: 10,
+                        spacing: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '80%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 12,
+                            cornerRadius: 10,
+                            bodyFont: { family: 'Inter', weight: 'bold' }
+                        }
+                    }
+                }
+            });
+
+            // Update Legend
+            const legend = document.getElementById('opsLegend');
+            const legendColors = ['#6366f1', '#f59e0b', '#10b981', '#ef4444'];
+            legend.innerHTML = labels.map((l, i) => `
+                <div style="display:flex; align-items:center; gap:12px; background:var(--glass-bg); padding:10px 14px; border-radius:12px; border:1px solid var(--glass-border); transition:var(--transition); cursor:pointer;">
+                    <div style="width:10px; height:10px; border-radius:50%; background:${legendColors[i]}; box-shadow:0 0 10px ${legendColors[i]}44;"></div>
+                    <div style="display:flex; flex-direction:column;">
+                        <span style="font-size:16px; font-weight:800; color:var(--text-primary); line-height:1.2;">${data[i]}</span>
+                        <span style="font-size:9px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">${l}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadChart(range) {
+            // Update dropdown if called programmatically
+            const selector = document.getElementById('chartRangeSelector');
+            if (selector.value !== range) selector.value = range;
+
+            try {
+                const res = await fetch(`/api/dashboard/growth?range=${range}`);
+                const data = await res.json();
+                if (!data.success) return;
+
+                const changeEl = document.getElementById('growthPercent');
+                const change = data.change || 0;
+                changeEl.innerText = (change >= 0 ? '+' : '') + change + '%';
+                changeEl.style.color = change >= 0 ? '#10b981' : '#ef4444';
+
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+                gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
+                gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+                if (performanceChart) performanceChart.destroy();
+
+                performanceChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'New Companies',
+                            data: data.data,
+                            borderColor: '#818cf8',
+                            borderWidth: 4,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#818cf8',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            pointHoverBackgroundColor: '#818cf8',
+                            pointHoverBorderColor: '#ffffff',
+                            pointHoverBorderWidth: 2,
+                            fill: true,
+                            backgroundColor: gradient,
+                            tension: 0.45,
+                            cubicInterpolationMode: 'monotone'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                titleFont: { size: 14, weight: 'bold', family: 'Inter' },
+                                bodyFont: { size: 13, family: 'Inter' },
+                                padding: 12,
+                                cornerRadius: 10,
+                                displayColors: false,
+                                callbacks: {
+                                    label: ctx => ` ${ctx.raw} companies registered`
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { 
+                                grid: { display: false }, 
+                                ticks: { 
+                                    color: '#64748b', 
+                                    font: { weight: '600', size: 11 },
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: 12
+                                } 
+                            },
+                            y: {
+                                grid: { color: 'rgba(148,163,184,0.05)', drawBorder: false },
+                                ticks: { 
+                                    color: '#64748b', 
+                                    font: { weight: '600', size: 11 },
+                                    precision: 0,
+                                    padding: 10
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } catch (err) { console.error('Chart error', err); }
+        }
+
+        async function loadRecentActivity() {
+            const list = document.getElementById('activitiesList');
+            try {
+                const res = await fetch('/api/dashboard/recent-activity');
+                const data = await res.json();
+                if (!data.success || data.activities.length === 0) {
+                    list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px;">No activity yet</div>';
+                    return;
+                }
+                const timeAgo = (dateStr) => {
+                    const diff = Math.floor((new Date() - new Date(dateStr)) / 1000);
+                    if (diff < 60) return diff + 's ago';
+                    if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+                    if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+                    return Math.floor(diff/86400) + 'd ago';
+                };
+                const dotClass = (action) => {
+                    const a = action.toLowerCase();
+                    if (a.includes('login')) return 'login';
+                    if (a.includes('logout')) return 'logout';
+                    if (a.includes('register') || a.includes('create')) return 'register';
+                    if (a.includes('delete')) return 'delete';
+                    if (a.includes('update') || a.includes('edit')) return 'update';
+                    return 'default';
+                };
+                list.innerHTML = data.activities.map(a => `
+                    <div class="activity-item">
+                        <div class="activity-dot ${dotClass(a.action)}"></div>
+                        <div style="flex:1;min-width:0;">
+                            <div style="font-size:13px;font-weight:700;color:var(--text-primary);">${a.action} <span style="color:var(--text-muted);font-weight:500;">— ${a.module}</span></div>
+                            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${a.ip_address || 'Internal'}</div>
+                        </div>
+                        <div style="font-size:11px;color:var(--text-muted);font-weight:700;flex-shrink:0;">${timeAgo(a.created_at)}</div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px;">Could not load activity</div>';
+            }
+        }
+
+        async function loadBanners() {
+            try {
+                const res = await fetch('/api/banners');
+                const banners = await res.json();
+                document.getElementById('totalBanners').innerText = banners.length.toLocaleString();
+                
+                const preview = document.getElementById('bannerPreview');
+                if (banners.length === 0) {
+                    preview.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">No banners yet. <a href="/banners" style="color:var(--primary);">Add some</a></div>';
+                    return;
+                }
+                preview.innerHTML = banners.slice(0, 4).map(b => `
+                    <div style="flex:0 0 280px;height:110px;border-radius:14px;overflow:hidden;border:1px solid var(--glass-border);">
+                        <img src="${b.image_url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='var(--bg-panel)';this.style.display='none'">
+                    </div>
+                `).join('');
+            } catch (err) { console.error(err); }
+        }
+
+    </script>
+</body>
+</html>

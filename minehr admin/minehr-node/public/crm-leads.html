@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRM Leads — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .leads-filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            align-items: flex-end;
+        }
+
+        .leads-filter-grid .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .leads-filter-grid {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .leads-filter-grid .form-group {
+                width: 100%;
+            }
+            .leads-filter-grid .btn {
+                width: 100%;
+            }
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+            .modal-content {
+                width: 95% !important;
+                padding: 15px !important;
+            }
+            .preview-grid {
+                grid-template-columns: 1fr !important;
+            }
+            #leadDetailModal .modal-content > div {
+                grid-template-columns: 1fr !important;
+            }
+            .lead-action-section {
+                order: -1; /* Show status update at top on mobile reachable */
+                margin-bottom: 20px;
+            }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: -25px;
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid var(--glass-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .interaction-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .badge-source { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+        .status-new { background: #e0f2fe; color: #0369a1; }
+        .status-contacted { background: #fef9c3; color: #854d0e; }
+        .status-qualified { background: #dcfce7; color: #166534; }
+        .status-converted { background: #f3e8ff; color: #7e22ce; }
+        .status-lost { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="topbarSearch" oninput="document.getElementById('searchInput').value = this.value; loadLeads(1)" placeholder="Search leads..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>CRM Leads</h1>
+                        <p>Track and manage your sales pipeline effectively.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openLeadModal()">+ Add New Lead</button>
+                </div>
+
+                <div class="leads-filter-grid">
+                    <div class="form-group">
+                        <label>Search Leads</label>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Name, Email, ID..." oninput="loadLeads(1)">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="statusFilter" class="form-control" onchange="loadLeads(1)">
+                            <option value="">All Statuses</option>
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Qualified">Qualified</option>
+                            <option value="Converted">Converted</option>
+                            <option value="Lost">Lost</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Source</label>
+                        <select id="sourceFilter" class="form-control" onchange="loadLeads(1)">
+                            <option value="">All Sources</option>
+                            <option value="Website">Website</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Campaign">Campaign</option>
+                            <option value="Direct">Direct</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline" onclick="resetFilters()" style="height: 45px;">Reset</button>
+                </div>
+
+                <div class="panel">
+                    <div class="premium-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Lead Name</th>
+                                    <th>Company</th>
+                                    <th>Contact Information</th>
+                                    <th>Source</th>
+                                    <th>Status</th>
+                                    <th>Assigned To</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leadsTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="paginationControls" class="pagination" style="margin-top: 20px; justify-content: flex-end;"></div>
+                </div>
+
+                <!-- Lead Form Modal -->
+                <div id="leadFormModal" class="modal">
+                    <div class="modal-content glass">
+                        <div class="modal-header">
+                            <h2 id="modalTitle">Add New Lead</h2>
+                            <button class="close-modal" onclick="closeModal('leadFormModal')">&times;</button>
+                        </div>
+                        <form id="leadForm" onsubmit="handleLeadSubmit(event)">
+                            <input type="hidden" id="editLeadId">
+                            <div class="preview-grid" style="grid-template-columns: 1fr 1fr;">
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" id="leadName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="leadEmail" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number *</label>
+                                    <input type="text" id="leadPhone" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" id="leadCompany" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Source</label>
+                                    <select id="leadSource" class="form-control">
+                                        <option value="Website">Website</option>
+                                        <option value="Referral">Referral</option>
+                                        <option value="Campaign">Campaign</option>
+                                        <option value="Direct">Direct</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assign To</label>
+                                    <select id="leadAssignee" class="form-control">
+                                        <!-- Users loaded by JS -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 25px;">
+                                <button type="submit" class="btn btn-primary">Save Lead</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Lead Detail Modal -->
+                <div id="leadDetailModal" class="modal">
+                    <div class="modal-content glass" style="max-width: 900px;">
+                        <div class="modal-header">
+                            <h2 id="detailLeadId">Lead Detail</h2>
+                            <button class="close-modal" onclick="closeModal('leadDetailModal')">&times;</button>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 25px;">
+                            <div class="lead-info-section">
+                                <div id="leadBasics" class="preview-grid" style="margin-bottom: 30px;"></div>
+                                
+                                <h3>Interaction History</h3>
+                                <div class="timeline" id="interactionTimeline"></div>
+                                
+                                <div style="margin-top: 20px; background: var(--glass-bg); padding: 15px; border-radius: 12px; border:1px solid var(--glass-border);">
+                                    <label>Add Note / Activity</label>
+                                    <textarea id="noteContent" class="form-control" rows="3" placeholder="Log a call, email summary or general note..."></textarea>
+                                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                        <select id="noteType" class="form-control" style="width: 150px;">
+                                            <option value="Note">General Note</option>
+                                            <option value="Call">Call Log</option>
+                                            <option value="Email">Email Sent</option>
+                                            <option value="Meeting">Meeting Log</option>
+                                        </select>
+                                        <button class="btn btn-primary btn-sm" onclick="saveInteraction()">Add Activity</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="lead-action-section">
+                                <div class="panel" style="padding: 15px;">
+                                    <label>Change Status</label>
+                                    <select id="detailStatus" class="form-control" style="margin-bottom: 20px;">
+                                        <option value="New">New</option>
+                                        <option value="Contacted">Contacted</option>
+                                        <option value="Qualified">Qualified</option>
+                                        <option value="Converted">Converted</option>
+                                        <option value="Lost">Lost</option>
+                                    </select>
+                                    <button class="btn btn-outline full-width" onclick="updateLeadStatus()">Update Status</button>
+                                </div>
+                                <div id="conversionSection" style="display: none; margin-top: 20px;">
+                                    <div class="premium-alert info">
+                                        <strong>Lead Converted</strong>
+                                        <p id="conversionNotesDisplay"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/crm-leads.js"></script>
+</body>
+
+</html>
+</body>
+</html>

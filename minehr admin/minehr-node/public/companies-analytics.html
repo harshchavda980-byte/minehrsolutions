@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Analytics — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .page-header-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .analytics-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stats-cards {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: grid;
+            gap: 20px;
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-panel {
+            min-height: 400px;
+            padding: 20px;
+        }
+    </style>
+    
+    <!-- Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+                <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+
+        <main class="main main-content">
+                        <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo">
+                        <img src="logo.png" alt="MineHR Logo" />
+                    </a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search operations, companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 600;">Admin</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted);">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin"
+                                style="width: 42px; height: 42px; border-radius: 14px; border: 2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-header-actions">
+                    <div class="page-title">
+                        <h1>Company Analytics</h1>
+                        <p>Real-time insights across all registered companies.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="exportData('pdf')">Export PDF</button>
+                        <button class="btn btn-primary" onclick="exportData('excel')">Export Excel</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <input type="date" id="dateFrom">
+                        <input type="date" id="dateTo">
+                        <select id="companyFilter">
+                            <option value="">All Companies</option>
+                        </select>
+                        <select id="deptFilter">
+                            <option value="">All Departments</option>
+                        </select>
+                        <button class="btn btn-primary">Apply</button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="analytics-grid">
+                    <div class="cards dashboard-grid" style="margin-top: 0; margin-bottom: 25px;">
+                        <div class="card card-horizontal">
+                            <div class="card-info">
+                                <h3>Total Employees</h3>
+                                <p id="statEmployees">—</p>
+                            </div>
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card card-horizontal">
+                            <div class="card-info">
+                                <h3>Active Companies</h3>
+                                <p><span id="statActive">—</span> <small
+                                        style="font-size: 14px; color: var(--text-muted);">/ <span
+                                            id="statInactive">—</span></small></p>
+                            </div>
+                            <div class="card-icon" style="color: #10b981;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card card-horizontal">
+                            <div class="card-info">
+                                <h3>Total Companies</h3>
+                                <p id="statCompanies">—</p>
+                            </div>
+                            <div class="card-icon" style="color: var(--primary);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card card-horizontal">
+                            <div class="card-info">
+                                <h3>Pending Companies</h3>
+                                <p id="statPending">—</p>
+                            </div>
+                            <div class="card-icon" style="color: #f59e0b;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="charts-row">
+                        <div class="panel chart-panel">
+                            <h3>Employees per Company</h3>
+                            <div style="height: 300px; position: relative;">
+                                <canvas id="attendanceChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="panel chart-panel">
+                            <h3>Plan Distribution</h3>
+                            <div style="height: 300px; position: relative;">
+                                <canvas id="leaveChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Report Table -->
+                    <div class="panel" style="margin-top: 25px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="font-weight: 700; color: var(--text-primary);">Detailed Analytics Report</h3>
+                            <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;" id="reportItemCount">0 Companies Found</span>
+                        </div>
+                        <div class="premium-table-container">
+                            <table id="analyticsReportTable">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Industry</th>
+                                        <th>Employee Count</th>
+                                        <th>Current Plan</th>
+                                        <th>Status</th>
+                                        <th>Last Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTableBody">
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">Loading analytics data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth check
+            const authRes = await fetch('/api/auth/me');
+            if (!authRes.ok) { window.location.href = '/login'; return; }
+
+            await loadCompanyFilter();
+            await loadAnalytics();
+        });
+
+        let attendanceChart, leaveChart, employeeChart;
+        let globalStats = null;
+        let globalCharts = null;
+
+        async function loadCompanyFilter() {
+            try {
+                const res = await fetch('/api/companies?status=verified');
+                const companies = await res.json();
+                const select = document.getElementById('companyFilter');
+                companies.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = c.name;
+                    select.appendChild(opt);
+                });
+            } catch (err) { console.error('Filter load error:', err); }
+        }
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch('/api/companies/analytics');
+                const data = await res.json();
+                if (!data.success) return;
+
+                const { stats, charts } = data;
+                globalStats = stats;
+                globalCharts = charts;
+
+                // Update stat cards
+                document.getElementById('statEmployees').innerText = stats.totalEmployees.toLocaleString();
+                document.getElementById('statActive').innerText = stats.verified;
+                document.getElementById('statInactive').innerText = stats.pending + stats.rejected;
+                document.getElementById('statCompanies').innerText = stats.totalCompanies;
+                if (document.getElementById('statPending')) document.getElementById('statPending').innerText = stats.pending;
+
+                // Render / update charts
+                renderEmployeeChart(charts.companyLabels, charts.companyEmployees);
+                renderPlanChart(stats.basic, stats.pro, stats.enterprise);
+
+                // Render Detailed Report Table
+                renderReportTable(charts.companyDetails || []);
+            } catch (err) {
+                console.error('Analytics load error:', err);
+            }
+        }
+
+        function renderReportTable(details) {
+            const tbody = document.getElementById('reportTableBody');
+            document.getElementById('reportItemCount').innerText = `${details.length} Companies Analyzed`;
+            
+            if (!details.length) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">No data available for the selected range.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = details.map(d => `
+                <tr>
+                    <td><strong style="color: var(--text-primary);">${d.name}</strong></td>
+                    <td><span class="badge" style="background: rgba(99,102,241,0.1); color: var(--primary);">${d.industry || 'General'}</span></td>
+                    <td><div style="font-weight: 700;">${d.employeeCount}</div></td>
+                    <td><span class="badge status-${(d.plan || 'basic').toLowerCase()}">${d.plan || 'Basic'}</span></td>
+                    <td><span class="badge status-${(d.status || 'pending').toLowerCase()}">${d.status}</span></td>
+                    <td><div style="font-size: 12px; color: var(--text-muted);">${new Date(d.createdAt).toLocaleDateString()}</div></td>
+                </tr>
+            `).join('');
+        }
+
+        function renderEmployeeChart(labels, data) {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            if (attendanceChart) attendanceChart.destroy();
+            attendanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels.length ? labels : ['No Data'],
+                    datasets: [{
+                        label: 'Employees per Company',
+                        data: data.length ? data : [0],
+                        backgroundColor: 'rgba(99,102,241,0.6)',
+                        borderColor: '#6366f1',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+                        y: { grid: { color: 'rgba(148,163,184,0.1)' }, ticks: { color: '#94a3b8' }, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function renderPlanChart(basic, pro, enterprise) {
+            const ctx = document.getElementById('leaveChart').getContext('2d');
+            if (leaveChart) leaveChart.destroy();
+            leaveChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Basic', 'Pro', 'Enterprise'],
+                    datasets: [{
+                        data: [basic, pro, enterprise],
+                        backgroundColor: ['#6366f1', '#a855f7', '#22c55e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', padding: 16 } }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        function exportData(format) {
+            if (format === 'pdf') {
+                const element = document.querySelector('section.content.active-page');
+                if (!element) { alert('Content area not found.'); return; }
+
+                const sidebar  = document.querySelector('.sidebar');
+                const topbar   = document.querySelector('.topbar');
+                const actions  = document.querySelector('.header-actions');
+
+                if (sidebar)  sidebar.style.display  = 'none';
+                if (topbar)   topbar.style.display   = 'none';
+                if (actions)  actions.style.display  = 'none';
+
+                const watermark = document.createElement('div');
+                watermark.innerHTML = `
+                    <div style="text-align:center;padding:10px 0 20px;border-bottom:2px solid #6366f1;margin-bottom:20px;">
+                        <img src="logo.png" alt="MineHR" style="height:40px;margin-bottom:6px;"><br>
+                        <span style="font-size:11px;color:#6366f1;font-weight:700;letter-spacing:2px;">MINEHR MASTER ADMIN — ANALYTICS REPORT</span>
+                    </div>`;
+                element.insertBefore(watermark, element.firstChild);
+
+                const opt = {
+                    margin:      0.3,
+                    filename:    'MineHR_Analytics_Report.pdf',
+                    image:       { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF:       { unit: 'in', format: 'a4', orientation: 'landscape' }
+                };
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    if (sidebar)  sidebar.style.display  = '';
+                    if (topbar)   topbar.style.display   = '';
+                    if (actions)  actions.style.display  = '';
+                    element.removeChild(watermark);
+                });
+
+            } else if (format === 'excel') {
+                if (!globalStats || !globalCharts) return alert('Data not loaded yet. Please wait.');
+
+                const wb = XLSX.utils.book_new();
+                
+                // 1. Summary Sheet
+                const summaryData = [
+                    ['MineHR Company Analytics Summary'],
+                    ['Generated At:', new Date().toLocaleString()],
+                    [],
+                    ['METRIC', 'VALUE'],
+                    ['Total Employees', globalStats.totalEmployees || 0],
+                    ['Active Companies', globalStats.verified || 0],
+                    ['Pending Companies', globalStats.pending || 0],
+                    ['Rejected Companies', globalStats.rejected || 0],
+                    ['Total Companies', globalStats.totalCompanies || 0],
+                    ['Basic Plan Subscriptions', globalStats.basic || 0],
+                    ['Pro Plan Subscriptions', globalStats.pro || 0],
+                    ['Enterprise Plan Subscriptions', globalStats.enterprise || 0]
+                ];
+                const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+                XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
+
+                // 2. Detailed Data Sheet
+                const details = globalCharts.companyDetails || [];
+                const detailedData = [
+                    ['Company Name', 'Industry', 'Employees', 'Plan', 'Status', 'Date Joined']
+                ];
+                details.forEach(d => {
+                    detailedData.push([
+                        d.name,
+                        d.industry || 'N/A',
+                        d.employeeCount,
+                        d.plan || 'Basic',
+                        d.status,
+                        new Date(d.createdAt).toLocaleDateString()
+                    ]);
+                });
+                const wsDetails = XLSX.utils.aoa_to_sheet(detailedData);
+                XLSX.utils.book_append_sheet(wb, wsDetails, "Detailed Report");
+
+                XLSX.writeFile(wb, 'MineHR_Company_Analytics.xlsx');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

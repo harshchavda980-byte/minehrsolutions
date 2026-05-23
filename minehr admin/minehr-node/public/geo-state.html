@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>State Management — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search states..." oninput="document.getElementById('searchInput').value = this.value; loadStates(1)">
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
+                    <div>
+                        <h1>State Management</h1>
+                        <p>Manage states and provinces linked to countries.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openStateModal()" style="padding:14px 28px;border-radius:14px;font-weight:700;">+ Add State</button>
+                </div>
+
+                <div class="panel" style="display:grid;grid-template-columns:1fr 200px 200px 120px;gap:20px;margin-bottom:30px;align-items:flex-end;">
+                    <div class="form-group">
+                        <label>Search State</label>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by name..." oninput="loadStates(1)">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select id="countryFilter" class="form-control" onchange="loadStates(1)">
+                            <option value="">All Countries</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="statusFilter" class="form-control" onchange="loadStates(1)">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline" onclick="resetFilters()" style="height:48px;border-radius:12px;">Reset</button>
+                </div>
+
+                <div class="panel">
+                    <div class="premium-table-wrapper">
+                        <div class="premium-table-container">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>State Name</th>
+                                        <th>Country</th>
+                                        <th>Status</th>
+                                        <th style="text-align:right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stateTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="paginationControls" style="padding:20px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--glass-border);"></div>
+                </div>
+
+                <!-- State Modal -->
+                <div id="stateModal" class="modal">
+                    <div class="modal-content glass" style="max-width:450px;padding:40px;border-radius:32px;border:1px solid var(--glass-border);">
+                        <div class="modal-header" style="margin-bottom:30px;">
+                            <h2 id="modalTitle" style="font-size:1.8rem;font-weight:700;">Add New State</h2>
+                            <button class="close-modal" onclick="closeModal('stateModal')" style="background:rgba(255,255,255,0.05);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);">&times;</button>
+                        </div>
+                        <form id="stateForm" onsubmit="handleStateSubmit(event)">
+                            <div class="modal-body" style="display:grid;gap:25px;">
+                                <div class="form-group">
+                                    <label>State Name *</label>
+                                    <input type="text" id="stateName" class="form-control" required placeholder="e.g. Gujarat">
+                                </div>
+                                <div class="form-group">
+                                    <label>Country *</label>
+                                    <select id="countrySelect" class="form-control" required>
+                                        <option value="">Select Country</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select id="stateStatus" class="form-control">
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top:40px;">
+                                <button type="submit" class="btn btn-primary" id="saveBtn" style="width:100%;padding:16px;border-radius:16px;font-weight:700;">Save State Information</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/location-helper.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/state.js"></script>
+</body>
+</html>

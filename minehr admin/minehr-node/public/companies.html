@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COMPANIES — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="content active-page">
+                <div class="page-title" style="margin-bottom: 25px;">
+                    <h1
+                        style="font-weight: 800; font-family: 'Outfit', sans-serif; font-size: 2.5rem; letter-spacing: -1px; color: var(--text-primary);">
+                        Companies</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; opacity: 0.8;">Manage client companies
+                        and team configurations.</p>
+                </div>
+
+                <div class="filter-row" style="margin-bottom: 30px;">
+                    <div class="filter-group">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <select id="countryFilter">
+                            <option value="">All Countries</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="stateFilter">
+                            <option value="">All States</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="cityFilter">
+                            <option value="">All Cities</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="applyFilters()"
+                        style="padding: 12px 28px; border-radius: 18px; display: flex; align-items: center; gap: 10px; font-weight: 700; background: #6366f1; border: none; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);">
+
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Filter
+                    </button>
+                </div>
+
+                <div class="premium-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Company Name</th>
+                                <th>City</th>
+                                <th>Tracking Limit</th>
+                                <th>Registration Limit</th>
+                                <th>CRM Limit</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="companyTableBody">
+                            <!-- Injected by script -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Company Preview</h2>
+                <button class="close-modal" onclick="closeModal('previewModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-grid">
+                    <div class="preview-item"><span>ID:</span> <strong id="p-id">#1001</strong></div>
+                    <div class="preview-item"><span>Company Name:</span> <strong id="p-name">MineHR Solutions</strong></div>
+                    <div class="preview-item"><span>Company Code:</span> <strong id="p-code">MHR001</strong></div>
+                    <div class="preview-item"><span>City:</span> <strong id="p-city">Surat</strong></div>
+                    <div class="preview-item"><span>Limits (T/R/C):</span> <strong id="p-limits">0 / 0 / 0</strong></div>
+                </div>
+                <div class="preview-assets">
+                    <div class="asset-item">
+                        <span>Banners:</span>
+                        <div class="mock-asset-box">Banner Preview</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Edit Company Configuration</h2>
+                <button class="close-modal" onclick="closeModal('settingsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editCompanyForm">
+                    <!-- Basic Info -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" id="e-name" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Operating Status</label>
+                            <select id="e-status" class="form-control">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Pending">Pending Review</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Limits Section -->
+                    <div style="background: rgba(99, 102, 241, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--glass-border);">
+                        <h4 style="margin-bottom: 15px; font-size: 14px; color: var(--primary);">System Limits</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label>Registration Limit</label>
+                                <input type="number" id="e-reg-limit" class="form-control" placeholder="Max employees">
+                            </div>
+                            <div class="form-group">
+                                <label>Tracking Limit</label>
+                                <input type="number" id="e-track-limit" class="form-control" placeholder="Trackable employees">
+                            </div>
+                            <div class="form-group">
+                                <label>CRM Limit</label>
+                                <input type="number" id="e-crm-limit" class="form-control" placeholder="CRM users">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label>Support Email</label>
+                            <input type="email" id="e-email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Support Phone</label>
+                            <input type="text" id="e-phone" class="form-control">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 30px; justify-content: flex-end;">
+                        <button type="button" class="btn btn-outline" style="padding: 10px 25px;" onclick="closeModal('settingsModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 10px 35px; background: #6366f1; border: none;">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/location-helper.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const authRes = await fetch("/api/auth/me");
+            if (!authRes.ok) {
+                window.location.href = "/login";
+                return;
+            }
+
+            const user = await authRes.json();
+            document.getElementById('userName').innerText = user.name;
+            document.getElementById('userRole').innerText = user.role;
+            document.getElementById('profileMenuName').innerText = user.name;
+            document.getElementById('profileMenuEmail').innerText = user.email;
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`;
+
+            locHelper = new LocationDropdownHelper({
+                countryId: 'countryFilter',
+                stateId: 'stateFilter',
+                cityId: 'cityFilter',
+                defaultText: { country: 'All Countries', state: 'All States', city: 'All Cities' },
+                useValueAsId: false
+            });
+
+            await fetchCompanies();
+
+            // Handle URL Search Query
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQ = urlParams.get('search');
+            if (searchQ) {
+                document.getElementById('searchInput').value = searchQ;
+                filterTable();
+            }
+        });
+
+        let allCompanies = [];
+        let locHelper;
+
+        async function fetchCompanies() {
+            try {
+                const res = await fetch("/api/companies?status=verified");
+                const data = await res.json();
+                
+                // Ensure data is an array
+                const companiesData = Array.isArray(data) ? data : (data.companies || []);
+                
+                allCompanies = companiesData;
+                renderCompanies(companiesData);
+            } catch (err) {
+                console.error("Error fetching companies:", err);
+            }
+        }
+
+        function renderCompanies(companies) {
+            const tbody = document.getElementById("companyTableBody");
+            tbody.innerHTML = companies.map(c => `
+                <tr data-id="${c.id}">
+                    <td>#${c.id}</td>
+                    <td><strong style="color: var(--text-primary);">${c.name}</strong></td>
+                    <td>${c.city || '---'}</td>
+                    <td style="font-weight: 600; color: var(--primary);">${c.employee_tracking_limit || 0}</td>
+                    <td style="font-weight: 600; color: #10b981;">${c.employee_registration_limit || 0}</td>
+                    <td style="font-weight: 600; color: #f59e0b;">${c.crm_limit || 0}</td>
+                    <td><span class="status-badge status-${(c.status || 'pending').toLowerCase()}">${c.status || 'Pending'}</span></td>
+                    <td>
+                        <div class="action-buttons" style="justify-content: flex-end;">
+                            <button class="btn-icon" onclick="openPreview('${c.id}')" title="Preview">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" onclick="openSettings('${c.id}')" title="Settings">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function applyFilters() {
+            const country = document.getElementById("countryFilter").value;
+            const state = document.getElementById("stateFilter").value;
+            const city = document.getElementById("cityFilter").value;
+
+            let filtered = allCompanies;
+            if (country) filtered = filtered.filter(c => c.country === country);
+            if (state) filtered = filtered.filter(c => c.state === state);
+            if (city) filtered = filtered.filter(c => c.city === city);
+
+            renderCompanies(filtered);
+        }
+
+        async function openPreview(id) {
+            const company = allCompanies.find(c => c.id == id);
+            if (!company) return;
+
+            document.getElementById('p-id').innerText = `#${company.id}`;
+            document.getElementById('p-name').innerText = company.name;
+            document.getElementById('p-code').innerText = company.company_code || '---';
+            document.getElementById('p-city').innerText = company.city || '---';
+            document.getElementById('p-limits').innerText = `${company.employee_tracking_limit || 0} / ${company.employee_registration_limit || 0} / ${company.crm_limit || 0}`;
+
+            document.getElementById('previewModal').classList.add('active');
+        }
+
+        async function openSettings(id) {
+            const company = allCompanies.find(c => c.id == id);
+            if (!company) return;
+
+            document.getElementById('e-name').value = company.name;
+            document.getElementById('e-status').value = company.status || 'pending';
+            document.getElementById('e-email').value = company.email || '';
+            document.getElementById('e-phone').value = company.contact_mobile || '';
+            
+            // Populate Limits
+            document.getElementById('e-reg-limit').value = company.employee_registration_limit || 0;
+            document.getElementById('e-track-limit').value = company.employee_tracking_limit || 0;
+            document.getElementById('e-crm-limit').value = company.crm_limit || 0;
+
+            const form = document.getElementById('editCompanyForm');
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const updatedData = {
+                    name: document.getElementById('e-name').value,
+                    status: document.getElementById('e-status').value,
+                    email: document.getElementById('e-email').value,
+                    contact_mobile: document.getElementById('e-phone').value,
+                    employee_registration_limit: document.getElementById('e-reg-limit').value,
+                    employee_tracking_limit: document.getElementById('e-track-limit').value,
+                    crm_limit: document.getElementById('e-crm-limit').value
+                };
+
+                const res = await fetch(`/api/companies/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (res.ok) {
+                    closeModal('settingsModal');
+                    fetchCompanies();
+                }
+            };
+
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const tableBody = document.getElementById('companyTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                let textContent = rows[i].textContent || rows[i].innerText;
+                if (filter.length === 0 || textContent.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

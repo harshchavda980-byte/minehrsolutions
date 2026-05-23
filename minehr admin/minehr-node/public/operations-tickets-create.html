@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Ticket — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-full {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+                <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+        <main class="main main-content">
+                        <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo">
+                        <img src="logo.png" alt="MineHR Logo" />
+                    </a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search operations, companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 600;">Admin</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted);">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin"
+                                style="width: 42px; height: 42px; border-radius: 14px; border: 2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="content active-page">
+                <div class="page-title">
+                    <h1>Generate Support Ticket</h1>
+                    <p>Create a new ticket for a client or system issue.</p>
+                </div>
+
+                <div class="form-container">
+                    <form id="createTicketForm">
+                        <div class="form-grid">
+                            <div class="form-group form-full">
+                                <label>Ticket Title / Subject</label>
+                                <input type="text" name="title" class="form-control" required
+                                    placeholder="e.g. Payroll Calculation Error">
+                            </div>
+                            <div class="form-group form-full">
+                                <label>Description / Details</label>
+                                <textarea name="description" class="form-control" rows="4" required
+                                    placeholder="Describe the issue in detail..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select name="priority" class="form-control">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Related Module</label>
+                                <select name="related_module" class="form-control">
+                                    <option value="HRMS">HRMS</option>
+                                    <option value="Payroll">Payroll</option>
+                                    <option value="Attendance">Attendance</option>
+                                    <option value="Leave">Leave</option>
+                                    <option value="System">System/Server</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Company (Optional)</label>
+                                <select name="company_id" id="companySelect" class="form-control">
+                                    <option value="">-- Select Company --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Assign To</label>
+                                <select name="assigned_to" id="userSelect" class="form-control">
+                                    <option value="">-- Support Staff --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px; display: flex; gap: 15px;">
+                            <button type="submit" class="btn btn-primary">Generate Ticket</button>
+                            <a href="operations-tickets.html" class="btn btn-outline">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load companies
+            const compRes = await fetch('/api/companies?status=verified');
+            const companies = await compRes.json();
+            const compSelect = document.getElementById('companySelect');
+            const compList = companies.companies ? companies.companies : companies;
+            compList.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                compSelect.appendChild(opt);
+            });
+
+            // Load users (staff)
+            const userRes = await fetch('/api/auth/me');
+            const currentUser = await userRes.json();
+            const userSelect = document.getElementById('userSelect');
+            const opt = document.createElement('option');
+            opt.value = currentUser.id;
+            opt.textContent = currentUser.name + ' (You)';
+            userSelect.appendChild(opt);
+
+            // Form Submit
+            document.getElementById('createTicketForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+
+                const res = await fetch('/api/tickets', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    alert('Ticket Generated Successfully!');
+                    window.location.href = 'operations-tickets.html';
+                } else {
+                    const err = await res.json();
+                    alert('Error: ' + err.message);
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>

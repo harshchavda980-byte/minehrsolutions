@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATS / Recruiter CRM | MineHR</title>
+  <meta name="description"
+    content="Streamline your hiring process with MineHR’s user-friendly ATS and Recruiter CRM. Features AI CV extraction, bulk upload, and automated communication.">
+  <link rel="shortcut icon" href="public/favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="public/components/navbar-premium.css">
+  <link rel="stylesheet" href="public/css/styles.css">
+  <link rel="stylesheet" href="public/css/ats.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ================= PREMIUM NAVBAR ================= -->
+  <header class="site-header-premium" id="navbar">
+    <div class="navbar-container">
+      <div class="navbar-inner">
+        <!-- Logo -->
+        <div class="navbar-logo">
+          <a href="index.html" class="logo-link">
+            <img src="public/assets/logo.png" alt="MineHR Logo" class="logo-img" />
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navbar-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="trust.html" class="nav-link">Trust</a>
+          <a href="career.html" class="nav-link">Career</a>
+          <a href="blog.html" class="nav-link">Blog</a>
+          <a href="ats.html" class="nav-link active">ATS</a>
+        </nav>
+
+        <!-- Right Side Actions -->
+        <div class="navbar-actions">
+          <button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="9" cy="9" r="6" stroke-width="2" />
+              <path d="M14 14L18 18" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <button class="nav-icon-btn theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <circle cx="10" cy="10" r="3" stroke-width="2" />
+              <line x1="10" y1="1" x2="10" y2="3" stroke-width="2" stroke-linecap="round" />
+              <line x1="10" y1="17" x2="10" y2="19" stroke-width="2" stroke-linecap="round" />
+              <line x1="1" y1="10" x2="3" y2="10" stroke-width="2" stroke-linecap="round" />
+              <line x1="17" y1="10" x2="19" y2="10" stroke-width="2" stroke-linecap="round" />
+              <line x1="3.5" y1="3.5" x2="5" y2="5" stroke-width="2" stroke-linecap="round" />
+              <line x1="15" y1="15" x2="16.5" y2="16.5" stroke-width="2" stroke-linecap="round" />
+              <line x1="16.5" y1="3.5" x2="15" y2="5" stroke-width="2" stroke-linecap="round" />
+              <line x1="5" y1="15" x2="3.5" y2="16.5" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          </button>
+
+          <a href="contact.html" class="nav-cta-btn">
+            <span>Contact Us</span>
+            <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-container">
+        <div class="search-box">
+          <svg class="search-box-icon" width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <circle cx="9" cy="9" r="6" stroke-width="2" />
+            <path d="M14 14L18 18" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input type="text" class="search-input" placeholder="Search services, blog posts..." id="searchInput"
+            autocomplete="off" />
+          <button class="search-close" id="searchClose" aria-label="Close search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M4 4L16 16M16 4L4 16" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div class="search-suggestions">
+          <div class="search-suggestion-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+            </svg>
+            <span>HRMS Software</span>
+          </div>
+          <div class="search-suggestion-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+            </svg>
+            <span>Payroll Management</span>
+          </div>
+          <div class="search-suggestion-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+            </svg>
+            <span>Web Development</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="ats-hero">
+    <div class="container">
+      <div class="ats-hero-grid">
+        <div class="ats-hero-content">
+          <h1>Smart Hiring for <br><span>Modern Teams</span></h1>
+          <p>MineHR’s user-friendly ATS and Recruiter CRM streamlines your entire hiring process. Connect with our HR experts to customize the perfect automation for your growing team.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Get Started</a>
+            <a href="#demo" class="btn-secondary">Watch Demo</a>
+          </div>
+        </div>
+        <div class="ats-hero-visual">
+          <div class="visual-card">
+            <img src="public/assets/dashboard-new.png" alt="ATS Dashboard Preview">
+          </div>
+          <!-- Decorative Elements -->
+          <div class="decor-blob decor-blob-1"></div>
+          <div class="decor-blob decor-blob-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS (DYNAMIC) ================= -->
+  <section class="ats-stats">
+    <div class="container">
+      <div class="stats-grid-small">
+        <div class="stat-item">
+          <div class="stat-value" data-target="0">0</div>
+          <div class="stat-label">Candidates Processed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" data-target="0">0</div>
+          <div class="stat-label">Happy Recruiters</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" data-target="0">0</div>
+          <div class="stat-label">Daily Job Postings</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" data-target="0">0</div>
+          <div class="stat-label">Avg. Hire Days</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KEY FEATURES ================= -->
+  <section id="features" class="ats-features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Key Features</h2>
+        <p>Everything you need to manage your recruitment lifecycle in one place.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">🚀</div>
+          <h3>User Friendly CRM System</h3>
+          <p>A practical and easy-to-use recruiter CRM designed based on real-time hiring challenges and recruitment workflows. Even a beginner recruiter can easily use the system.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Quick Upload User Data</h3>
+          <p>Upload large amounts of candidate data in bulk and standardize information quickly from job portals or your internal database.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔗</div>
+          <h3>Integrated with MineHR & More</h3>
+          <p>Candidates can apply directly through the MineHR job portal and integrated hiring platforms. We continuously improve our ATS to make your recruitment experience even better.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🧠</div>
+          <h3>AI Driven CV Extraction</h3>
+          <p>The system automatically reads resumes and extracts relevant information like Candidate Name, Skills, Experience, Education, and Contact Details.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🌐</div>
+          <h3>Linking with Top Job Boards</h3>
+          <p>Post jobs on multiple platforms from one place. Integration with LinkedIn, Naukri, Indeed, and Monster.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">💬</div>
+          <h3>Transactional Communication</h3>
+          <p>Automatic communication via WhatsApp, SMS, and Email for Shortlisting, Interview Scheduling, Offer Letters, and Rejection Updates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🧾</div>
+          <h3>Automatic Invoicing System</h3>
+          <p>Generate invoices automatically and follow up with clients quickly after successful hiring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE SET LIST ================= -->
+  <section class="feature-set">
+    <div class="container">
+      <div class="feature-set-inner">
+        <h2>Complete Feature Set</h2>
+        <div class="feature-list">
+          <div class="list-item"><span>✔</span> Integration with Job Seeker Portal</div>
+          <div class="list-item"><span>✔</span> Filtration by Category, Location, etc.</div>
+          <div class="list-item"><span>✔</span> Automatic Invoice Generation</div>
+          <div class="list-item"><span>✔</span> Recruitment CRM System</div>
+          <div class="list-item"><span>✔</span> Unlimited Job Posting Management</div>
+          <div class="list-item"><span>✔</span> Recruiter Assignment Management</div>
+          <div class="list-item"><span>✔</span> Unlimited Bulk Data Upload</div>
+          <div class="list-item"><span>✔</span> WhatsApp Templates for Candidates</div>
+          <div class="list-item"><span>✔</span> Candidate Status Tracking</div>
+          <div class="list-item"><span>✔</span> User-wise Screen Access Facilities</div>
+          <div class="list-item"><span>✔</span> Notifications to Job Seekers</div>
+          <div class="list-item"><span>✔</span> Automated Offer Letter Generation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section id="pricing" class="ats-pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Choose the Ideal Plan</h2>
+        <p>Flexible pricing tailored to your recruitment scale.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Base Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Base Plan</h3>
+            <p class="plan-tagline">Special Launch Offer</p>
+            <div class="price-container">
+              <span class="currency">₹</span>
+              <span class="amount">0</span>
+              <span class="duration">/ forever</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>4 Recruiter Panels</li>
+            <li>Unlimited Job Posting</li>
+            <li>Free Applications</li>
+            <li>1000 Auto SMS Free</li>
+            <li>Free Training + Installation</li>
+            <li>Dedicated Career Page</li>
+            <li>AI Driven CV Data Fetch</li>
+            <li>Bulk Data Upload / Download</li>
+          </ul>
+          <a href="#contact" class="btn-plan">Get Started Now</a>
+        </div>
+
+        <!-- Standard Plan -->
+        <div class="pricing-card featured">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-header">
+            <h3>Standard Plan</h3>
+            <p class="plan-tagline">Limited Time Promotion</p>
+            <div class="price-container">
+              <span class="currency">₹</span>
+              <span class="amount">0</span>
+              <span class="duration">/ 6 Months</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>10 Recruiter Panels</li>
+            <li>Unlimited Job Posting</li>
+            <li>Free Applications</li>
+            <li>2500 Auto SMS Free</li>
+            <li>Free Training + Installation</li>
+            <li>Dedicated Career Page</li>
+            <li>AI Driven CV Data Fetch</li>
+            <li>Bulk Data Upload / Download</li>
+            <li>Auto Email</li>
+          </ul>
+          <a href="#contact" class="btn-plan">Unlock Access</a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Premium Plan</h3>
+            <p class="plan-tagline">Enterprise Grade Access</p>
+            <div class="price-container">
+              <span class="currency">₹</span>
+              <span class="amount">0</span>
+              <span class="duration">/ Trial Period</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>20 Recruiter Panels</li>
+            <li>Unlimited Job Posting</li>
+            <li>Free Applications</li>
+            <li>5000 Auto SMS Free</li>
+            <li>Free Training + Installation</li>
+            <li>Dedicated Career Page</li>
+            <li>AI Driven CV Data Fetch</li>
+            <li>Bulk Data Upload / Download</li>
+            <li>Auto Email</li>
+          </ul>
+          <a href="#contact" class="btn-plan">Try Premium</a>
+        </div>
+      </div>
+
+      <div class="trial-banner">
+        <h3>Free Trial for One Week</h3>
+        <p>📞 Please Call / WhatsApp on: <strong>+91 75740 63353</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEMO VIDEO ================= -->
+  <section id="demo" class="ats-demo">
+    <div class="container">
+      <div class="demo-wrapper">
+        <div class="demo-content">
+          <h2>Watch Demo Video</h2>
+          <p>A quick demo video of MineHR ATS to give you a glimpse of our offerings.</p>
+          <div class="video-placeholder">
+            <div class="play-btn">▶</div>
+            <span>Play Demo</span>
+          </div>
+          <p class="demo-footer">A brief free demo is worthwhile even if you don’t think your hiring procedure needs automation or upgrades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT FORM ================= -->
+  <section id="contact" class="ats-contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Contact Us</h2>
+          <p>Have questions about our ATS? Our team is here to help you optimize your recruitment process.</p>
+        </div>
+        <div class="contact-form-wrapper">
+          <form class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name*</label>
+                <input type="text" name="first_name" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label>Last Name*</label>
+                <input type="text" name="last_name" placeholder="Doe" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>E-Mail*</label>
+              <input type="email" name="email" placeholder="john@company.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone*</label>
+              <input type="tel" name="phone" placeholder="+91 00000 00000" required>
+            </div>
+            <div class="form-group">
+              <label>Company Name*</label>
+              <input type="text" name="company_name" placeholder="MineHR Solutions" required>
+            </div>
+            <div class="form-group">
+              <label>Message*</label>
+              <textarea name="message" placeholder="Write your message" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-content-wrapper">
+        <div class="footer-brand-section">
+          <a href="index.html" class="footer-logo-link">
+            <img src="public/assets/logo-footer.png" alt="MineHR Logo" class="footer-logo">
+          </a>
+        </div>
+        <div class="footer-links-section">
+          <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="trust.html">Trust</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="ats.html">ATS</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="services/hrms-software.html">HR Solutions</a></li>
+              <li><a href="services/payroll-management.html">Payroll Management</a></li>
+              <li><a href="services/recruitment-staffing.html">Talent Acquisition</a></li>
+              <li><a href="services/employee-relations.html">Employee Relations</a></li>
+            </ul>
+          </div>
+          <div class="footer-col contact-col">
+            <h3>Contact Us</h3>
+            <ul class="contact-list">
+              <li><div class="contact-link"><span class="icon">📍</span> 509, Ananta Elysium, Hill Town Circle,<br>Ankur Chokadi, New India Colony,<br>Ankur Tenement, Nikol, Ahmedabad - 380049</div></li>
+              <li><a href="mailto:info@minehrsolutions.com" class="contact-link"><span class="icon">✉️</span> info@minehrsolutions.com</a></li>
+              <li><a href="tel:+917574063353" class="contact-link"><span class="icon">📞</span> +91 75740 63353</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 MineHR. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="public/js/contact-handler.js"></script>
+  <script src="public/components/navbar-premium.js"></script>
+
+  <!-- ================= ATS QUICK NAV (FLOATING) ================= -->
+  <div class="ats-quick-nav">
+    <div class="ats-quick-nav-menu">
+      <a href="#features" class="ats-quick-nav-link">
+        <span class="icon">✨</span>
+        <span>Features</span>
+      </a>
+      <a href="#pricing" class="ats-quick-nav-link">
+        <span class="icon">🏷️</span>
+        <span>Pricing</span>
+      </a>
+      <a href="#demo" class="ats-quick-nav-link">
+        <span class="icon">▶️</span>
+        <span>Demo</span>
+      </a>
+      <a href="#contact" class="ats-quick-nav-link">
+        <span class="icon">📞</span>
+        <span>Contact</span>
+      </a>
+    </div>
+    <button class="ats-quick-nav-btn" aria-label="Quick Navigation">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="1"></circle>
+        <circle cx="19" cy="12" r="1"></circle>
+        <circle cx="5" cy="12" r="1"></circle>
+      </svg>
+    </button>
+  </div>
+  <script>
+    // Stats Counter Animation
+    const stats = document.querySelectorAll('.stat-value');
+    const speed = 200;
+
+    const animateStats = () => {
+      stats.forEach(stat => {
+        const updateCount = () => {
+          const target = +stat.getAttribute('data-target');
+          const count = +stat.innerText.replace('+', '');
+          const inc = target / speed;
+
+          if (count < target) {
+            stat.innerText = Math.ceil(count + inc) + (target > 100 ? '+' : '');
+            setTimeout(updateCount, 1);
+          } else {
+            stat.innerText = target + (target > 100 ? '+' : '');
+          }
+        };
+        updateCount();
+      });
+    };
+
+    // Intersection Observer for stats
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateStats();
+        observer.disconnect();
+      }
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.ats-stats');
+    if (statsSection) observer.observe(statsSection);
+  </script>
+</body>
+
+</html>

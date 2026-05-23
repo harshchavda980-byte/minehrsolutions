@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Companies — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .filters-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: var(--panel-shadow);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-left: 5px;
+        }
+
+        .form-control {
+            background: var(--glass-bg) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 14px !important;
+            padding: 14px 18px !important;
+            color: var(--text-primary) !important;
+            font-family: inherit;
+            font-size: 14px;
+            transition: var(--transition);
+            outline: none;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary) !important;
+            background: var(--bg-sidebar) !important;
+            box-shadow: 0 0 0 4px var(--primary-glow) !important;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .pagination button {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            cursor: pointer;
+            transition: 0.3s;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination .active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo">
+                        <img src="logo.png" alt="MineHR Logo" />
+                    </a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="topbarSearch" oninput="document.getElementById('searchInput').value = this.value; filterTable()" placeholder="Search companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 700; color: var(--text-primary);">Admin</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin"
+                                style="width: 42px; height: 42px; border-radius: 14px; border: 2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title">
+                    <h1>My Company Fleet</h1>
+                    <p>Comprehensive overview of all active companies linked to the master panel.</p>
+                </div>
+
+                <div class="filters-panel">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Advanced Search</label>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by name, code or email..."
+                            oninput="filterTable()">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Subscription Plan</label>
+                        <select id="planFilter" class="form-control" onchange="filterTable()">
+                            <option value="">All Tiers</option>
+                            <option value="trial">Trial Access</option>
+                            <option value="basic">Standard Basic</option>
+                            <option value="pro">Professional</option>
+                            <option value="enterprise">Enterprise Plus</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Operating Status</label>
+                        <select id="statusFilterSelect" class="form-control" onchange="filterTable()">
+                            <option value="">All Statuses</option>
+                            <option value="verified">Active/Verified</option>
+                            <option value="inactive">Suspended</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="location.reload()" style="height: 52px; min-width: 130px; border-radius: 14px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        Sync Data
+                    </button>
+                </div>
+
+                <div class="premium-table-wrapper">
+                    <div class="premium-table-container">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Ref ID</th>
+                                    <th>Company Identity</th>
+                                    <th>Administrator</th>
+                                    <th>Contact No.</th>
+                                    <th>Resource Slots</th>
+                                    <th>Plan Details</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody id="companiesTableBody">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="pagination" id="paginationControls">
+                    <!-- Pagination buttons here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/companies-requests.js"></script>
+</body>
+
+</html>

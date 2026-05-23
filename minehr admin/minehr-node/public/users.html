@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <title>User Management — MineHR Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="topbarSearch" onkeyup="filterTable()" placeholder="Search operations, users..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 700; color: var(--text-primary);">Admin User</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Super Admin</span>
+                            </div>
+                            <div id="userAvatarContainer" style="width: 42px; height: 42px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 16px; border: 2px solid var(--glass-border);">
+                                AU
+                            </div>
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin User</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-header-compact" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+                    <div>
+                        <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.75rem; font-weight: 800; margin: 0; color: var(--text-primary); letter-spacing: -1px;">User Management</h1>
+                        <p style="margin: 4px 0 0; color: var(--text-muted); font-size: 13px; font-weight: 500;">Administer system users and access permissions</p>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <div id="bulkActions" style="display: flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.08); padding: 6px 12px; border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.15); transition: all 0.3s ease; opacity: 0; pointer-events: none;">
+                            <span id="bulkActionText" style="font-weight: 800; color: var(--primary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">0 Selected</span>
+                            <div style="width: 1px; height: 14px; background: rgba(255,255,255,0.1); margin: 0 4px;"></div>
+                            <button class="btn-compact-action" style="color: var(--danger);" onclick="bulkDelete()" title="Delete Selected">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                            <button class="btn-compact-action" style="color: var(--warning);" onclick="bulkDeactivate()" title="Deactivate Selected">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                            </button>
+                        </div>
+                        <a href="users-create.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Add New User
+                        </a>
+                    </div>
+                </div>
+
+                <div class="panel" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+                    <style>
+                        .compact-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--bg-card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--panel-shadow); }
+                        .compact-table th { background: var(--bg-card-hover); padding: 12px 16px; font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; text-align: left; border-bottom: 1px solid var(--border-color); }
+                        .compact-table td { padding: 10px 16px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+                        .compact-table tr:last-child td { border-bottom: none; }
+                        .compact-table tr:hover td { background: var(--bg-card-hover); }
+                        .user-meta { display: flex; flex-direction: column; gap: 2px; }
+                        .user-meta .primary { font-weight: 700; color: var(--text-primary); font-size: 14px; }
+                        .user-meta .secondary { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+                        .btn-compact-action { background: none; border: none; padding: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: all 0.2s; }
+                        .btn-compact-action:hover { opacity: 1; transform: scale(1.1); }
+                    </style>
+                    <div class="premium-table-wrapper" style="background: transparent; padding: 0;">
+                        <table class="compact-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;">
+                                        <input type="checkbox" id="selectAll" class="custom-checkbox" onchange="toggleAllCheckboxes(this)">
+                                    </th>
+                                    <th style="width: 80px;">Sr No.</th>
+                                    <th>User Identity</th>
+                                    <th>Role & Access</th>
+                                    <th>Status</th>
+                                    <th>Contact & Region</th>
+                                    <th>Session Data</th>
+                                    <th style="text-align: right; width: 100px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- Users will be loaded here -->
+                            </tbody>
+                        </table>
+                        
+                        <!-- Pagination -->
+                        <div id="paginationContainer"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // ─── State ────────────────────────────────────────────────────────────
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        let perPage = 15;
+
+        // ─── Auth ─────────────────────────────────────────────────────────────
+        // ─── Fetch Users ──────────────────────────────────────────────────────
+        async function fetchUsers() {
+            const tableBody = document.getElementById('usersTableBody');
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted);">Loading...</td></tr>';
+            try {
+                const res = await fetch('/api/auth/users');
+                if (res.ok) {
+                    allUsers = await res.json();
+                    filteredUsers = [...allUsers];
+                    currentPage = 1;
+                    renderPage();
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--danger);">Error loading users.</td></tr>';
+                }
+            } catch (err) {
+                tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--danger);">Failed to connect to system.</td></tr>';
+            }
+        }
+
+        // ─── Render current page ──────────────────────────────────────────────
+        function renderPage() {
+            const tableBody = document.getElementById('usersTableBody');
+            const start = (currentPage - 1) * perPage;
+            const end   = start + perPage;
+            const pageUsers = filteredUsers.slice(start, end);
+
+            if (!pageUsers.length) {
+                tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted);">No users found.</td></tr>';
+            } else {
+                tableBody.innerHTML = pageUsers.map((user, index) => `
+                    <tr>
+                        <td><input type="checkbox" class="user-checkbox custom-checkbox" value="${user.id}" onchange="updateBulkActionVisibility()"></td>
+                        <td style="color:var(--text-muted);font-weight:800;font-size:11px;">#${String(start + index + 1).padStart(3,'0')}</td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="position:relative;">
+                                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff" style="width:36px;height:36px;border-radius:10px;border:1px solid var(--border-glass);">
+                                    <span style="position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;background:${user.status==='active'?'#10b981':'#ef4444'};border:2px solid #0f172a;border-radius:50%;"></span>
+                                </div>
+                                <div class="user-meta">
+                                    <span class="primary">${user.name}</span>
+                                    <span class="secondary">${user.email}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge ${user.role==='Super Admin'?'badge-success':'badge-info'}" style="font-size:9px; padding:2px 8px;">${user.role}</span>
+                            <div style="font-size:10px;color:var(--text-muted);font-weight:600;margin-top:4px;">${user.timezone||'UTC'}</div>
+                        </td>
+                        <td><span class="badge ${user.status==='inactive'?'badge-danger':'badge-success'}" style="font-size:9px; padding:2px 8px;">${user.status==='inactive'?'Inactive':'Active'}</span></td>
+                        <td>
+                            <div style="font-weight:700;color:var(--text-secondary);font-size:12px;">${user.phone||'-'}</div>
+                            <div style="font-size:10px;color:var(--text-muted);margin-top:2px;font-weight:500;">${user.countries||'-'}</div>
+                        </td>
+                        <td>
+                            <div style="font-size:11px;font-weight:700;color:var(--text-secondary);">Last: ${formatDateTime(user.last_login || user.lastLogin)}</div>
+                            <div style="font-size:9px;color:var(--text-muted);margin-top:2px;font-weight:500;">Since: ${user.createdAt || user.created_at ? formatDate(user.createdAt || user.created_at) : 'Never'}</div>
+                        </td>
+                        <td>
+                            <div style="display:flex;gap:6px;justify-content:flex-end;">
+                                <button onclick="editUser(${user.id})" class="btn btn-outline btn-sm" title="Edit" style="width:28px;height:28px;padding:0;border-radius:8px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                </button>
+                                <button onclick="deleteUser(${user.id})" class="btn btn-outline btn-sm" title="Delete" style="width:28px;height:28px;padding:0;color:var(--danger);border-radius:8px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            renderPagination();
+            updateBulkActionVisibility();
+        }
+
+        // ─── Pagination Controls ──────────────────────────────────────────────
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredUsers.length / perPage);
+            const container = document.getElementById('paginationContainer');
+            if (!container) return;
+
+            const showing = Math.min((currentPage - 1) * perPage + 1, filteredUsers.length);
+            const showingEnd = Math.min(currentPage * perPage, filteredUsers.length);
+
+            container.innerHTML = `
+                <div style="display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:16px;padding:12px 16px;background:rgba(255,255,255,0.02);border:1px solid var(--glass-border);border-radius:12px;">
+                    <div style="font-size:12px;color:var(--text-muted);font-weight:600;">
+                        Showing <strong style="color:var(--text-primary);">${showing}–${showingEnd}</strong> of <strong style="color:var(--text-primary);">${filteredUsers.length}</strong>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <select onchange="changePerPage(this.value)" style="background:#0f172a;border:1px solid var(--border-glass);border-radius:8px;padding:4px 8px;color:var(--text-primary);font-size:11px;font-weight:700;outline:none;cursor:pointer;">
+                            <option value="10" ${perPage===10?'selected':''}>10 / page</option>
+                            <option value="15" ${perPage===15?'selected':''}>15 / page</option>
+                            <option value="25" ${perPage===25?'selected':''}>25 / page</option>
+                        </select>
+                        <div style="display:flex;gap:4px;">
+                            <button onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''} class="btn-page" title="Prev">‹</button>
+                            ${Array.from({length:Math.min(5,totalPages)},(_,i)=>{
+                                const p = Math.max(1,Math.min(totalPages-4,currentPage-2))+i;
+                                return `<button onclick="goToPage(${p})" class="btn-page ${p===currentPage?'active':''}">${p}</button>`;
+                            }).join('')}
+                            <button onclick="goToPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''} class="btn-page" title="Next">›</button>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .btn-page { min-width: 28px; height: 28px; padding: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); color: var(--text-muted); border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+                    .btn-page:hover:not(:disabled) { background: rgba(255,255,255,0.08); color: var(--text-primary); border-color: var(--primary); }
+                    .btn-page.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+                    .btn-page:disabled { opacity: 0.3; cursor: not-allowed; }
+                </style>
+            `;
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(filteredUsers.length / perPage);
+            currentPage = Math.max(1, Math.min(totalPages, page));
+            renderPage();
+        }
+
+        function changePerPage(val) {
+            perPage = parseInt(val);
+            currentPage = 1;
+            renderPage();
+        }
+
+        // ─── Search / Filter ──────────────────────────────────────────────────
+        function filterTable() {
+            const query = document.getElementById('topbarSearch').value.toLowerCase().trim();
+            filteredUsers = allUsers.filter(u => {
+                const text = `${u.name} ${u.email} ${u.role} ${u.phone||''} ${u.countries||''}`.toLowerCase();
+                return !query || text.includes(query);
+            });
+            currentPage = 1;
+            renderPage();
+        }
+
+        // ─── Bulk Actions ─────────────────────────────────────────────────────
+        function toggleAllCheckboxes(source) {
+            document.querySelectorAll('.user-checkbox').forEach(cb => cb.checked = source.checked);
+            updateBulkActionVisibility();
+        }
+
+        function updateBulkActionVisibility() {
+            const checkedCount = document.querySelectorAll('.user-checkbox:checked').length;
+            const anyChecked = checkedCount > 0;
+            const bulkEl = document.getElementById('bulkActions');
+            if (bulkEl) {
+                bulkEl.style.opacity = anyChecked ? '1' : '0';
+                bulkEl.style.pointerEvents = anyChecked ? 'auto' : 'none';
+                bulkEl.style.transform = anyChecked ? 'translateY(0)' : 'translateY(5px)';
+            }
+            const textEl = document.getElementById('bulkActionText');
+            if (textEl) {
+                textEl.innerText = anyChecked ? `${checkedCount} Selected` : '0 Selected';
+            }
+        }
+
+        async function bulkDelete() {
+            const checked = Array.from(document.querySelectorAll('.user-checkbox:checked')).map(cb => cb.value);
+            if (!checked.length) return;
+            if (!confirm(`Delete ${checked.length} users permanently?`)) return;
+            try {
+                const res = await fetch('/api/auth/users/bulk-delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: checked })
+                });
+                if (res.ok) { alert(`Deleted ${checked.length} users`); fetchUsers(); }
+                else { const d = await res.json(); alert('Error: ' + d.message); }
+            } catch (err) { alert('Failed to bulk delete'); }
+        }
+
+        async function bulkDeactivate() {
+            const checked = Array.from(document.querySelectorAll('.user-checkbox:checked')).map(cb => cb.value);
+            if (!checked.length) return;
+            if (!confirm(`Deactivate ${checked.length} users?`)) return;
+            try {
+                const res = await fetch('/api/auth/users/bulk-deactivate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: checked })
+                });
+                if (res.ok) { alert(`Deactivated ${checked.length} users`); fetchUsers(); }
+                else { const d = await res.json(); alert('Error: ' + d.message); }
+            } catch (err) { alert('Failed to deactivate'); }
+        }
+
+        function editUser(id) { window.location.href = `users-create.html?id=${id}`; }
+
+        async function deleteUser(id) {
+            if (!confirm('Delete this user permanently?')) return;
+            try {
+                const res = await fetch(`/api/auth/users/${id}`, { method: 'DELETE' });
+                if (res.ok) { fetchUsers(); }
+                else { const d = await res.json(); alert('Error: ' + d.message); }
+            } catch (err) { alert('Failed to delete user'); }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => { 
+            await checkAuth(); 
+            await fetchUsers(); 
+            
+            // Check for search query in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQ = urlParams.get('search');
+            if (searchQ) {
+                document.getElementById('topbarSearch').value = searchQ;
+                filterTable();
+            }
+        });
+    </script>
+</body>
+
+</html>

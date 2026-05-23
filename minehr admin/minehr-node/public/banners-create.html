@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <title>Manage Banner — MineHR Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search operations..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title">
+                    <h1 id="pageHeading">Add New Banner</h1>
+                    <p>Create or update promotional content</p>
+                </div>
+
+                <div class="panel" style="max-width: 600px;">
+                    <form id="bannerForm">
+                        <div class="form-group">
+                            <label>Banner Title</label>
+                            <input type="text" id="title" class="form-control" required placeholder="e.g. Summer Sale 2024">
+                        </div>
+                        <div class="form-group">
+                            <label>Banner Image (URL or Upload)</label>
+                            <div style="display: flex; gap: 10px; align-items: flex-start;">
+                                <div style="flex: 1;">
+                                    <input type="url" id="image_url" class="form-control" placeholder="https://example.com/banner.jpg">
+                                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">Paste URL or use the upload button below</p>
+                                </div>
+                                <div style="width: 150px; height: 80px; border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; background: var(--glass-bg);">
+                                    <img id="imagePreview" src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <div id="previewPlaceholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted);">No Image</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label>Upload Banner File</label>
+                            <input type="file" id="image_file" class="form-control" accept="image/*" style="padding: 8px;">
+                            <div style="background: rgba(99, 102, 241, 0.05); border: 1px dashed var(--primary); border-radius: 10px; padding: 12px; margin-top: 10px;">
+                                <p style="font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 4px;">Resolution Instructions:</p>
+                                <ul style="font-size: 11px; color: var(--text-muted); padding-left: 15px;">
+                                    <li>Recommended resolution: <strong>1920x600px</strong> (Web) or <strong>1200x400px</strong> (App)</li>
+                                    <li>Aspect Ratio: <strong>3:1</strong> or <strong>2.5:1</strong> for best display</li>
+                                    <li>Max file size: <strong>2MB</strong> (JPEG, PNG, WebP)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Redirect Link (Optional)</label>
+                            <input type="text" id="link" class="form-control" placeholder="/companies">
+                        </div>
+                        <div class="form-group">
+                            <label>Display Order</label>
+                            <input type="number" id="order" class="form-control" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="status" class="form-control">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 25px;">
+                            <button type="submit" class="btn btn-primary" style="padding: 12px 35px;">Save Banner</button>
+                            <a href="banners" class="btn btn-outline" style="padding: 12px 35px;">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const bannerId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const authRes = await fetch('/api/auth/me');
+            if (authRes.ok) {
+                const user = await authRes.json();
+                document.getElementById('userName').innerText = user.name;
+                document.getElementById('userRole').innerText = user.role;
+                document.getElementById('profileMenuName').innerText = user.name;
+                document.getElementById('profileMenuEmail').innerText = user.email;
+                document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`;
+            } else {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (bannerId) {
+                document.getElementById('pageHeading').innerText = 'Edit Banner';
+                const res = await fetch(`/api/banners/${bannerId}`);
+                if (res.ok) {
+                    const b = await res.json();
+                    document.getElementById('title').value = b.title;
+                    document.getElementById('image_url').value = b.image_url;
+                    document.getElementById('link').value = b.link || '';
+                    document.getElementById('order').value = b.order;
+                    document.getElementById('status').value = b.status;
+
+                    if (b.image_url) {
+                        preview.src = b.image_url;
+                        preview.style.display = 'block';
+                        placeholder.style.display = 'none';
+                    }
+                }
+            }
+        });
+
+        const imageInput = document.getElementById('image_url');
+        const fileInput = document.getElementById('image_file');
+        const preview = document.getElementById('imagePreview');
+        const placeholder = document.getElementById('previewPlaceholder');
+
+        imageInput.addEventListener('input', () => {
+            if (imageInput.value) {
+                preview.src = imageInput.value;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                preview.style.display = 'none';
+                placeholder.style.display = 'flex';
+            }
+        });
+
+        fileInput.addEventListener('change', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('banner', file);
+
+            try {
+                const res = await fetch('/api/banners/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    imageInput.value = data.url;
+                    preview.src = data.url;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                } else {
+                    alert('Upload failed');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error uploading file');
+            }
+        });
+
+        document.getElementById('bannerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                title: document.getElementById('title').value,
+                image_url: document.getElementById('image_url').value,
+                link: document.getElementById('link').value,
+                order: parseInt(document.getElementById('order').value) || 0,
+                status: document.getElementById('status').value
+            };
+
+            const url = bannerId ? `/api/banners/${bannerId}` : '/api/banners';
+            const method = bannerId ? 'PUT' : 'POST';
+
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) window.location.href = 'banners';
+            else alert('Failed to save banner');
+        });
+    </script>
+</body>
+
+</html>
+

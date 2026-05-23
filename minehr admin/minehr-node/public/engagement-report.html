@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Engagement Work Report - MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css"/>
+    <style>
+        .view-list { display: block; }
+        .view-form { display: none; }
+        .content.active-page { padding: 28px 36px; }
+
+        /* LIST PANEL */
+        .list-panel { background: var(--bg-panel); border: 1px solid var(--glass-border); border-radius: 22px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+        .list-panel-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.01); }
+        .list-panel-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+        .list-search { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); padding: 8px 16px; font-size: 12px; outline: none; min-width: 220px; transition: border-color 0.2s; }
+        .list-search:focus { border-color: var(--primary); }
+
+        /* TABLE */
+        #listTable { width: 100%; border-collapse: collapse; }
+        #listTable thead tr { background: rgba(99,102,241,0.06); }
+        #listTable th { padding: 14px 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); text-align: left; border-bottom: 1px solid var(--glass-border); }
+        #listTable td { padding: 14px 20px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+        #listTable tbody tr { transition: background 0.2s; }
+        #listTable tbody tr:hover { background: rgba(99,102,241,0.05); }
+        #listTable tbody tr:last-child td { border-bottom: none; }
+
+        /* ACTION BTNS */
+        .wr-table-actions { display: flex; gap: 6px; }
+        .btn-view { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); color: var(--primary); border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .btn-edit { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #f59e0b; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .btn-del  { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #ef4444; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .btn-view:hover { background: rgba(99,102,241,0.22); }
+        .btn-edit:hover { background: rgba(245,158,11,0.2); }
+        .btn-del:hover  { background: rgba(239,68,68,0.2); }
+
+        /* PAGINATION */
+        .wr-pagination { display: flex; justify-content: flex-end; gap: 6px; padding: 16px 24px; border-top: 1px solid var(--glass-border); }
+        .wr-page-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .wr-page-btn:hover, .wr-page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* FORM CARD */
+        .wr-card { background: var(--bg-panel); border: 1px solid var(--glass-border); border-radius: 22px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
+        .wr-card-header { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); padding: 14px 24px; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+        .wr-card-body { padding: 28px 28px 24px; }
+        .wr-section-label { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .wr-form-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 20px; }
+        .wr-form-group { display: flex; flex-direction: column; gap: 7px; }
+        .wr-form-group label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+        .wr-form-group label span { color: #ef4444; margin-left: 2px; }
+        .wr-input { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: inherit; font-size: 13px; padding: 11px 14px; outline: none; width: 100%; box-sizing: border-box; transition: border-color 0.2s, background 0.2s; }
+        .wr-input:focus { border-color: var(--primary); background: rgba(99,102,241,0.05); }
+        input[type="number"].wr-input { font-size: 20px; font-weight: 800; font-family: 'Outfit', sans-serif; text-align: center; }
+        input[type="number"].wr-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+        /* TAGS */
+        .tags-wrap { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 10px; padding: 8px 12px; min-height: 44px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; cursor: text; position: relative; transition: border-color 0.2s; }
+        .tags-wrap:focus-within { border-color: var(--primary); }
+        .tag { background: rgba(99,102,241,0.15); color: var(--primary); border: 1px solid rgba(99,102,241,0.3); border-radius: 8px; padding: 4px 8px 4px 10px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .tag-x { cursor: pointer; opacity: 0.6; font-size: 14px; line-height: 1; }
+        .tag-x:hover { opacity: 1; color: #ef4444; }
+        .tags-search { background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 12px; min-width: 100px; flex: 1; }
+        .tags-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #111827; border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: 0 12px 32px rgba(0,0,0,0.5); z-index: 300; max-height: 200px; overflow-y: auto; display: none; }
+        .tags-dropdown.show { display: block; }
+        .tags-dropdown-item { padding: 11px 16px; font-size: 13px; color: var(--text-secondary); cursor: pointer; transition: background 0.15s; }
+        .tags-dropdown-item:hover { background: rgba(99,102,241,0.1); color: var(--primary); }
+
+        /* DYNAMIC SECTIONS */
+        .dyn-section { margin-bottom: 12px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); }
+        .dyn-section-header { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: var(--bg-panel); }
+        .dyn-section-title { font-size: 13px; font-weight: 700; color: var(--text-primary); flex: 1; }
+        .btn-add-row { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); color: var(--primary); border-radius: 8px; padding: 6px 16px; font-size: 11px; font-weight: 800; cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s; }
+        .btn-add-row:hover { background: rgba(99,102,241,0.2); transform: translateY(-1px); }
+        .dyn-entries { background: rgba(255,255,255,0.01); }
+        .dyn-entry { padding: 20px 22px; border-top: 1px solid var(--glass-border); animation: entryIn 0.22s ease; }
+        @keyframes entryIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .dyn-entry-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+        .dyn-entry-label { background: linear-gradient(135deg, #4f46e5, #6366f1); color: #fff; border-radius: 7px; padding: 4px 12px; font-size: 11px; font-weight: 700; }
+        .btn-remove-row { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #ef4444; border-radius: 7px; padding: 4px 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .btn-remove-row:hover { background: rgba(239,68,68,0.22); }
+        .entry-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+        .entry-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+        .radio-group { display: flex; gap: 20px; padding: 10px 14px; }
+        .radio-option { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        .radio-option input { accent-color: var(--primary); width: 15px; height: 15px; }
+        .form-actions { display: flex; justify-content: center; gap: 16px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--glass-border); }
+
+        /* VIEW MODAL */
+        .wr-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 900; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .wr-modal-overlay.open { display: flex; }
+        .wr-modal { background: #0f172a; border: 1px solid var(--glass-border); border-radius: 22px; max-width: 800px; width: 100%; max-height: 88vh; overflow-y: auto; animation: modalIn 0.25s ease; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .wr-modal-head { background: linear-gradient(135deg, #4f46e5, #6366f1); padding: 20px 28px; border-radius: 22px 22px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .wr-modal-head h2 { font-size: 15px; font-weight: 700; color: #fff; margin: 0; letter-spacing: 0.5px; }
+        .wr-modal-close { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 9px; padding: 7px 14px; cursor: pointer; font-size: 12px; font-weight: 700; transition: background 0.2s; }
+        .wr-modal-close:hover { background: rgba(255,255,255,0.25); }
+        .wr-modal-body { padding: 28px; }
+        .wr-modal-info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+        .wr-info-box { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 14px 18px; }
+        .wr-info-box .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 6px; }
+        .wr-info-box .val { font-size: 28px; font-weight: 800; font-family: 'Outfit', sans-serif; color: var(--primary); }
+        .wr-info-box .fval { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .wr-modal-sub-section { margin-bottom: 20px; }
+        .wr-modal-sub-title { background: linear-gradient(135deg, #4f46e5, #6366f1); color: #fff; border-radius: 9px; padding: 9px 18px; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+        .wr-modal-entry { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; display: grid; gap: 12px; }
+        .wr-modal-entry .fld { color: var(--text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+        .wr-modal-entry .fval { color: var(--text-primary); font-weight: 600; font-size: 13px; }
+    </style>
+</head>
+<body>
+<div class="admin-layout">
+    <aside class="sidebar">
+        <div class="brand"><img src="logo.png" alt="MineHR Logo" class="brand-logo"/></div>
+        <nav id="sidebarNav"></nav>
+    </aside>
+
+    <main class="main main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="sidebar-toggle" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </div>
+                <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo"/></a>
+                <div class="search-box">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" placeholder="Search work reports..."/>
+                    <span class="search-key">/</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <span class="sun">&#9728;&#65039;</span><span class="moon">&#127769;</span>
+                    <div class="toggle-ball"></div>
+                </div>
+                <div class="profile" id="profileDropdown">
+                    <div class="profile-trigger" onclick="toggleProfileMenu()">
+                        <div>
+                            <span id="userName" style="font-weight:700;">Admin</span>
+                            <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                        </div>
+                        <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);"/>
+                    </div>
+                    <div class="profile-menu">
+                        <div class="profile-info">
+                            <strong id="profileMenuName">Admin</strong>
+                            <p id="profileMenuEmail">admin@minehr.com</p>
+                        </div>
+                        <a href="settings.html" class="profile-menu-item">Settings</a>
+                        <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                        <div class="profile-divider"></div>
+                        <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content active-page">
+
+            <!-- LIST VIEW -->
+            <div class="view-list" id="viewList">
+                <div class="page-title" style="margin-bottom:25px; display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <h1 style="font-weight:800;font-family:'Outfit',sans-serif;font-size:2.5rem;letter-spacing:-1px;color:var(--text-primary);">Engagement Work Report</h1>
+                        <p style="color:var(--text-secondary);font-size:1.1rem;opacity:0.8;">Daily team activity &mdash; calls, references, testimonials &amp; reviews.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showForm()" style="padding:10px 22px;font-weight:700;font-size:13px;">+ ADD</button>
+                </div>
+
+                <div class="list-panel">
+                    <div class="list-panel-header">
+                        <div class="list-panel-title">All Work Reports</div>
+                        <input type="text" id="listSearch" class="list-search" placeholder="Search trainer, company..." oninput="filterList()">
+                    </div>
+                    <table id="listTable">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Trainer Name</th>
+                                <th style="text-align:center;">No. of Calls</th>
+                                <th style="text-align:center;">Line Up</th>
+                                <th>Referred Companies</th>
+                                <th>Added Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listBody">
+                            <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="wr-pagination" id="listPagination"></div>
+                </div>
+            </div>
+
+            <!-- FORM VIEW -->
+            <div class="view-form" id="viewForm">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                    <h1 style="font-weight:800;font-family:'Outfit',sans-serif;font-size:1.8rem;color:var(--text-primary);" id="formHeading">Add Engagement Work Report</h1>
+                    <button class="btn btn-outline" onclick="showList()" style="font-size:12px;padding:8px 18px;font-weight:700;">&larr; BACK</button>
+                </div>
+
+                <div class="wr-card">
+                    <div class="wr-card-header">Daily Team Activity Report</div>
+                    <div class="wr-card-body">
+                        <div class="wr-section-label">Main Information</div>
+                        <div class="wr-form-grid">
+                            <div class="wr-form-group">
+                                <label>Today's No. of Calls <span>*</span></label>
+                                <input type="number" id="noOfCalls" class="wr-input" placeholder="0" min="0" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                            </div>
+                            <div class="wr-form-group">
+                                <label>Today's Line Up Calls <span>*</span></label>
+                                <input type="number" id="lineupCalls" class="wr-input" placeholder="0" min="0" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                            </div>
+                            <div class="wr-form-group">
+                                <label>Companies Referred For Implementation</label>
+                                <div style="position:relative;">
+                                    <div class="tags-wrap" id="referredTagsWrap" onclick="document.getElementById('referredSearch').focus()">
+                                        <div id="referredTags"></div>
+                                        <input type="text" id="referredSearch" class="tags-search" placeholder="Search companies..." oninput="searchCompanies(this.value)" autocomplete="off">
+                                    </div>
+                                    <div class="tags-dropdown" id="referredDropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dyn-section" id="sec-references">
+                    <div class="dyn-section-header">
+                        <div class="dyn-section-title">Today's References</div>
+                        <button class="btn-add-row" onclick="addEntry('references')">ADD</button>
+                    </div>
+                    <div class="dyn-entries" id="entries-references"></div>
+                </div>
+
+                <div class="dyn-section" id="sec-testimonials">
+                    <div class="dyn-section-header">
+                        <div class="dyn-section-title">Today's Testimonials</div>
+                        <button class="btn-add-row" onclick="addEntry('testimonials')">ADD</button>
+                    </div>
+                    <div class="dyn-entries" id="entries-testimonials"></div>
+                </div>
+
+                <div class="dyn-section" id="sec-google_reviews">
+                    <div class="dyn-section-header">
+                        <div class="dyn-section-title">Today's Google Reviews</div>
+                        <button class="btn-add-row" onclick="addEntry('google_reviews')">ADD</button>
+                    </div>
+                    <div class="dyn-entries" id="entries-google_reviews"></div>
+                </div>
+
+                <div class="dyn-section" id="sec-app_reviews">
+                    <div class="dyn-section-header">
+                        <div class="dyn-section-title">MyCo App Reviews</div>
+                        <button class="btn-add-row" onclick="addEntry('app_reviews')">ADD</button>
+                    </div>
+                    <div class="dyn-entries" id="entries-app_reviews"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-outline" onclick="showList()" style="padding:12px 32px;font-weight:700;">CANCEL</button>
+                    <button class="btn btn-primary" onclick="submitForm()" id="submitBtn" style="padding:12px 40px;font-weight:700;">ADD</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="wr-modal-overlay" id="viewModal">
+    <div class="wr-modal">
+        <div class="wr-modal-head">
+            <h2>ENGAGEMENT WORK REPORT</h2>
+            <button class="wr-modal-close" onclick="closeModal()">&#x2715; CLOSE</button>
+        </div>
+        <div class="wr-modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<script src="js/location-helper.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/engagement-report.js"></script>
+</body>
+</html>
+

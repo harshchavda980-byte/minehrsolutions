@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intimation Automation — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            align-items: flex-end;
+        }
+
+        .filter-row .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .type-whatsapp { background: #dcfce7; color: #166534; }
+        .type-gmail { background: #fee2e2; color: #991b1b; }
+        .type-sms { background: #e0f2fe; color: #0369a1; }
+
+        @media (max-width: 768px) {
+            .filter-row { flex-direction: column; align-items: stretch; }
+            .page-title { flex-direction: column; align-items: flex-start !important; gap: 10px; }
+            .modal-content { width: 95% !important; padding: 15px !important; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search intimations..." oninput="document.getElementById('searchInput').value = this.value; loadIntimations(1)">
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1>Intimation Automation</h1>
+                        <p>Configure and manage automated alerts via WhatsApp, Email, or SMS.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openIntimationModal()">+ Create New Intimation</button>
+                </div>
+
+                <div class="filter-row" style="display: flex; align-items: center; gap: 20px; padding: 25px; margin-bottom: 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.05);">
+                    <div style="flex: 1.5; position: relative;">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Search ID / Message</label>
+                        <div style="position: relative;">
+                            <svg style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Filter by ID or content..." oninput="loadIntimations(1)" style="padding-left: 42px; background: rgba(0,0,0,0.1); border-radius: 12px; height: 48px; border: 1px solid var(--glass-border);">
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Delivery Type</label>
+                        <select id="typeFilter" class="form-control" onchange="loadIntimations(1)" style="background: rgba(0,0,0,0.1); border-radius: 12px; height: 48px; border: 1px solid var(--glass-border);">
+                            <option value="">All Methods</option>
+                            <option value="WhatsApp">WhatsApp Business</option>
+                            <option value="Gmail">Gmail SMTP</option>
+                            <option value="SMS">SMS Gateway</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">System Status</label>
+                        <select id="statusFilter" class="form-control" onchange="loadIntimations(1)" style="background: rgba(0,0,0,0.1); border-radius: 12px; height: 48px; border: 1px solid var(--glass-border);">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active / Running</option>
+                            <option value="Inactive">Inactive / Paused</option>
+                        </select>
+                    </div>
+                    <div style="padding-top: 19px;">
+                        <button class="btn btn-outline" onclick="resetFilters()" style="height: 48px; padding: 0 25px; border-radius: 12px; font-weight: 700; border-color: var(--glass-border); transition: all 0.3s ease;">
+                            <svg style="margin-right: 8px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="premium-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>INTM ID</th>
+                                    <th>Type</th>
+                                    <th>Recipients</th>
+                                    <th>Schedule (Cron)</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="intimationTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="paginationControls" class="pagination" style="margin-top: 20px; justify-content: flex-end;"></div>
+                </div>
+
+                <!-- Intimation Modal -->
+                <div id="intimationModal" class="modal">
+                    <div class="modal-content glass" style="max-width: 600px;">
+                        <div class="modal-header">
+                            <h2 id="modalTitle">Setup Automation</h2>
+                            <button class="close-modal" onclick="closeModal('intimationModal')">&times;</button>
+                        </div>
+                        <form id="intimationForm" onsubmit="handleIntimationSubmit(event)">
+                            <div class="modal-body">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div class="form-group">
+                                        <label>Notification Type *</label>
+                                        <select id="intmType" class="form-control" required>
+                                            <option value="WhatsApp">WhatsApp</option>
+                                            <option value="Gmail">Gmail</option>
+                                            <option value="SMS">SMS</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Schedule (Cron) *</label>
+                                        <input type="text" id="intmCron" class="form-control" required placeholder="0 9 * * *">
+                                    </div>
+                                    <div class="form-group" style="grid-column: span 2;">
+                                        <label>Recipient(s) *</label>
+                                        <input type="text" id="intmRecipients" class="form-control" required placeholder="Phone numbers or Email addresses">
+                                    </div>
+                                    <div class="form-group" style="grid-column: span 2;">
+                                        <label>Message Template *</label>
+                                        <textarea id="intmTemplate" class="form-control" rows="5" required placeholder="Message content..."></textarea>
+                                    </div>
+                                    <div class="form-group" style="grid-column: span 2;">
+                                        <label>Target Companies *</label>
+                                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; max-height: 200px; overflow-y: auto;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 5px;">
+                                                <span style="font-size: 12px; color: var(--text-muted);">Select companies to apply this Cron</span>
+                                                <label style="font-size: 11px; display: flex; align-items: center; gap: 5px; cursor: pointer; text-transform: none; color: var(--primary);">
+                                                    <input type="checkbox" id="selectAllCompanies" onchange="toggleAllCompanies(this.checked)"> Select All
+                                                </label>
+                                            </div>
+                                            <div id="companyChecklist" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                                <div style="color: var(--text-muted); font-size: 13px;">Loading companies...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select id="intmStatus" class="form-control">
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 20px;">
+                                <button type="submit" class="btn btn-primary" id="saveBtn">Save Automation</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/automation.js"></script>
+</body>
+
+</html>
+

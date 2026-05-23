@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Work Report (Implementation) | MineHR Master Panel</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/admin.css">
+    
+    <style>
+        :root {
+            --primary-ob: #6366f1;
+            --primary-ob-glow: rgba(99, 102, 241, 0.4);
+            --bg-deep: #020617;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        .ob-page-hero { margin-bottom: 20px; }
+        .ob-breadcrumb {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 9px; color: var(--text-muted); font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .ob-breadcrumb span { color: var(--primary-ob); }
+        .ob-page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; margin: 0;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .ob-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+        }
+
+        .ob-card-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255,255,255,0.02);
+            gap: 20px;
+        }
+
+        .ob-table { width: 100%; border-collapse: collapse; }
+        .ob-table th {
+            padding: 14px 16px; text-align: left;
+            font-size: 10px; font-weight: 800; color: #94a3b8;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            background: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .ob-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-glass);
+            font-size: 12px; color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+        .ob-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .btn-ob {
+            padding: 8px 16px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-family: 'Outfit', sans-serif;
+        }
+        .btn-ob-primary { background: linear-gradient(135deg, var(--primary-ob), #8b5cf6); color: #fff; box-shadow: 0 10px 20px -10px var(--primary-ob-glow); }
+        .btn-ob-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -10px var(--primary-ob-glow); filter: brightness(1.1); }
+        
+        .btn-ob-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        .btn-ob-outline:hover { background: rgba(255, 255, 255, 0.05); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+
+        .filter-select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            outline: none;
+            min-width: 140px;
+            transition: 0.3s;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+        .filter-select:hover { border-color: rgba(255, 255, 255, 0.2); background-color: rgba(0, 0, 0, 0.4); }
+        .filter-select:focus { border-color: var(--primary-ob); box-shadow: 0 0 0 4px var(--primary-ob-glow); }
+
+        .search-container { position: relative; }
+        .search-container input { padding-left: 38px; width: 260px; height: 38px; font-size: 12px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
+        .search-container svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 15px; height: 15px; }
+        .search-container input:focus { width: 300px; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 2000;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal-card {
+            background: var(--bg-panel); border-radius: 24px; width: 95%; max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .modal-header {
+            padding: 20px 28px; border-bottom: 1px solid var(--border-glass);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; }
+        .modal-close { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 20px; padding: 24px 32px; }
+        .form-group label { display: block; font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+        .form-group.full-width { grid-column: span 2; }
+        
+        .form-control {
+            width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; padding: 10px 16px; color: #fff; font-size: 13px; outline: none; transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-control:focus { border-color: var(--primary-ob); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 0 4px var(--primary-ob-glow); }
+
+        /* Multi-select styling */
+        .company-select-wrapper {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .company-select-list {
+            height: 120px; overflow-y: auto;
+            padding: 8px;
+        }
+        .company-select-list::-webkit-scrollbar { width: 6px; }
+        .company-select-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        
+        .company-option {
+            padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500;
+            display: flex; align-items: center; justify-content: space-between; transition: 0.2s;
+            margin-bottom: 2px;
+        }
+        .company-option:hover { background: rgba(255,255,255,0.05); }
+        .company-option.selected { background: rgba(99, 102, 241, 0.15); color: var(--primary-ob); font-weight: 700; }
+        .company-option.selected::after { content: '✓'; font-size: 14px; }
+
+        .company-pill {
+            background: rgba(99, 102, 241, 0.15); color: var(--primary-ob);
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(99, 102, 241, 0.2);
+            margin: 2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand"><img src="logo.png" alt="MineHR Logo" class="brand-logo"/></div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search reports..." />
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span>
+                        <span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div style="text-align: right; display: flex; flex-direction: column;">
+                                <span id="userName" style="font-size: 14px; font-weight: 700; color: var(--text-primary);">Admin User</span>
+                                <span id="userRole" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Super Admin</span>
+                            </div>
+                            <div id="userAvatarContainer" style="width: 42px; height: 42px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 16px; border: 2px solid var(--glass-border);">
+                                AU
+                            </div>
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin User</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="ob-page-hero">
+                    <div class="ob-breadcrumb">ONBOARDING <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg> <span>WORK REPORT (IMPLEMENTATION)</span></div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h1 class="ob-page-title">Work Report</h1>
+                        <button class="btn-ob btn-ob-primary" onclick="openAddModal()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            ADD REPORT
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ob-card">
+                    <div class="ob-card-header">
+                        <div style="display: flex; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <label style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Date:</label>
+                                <input type="date" id="filterDate" class="form-control" style="width: 140px; height: 36px; padding: 0 12px;" onchange="fetchReports()">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <label style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Type:</label>
+                                <select class="filter-select" id="filterType" onchange="fetchReports()" style="height: 36px; padding: 0 36px 0 12px;">
+                                    <option value="All">All Types</option>
+                                    <option value="Setup">Setup</option>
+                                    <option value="Training">Training</option>
+                                    <option value="Implementation">Implementation</option>
+                                    <option value="Support">Support</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search-container">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="reportSearch" class="form-control" placeholder="Search descriptions..."/>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="ob-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px;">Sr.No</th>
+                                    <th>Action</th>
+                                    <th>Trainer Name</th>
+                                    <th>Report Date</th>
+                                    <th>Report Type</th>
+                                    <th>NO Of Calls</th>
+                                    <th>NO Of Lined Up</th>
+                                    <th>Total Company</th>
+                                    <th>Added Date</th>
+                                    <th>Report Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportTableBody">
+                                <!-- Loaded via JS -->
+                            </tbody>
+                        </table>
+                        <div id="tableLoader" style="padding: 60px; text-align: center; color: var(--text-muted);">
+                            Loading work reports...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ADD/EDIT MODAL -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add Report</h2>
+                <button class="modal-close" onclick="closeModal('reportModal')">&times;</button>
+            </div>
+            <form id="reportForm" onsubmit="event.preventDefault(); saveReport();">
+                <input type="hidden" id="reportId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Date <span style="color:#ef4444;">*</span></label>
+                        <input type="date" id="reportDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type <span style="color:#ef4444;">*</span></label>
+                        <select id="reportType" class="form-control" required>
+                            <option value="Setup">Setup</option>
+                            <option value="Training">Training</option>
+                            <option value="Implementation">Implementation</option>
+                            <option value="Support">Support</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>NO. of calls <span style="color:#ef4444;">*</span></label>
+                        <input type="number" id="noOfCalls" class="form-control" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NO. of lined up <span style="color:#ef4444;">*</span></label>
+                        <input type="number" id="noOfLinedUp" class="form-control" value="0" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Select Companies <span style="color:#ef4444;">*</span></label>
+                        <div class="company-select-wrapper">
+                            <div class="company-select-list" id="companySelectList">
+                                <!-- Loaded via JS -->
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <small id="selectedCount" style="color: var(--primary-ob); font-weight: 700;">0 Companies Selected</small>
+                            <small style="color: var(--text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase;">Click to select/deselect</small>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Report Description</label>
+                        <textarea id="reportDescription" class="form-control" rows="2" placeholder="Brief summary of work performed..."></textarea>
+                    </div>
+
+                    <div style="grid-column: span 2; margin-top: 10px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+                        <button type="button" class="btn-ob" style="background:rgba(255,255,255,0.05); color:#fff;" onclick="closeModal('reportModal')">CANCEL</button>
+                        <button type="submit" id="saveReportBtn" class="btn-ob btn-ob-primary" style="padding:10px 40px;">ADD REPORT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/work-reports.js"></script>
+    <script>
+         catch (err) { console.error('Auth error', err); }
+        }
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>
+
+

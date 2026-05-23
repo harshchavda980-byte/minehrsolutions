@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Country Management — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search operations, companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <div>
+                        <h1 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;">Country Management</h1>
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Manage list of countries and their visibility in the system.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openCountryModal()" style="padding: 14px 28px; border-radius: 14px; font-weight: 700;">+ Add Country</button>
+                </div>
+
+                <div class="panel" style="display: grid; grid-template-columns: 1fr 200px 120px; gap: 20px; margin-bottom: 35px; align-items: flex-end;">
+                    <div class="form-group">
+                        <label>Search Country</label>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by name..." oninput="loadCountries(1)">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="statusFilter" class="form-control" onchange="loadCountries(1)">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline" onclick="resetFilters()" style="height: 48px; border-radius: 12px;">Reset</button>
+                </div>
+
+                <div class="panel">
+                    <div class="premium-table-wrapper">
+                        <div class="premium-table-container">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th style="cursor: pointer;" onclick="handleSort('id')">ID <span id="sort_id"></span></th>
+                                        <th style="cursor: pointer;" onclick="handleSort('name')">Country Name <span id="sort_name"></span></th>
+                                        <th style="cursor: pointer;" onclick="handleSort('code')">Code <span id="sort_code"></span></th>
+                                        <th style="cursor: pointer;" onclick="handleSort('status')">Status <span id="sort_status"></span></th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="countryTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="paginationControls" class="pagination" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border);"></div>
+                </div>
+
+                <!-- Country Modal -->
+                <div id="countryModal" class="modal">
+                    <div class="modal-content glass" style="max-width: 450px; padding: 40px; border-radius: 32px; border: 1px solid var(--glass-border); box-shadow: var(--card-shadow);">
+                        <div class="modal-header" style="margin-bottom: 30px;">
+                            <h2 id="modalTitle" style="font-size: 1.8rem; font-weight: 700;">Add New Country</h2>
+                            <button class="close-modal" onclick="closeModal('countryModal')" style="background: rgba(255,255,255,0.05); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border);">&times;</button>
+                        </div>
+                        <form id="countryForm" onsubmit="handleCountrySubmit(event)">
+                            <div class="modal-body" style="display: grid; gap: 25px;">
+                                <div class="form-group">
+                                    <label>Country Name *</label>
+                                    <input type="text" id="countryName" class="form-control" required placeholder="e.g. India">
+                                </div>
+                                <div class="form-group">
+                                    <label>Country Code *</label>
+                                    <input type="text" id="countryCode" class="form-control" required placeholder="e.g. IN" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select id="countryStatus" class="form-control">
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 40px;">
+                                <button type="submit" class="btn btn-primary" id="saveBtn" style="width: 100%; padding: 16px; border-radius: 16px; font-weight: 700;">Save Country Information</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/country.js"></script>
+</body>
+</html>
+

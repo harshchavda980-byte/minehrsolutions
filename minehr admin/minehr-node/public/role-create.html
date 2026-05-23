@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <title>Define New Role — MineHR Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search operations, companies..." />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content active-page">
+                <div class="page-title">
+                    <h1 id="pageHeading">Define New Role</h1>
+                    <p id="pageSubheading">Create a customized permission tier for system access</p>
+                </div>
+
+                <div class="panel" style="max-width: 800px;">
+                    <form id="createRoleForm">
+                        <div class="form-group">
+                            <label>Role Name</label>
+                            <input type="text" id="roleName" class="form-control" placeholder="e.g. Regional Manager" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role Description</label>
+                            <textarea id="roleDesc" class="form-control" style="height: 100px; padding: 15px;" placeholder="Describe what this role can do..."></textarea>
+                        </div>
+
+                        <div class="sidebar-section" style="margin: 30px 0 15px;">PERMISSIONS CONTROL</div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                            <!-- User Management -->
+                            <div class="permission-group" style="background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border);">
+                                <h4 style="margin-top: 0; color: var(--primary); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">User Management</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="user_view"> View Users</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="user_create"> Create Users</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="user_edit"> Edit Users</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="user_delete"> Delete Users</label>
+                                </div>
+                            </div>
+
+                            <!-- Company Management -->
+                            <div class="permission-group" style="background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border);">
+                                <h4 style="margin-top: 0; color: var(--primary); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Company Management</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="company_view"> View Companies</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="company_edit"> Manage Requests</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="company_plans"> Manage Plans</label>
+                                </div>
+                            </div>
+
+                            <!-- CRM & Leads -->
+                            <div class="permission-group" style="background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border);">
+                                <h4 style="margin-top: 0; color: var(--primary); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">CRM & Leads</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="lead_view"> View Leads</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="lead_edit"> Manage Leads</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="demo_manage"> Demo Requests</label>
+                                </div>
+                            </div>
+
+                            <!-- Reports & Settings -->
+                            <div class="permission-group" style="background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border);">
+                                <h4 style="margin-top: 0; color: var(--primary); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Reports & Settings</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="report_view"> View All Reports</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="report_export"> Export Reports</label>
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;"><input type="checkbox" name="perm" value="system_settings"> Global Settings</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="formError" style="color:#ef4444;font-size:13px;margin-bottom:10px;display:none;padding:10px;background:rgba(239,68,68,0.1);border-radius:8px;"></div>
+
+                        <div style="display: flex; gap: 12px; margin-top: 25px;">
+                            <button type="submit" id="submitBtn" class="btn btn-primary" style="padding: 12px 35px;">Create Role</button>
+                            <a href="roles.html" class="btn btn-outline" style="padding: 12px 35px;">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const roleId = urlParams.get('id');
+
+        
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+
+            // EDIT MODE — load existing role data
+            if (roleId) {
+                document.getElementById('pageHeading').innerText = 'Edit Role';
+                document.getElementById('pageSubheading').innerText = 'Update permissions for an existing role';
+                document.getElementById('submitBtn').innerText = 'Update Role';
+
+                try {
+                    const res = await fetch(`/api/roles/${roleId}`);
+                    if (res.ok) {
+                        const role = await res.json();
+                        document.getElementById('roleName').value = role.name || '';
+                        document.getElementById('roleDesc').value = role.description || '';
+
+                        // Pre-check permissions
+                        const perms = Array.isArray(role.permissions) ? role.permissions : (typeof role.permissions === 'string' ? JSON.parse(role.permissions || '[]') : []);
+                        document.querySelectorAll('input[name="perm"]').forEach(cb => {
+                            cb.checked = perms.includes(cb.value);
+                        });
+                    } else {
+                        showError('Could not load role data. Please try again.');
+                    }
+                } catch (err) {
+                    showError('Network error loading role.');
+                    console.error(err);
+                }
+            }
+        });
+
+        function showError(msg) {
+            const el = document.getElementById('formError');
+            el.innerText = msg;
+            el.style.display = 'block';
+        }
+
+        document.getElementById('createRoleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            document.getElementById('formError').style.display = 'none';
+
+            const name = document.getElementById('roleName').value.trim();
+            const description = document.getElementById('roleDesc').value.trim();
+            const permissions = Array.from(document.querySelectorAll('input[name="perm"]:checked')).map(cb => cb.value);
+
+            if (!name) { showError('Role name is required.'); return; }
+
+            try {
+                const url = roleId ? `/api/roles/${roleId}` : '/api/roles';
+                const method = roleId ? 'PUT' : 'POST';
+
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, description, permissions })
+                });
+
+                if (res.ok) {
+                    alert(roleId ? 'Role updated successfully!' : 'Role created successfully!');
+                    window.location.href = 'roles.html';
+                } else {
+                    const data = await res.json();
+                    showError('Error: ' + (data.message || 'Could not save role'));
+                }
+            } catch (err) {
+                console.error(err);
+                showError('Network error. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+

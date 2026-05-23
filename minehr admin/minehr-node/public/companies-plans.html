@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="js/theme-init.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COMPANIES PLANS — MineHR Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .limit-status {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Watermark for Print */
+        @media print {
+            body::before {
+                content: "MINEHR CONFIDENTIAL";
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-45deg);
+                font-size: 80px;
+                color: rgba(0, 0, 0, 0.05);
+                z-index: -1;
+                pointer-events: none;
+                white-space: nowrap;
+            }
+            .sidebar, .topbar, .header-actions, .filter-row, .pagination-footer, .btn, .page-header-actions p {
+                display: none !important;
+            }
+            .main-content { margin-left: 0 !important; padding: 0 !important; }
+            .premium-table-container { border: none !important; box-shadow: none !important; margin-top: 0 !important; }
+            .page-header-actions { margin-bottom: 10px !important; }
+            .admin-table th { background: #f8fafc !important; color: #000 !important; border-bottom: 2px solid #000 !important; }
+            .admin-table td { border-bottom: 1px solid #eee !important; color: #000 !important; }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="logo.png" alt="MineHR Logo" class="brand-logo" />
+            </div>
+            <nav id="sidebarNav">
+                <!-- Sidebar content injected by sidebar.js -->
+            </nav>
+        </aside>
+        <main class="main main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </div>
+                    <a href="dashboard.html" class="topbar-logo"><img src="logo.png" alt="MineHR Logo" /></a>
+                    <div class="search-box">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Search plans..." oninput="document.getElementById('planSearch').value = this.value; fetchPlans(1)" />
+                        <span class="search-key">/</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span class="sun">☀️</span><span class="moon">🌙</span>
+                        <div class="toggle-ball"></div>
+                    </div>
+                    <div class="profile" id="profileDropdown">
+                        <div class="profile-trigger" onclick="toggleProfileMenu()">
+                            <div>
+                                <span id="userName" style="font-weight:700;">Admin</span>
+                                <span id="userRole" style="font-size:11px;color:var(--text-muted);font-weight:600;">Super Admin</span>
+                            </div>
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin" style="width:42px;height:42px;border-radius:14px;border:2px solid var(--glass-border);" />
+                        </div>
+                        <div class="profile-menu">
+                            <div class="profile-info">
+                                <strong id="profileMenuName">Admin</strong>
+                                <p id="profileMenuEmail">admin@minehr.com</p>
+                            </div>
+                            <a href="settings.html" class="profile-menu-item">Settings</a>
+                            <button class="profile-menu-item" onclick="window.location.reload()">Refresh Page</button>
+                            <div class="profile-divider"></div>
+                            <button id="logoutBtn" class="profile-menu-item danger">Logout System</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="content active-page">
+                <div class="page-header-actions" style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="page-title">
+                        <h1 style="font-weight: 800; font-family: 'Outfit', sans-serif; font-size: 2.5rem; letter-spacing: -1px;">Plan Expiry Management</h1>
+                        <p style="color: var(--text-secondary); opacity: 0.8;">Track and manage company subscription plans and renewals.</p>
+                    </div>
+                    <div class="header-actions" style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary" onclick="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary" onclick="exportToExcel()">Export Excel</button>
+                        <button class="btn btn-outline" onclick="window.print()">Print Report</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filter-row" style="margin-bottom: 25px; gap: 15px;">
+                    <div class="filter-group" style="flex: 2;">
+                        <input type="text" id="planSearch" placeholder="Search Company Name / ID..." class="form-control">
+                    </div>
+                    <div class="filter-group" style="flex: 1;">
+                        <select id="statusFilter" class="form-control">
+                            <option value="">All Statuses</option>
+                            <option value="active">Active</option>
+                            <option value="expiring">Expiring Soon</option>
+                            <option value="expired">Expired</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="fetchPlans(1)">Apply Filters</button>
+                </div>
+
+                <!-- Plan Table -->
+                <div class="premium-table-container">
+                    <table class="admin-table" id="plansTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Company</th>
+                                <th>Mobile</th>
+                                <th>Plan Name</th>
+                                <th>Days Left</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                                <th style="text-align: right;" class="no-print">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planTableBody">
+                            <!-- Injected by plans.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="paginationContainer" class="pagination-footer" style="margin-top: 25px;"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/plans.js"></script>
+</body>
+</html>
