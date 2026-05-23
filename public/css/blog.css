@@ -407,104 +407,232 @@ font-size:26px;
 
 }/* ================= CTA SECTION ================= */
 
-.cta-section{
-    position: relative;
-    width: 100%;
-    padding: 140px 20px;
-    text-align: center;
-    color: white;
-    overflow: hidden;
-
-    background: url("public/images/footer-bg.png") center/cover no-repeat;
+.cta-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: linear-gradient(135deg, #0d0840 0%, #1a0a5e 40%, #2d1270 70%, #4b0082 100%);
+  color: white;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
-/* Light overlay for readability */
-.cta-overlay{
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+/* Decorative background blobs */
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(123, 92, 255, 0.15);
+  pointer-events: none;
 }
 
-/* Content */
-.cta-content{
-    position: relative;
-    z-index: 2;
-    max-width: 850px;
-    margin: auto;
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(75, 0, 130, 0.2);
+  pointer-events: none;
 }
 
-.cta-content h2{
-    font-size: 50px;
-    margin-bottom: 25px;
-    font-weight: 700;
+/* LEFT STATS CARD */
+.cta-left-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 36px 30px;
+  min-width: 220px;
+  max-width: 260px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
-.cta-content p{
-    font-size: 18px;
-    margin-bottom: 45px;
-    opacity: 0.95;
+.cta-stat {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.cta-stat-num {
+  display: block;
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #a78bff, #e0d0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-stat-label {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.cta-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin: 12px 0;
+}
+
+/* CENTER CONTENT */
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  text-align: center;
+  flex: 1;
+  min-width: 280px;
+}
+
+.cta-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #d4bbff;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.cta-content h2 {
+  font-size: 42px;
+  margin-bottom: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.cta-content p {
+  font-size: 16px;
+  margin-bottom: 35px;
+  opacity: 0.85;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
 }
 
 /* ================= BUTTONS ================= */
 
-.cta-buttons{
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-/* Primary Button */
-.cta-btn-primary{
-    padding: 15px 40px;
-    background: linear-gradient(135deg,#8f5cff,#6a3cff);
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.cta-btn-secondary {
+  padding: 15px 40px;
+  background: #ffffff;
+  border: none;
+  border-radius: 50px;
+  color: #4b0082;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
-.cta-btn-primary:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+.cta-btn-secondary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  background: #f0e6ff;
 }
 
-/* Secondary Button */
-.cta-btn-secondary{
-    padding: 15px 40px;
-    background: white;
-    border: none;
-    border-radius: 12px;
-    color: #4a2d91;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* RIGHT FEATURE CARD */
+.cta-right-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 28px 26px;
+  min-width: 220px;
+  max-width: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
-.cta-btn-secondary:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+.cta-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.cta-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-feature-item h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 3px;
+}
+
+.cta-feature-item p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
 }
 
 /* Responsive */
-@media(max-width:768px){
-    .cta-content h2{
-        font-size: 36px;
-    }
+@media (max-width: 900px) {
+  .cta-section {
+    flex-direction: column;
+    padding: 60px 24px;
+  }
 
-    .cta-buttons{
-        flex-direction: column;
-    }
+  .cta-left-card,
+  .cta-right-card {
+    max-width: 100%;
+    width: 100%;
+  }
 
-    .cta-btn-primary,
-    .cta-btn-secondary{
-        width: 100%;
-    }
+  .cta-content h2 {
+    font-size: 32px;
+  }
 }
+
+@media (max-width: 768px) {
+  .cta-content h2 {
+    font-size: 28px;
+  }
+
+  .cta-btn-secondary {
+    width: 100%;
+  }
+}
+
 /* ================= NAVBAR ================= */
 
 .navbar{
