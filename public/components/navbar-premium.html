@@ -14,20 +14,38 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <nav class="navbar-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="services-premium.html" class="nav-link active">Services</a>
-                <a href="career.html" class="nav-link">Career</a>
-                <a href="trust.html" class="nav-link">Trust</a>
-                <a href="blog.html" class="nav-link">Blog</a>
-                    <!-- Contact Us CTA for mobile menu -->
-                    <a href="contact.html" class="nav-cta-btn mobile-only">
-                        <span>Contact Us</span>
-                        <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-            </nav>
+                    <nav class="navbar-menu" id="navMenu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="trust.html" class="nav-link">Trust</a>
+          <a href="career.html" class="nav-link">Career</a>
+          <a href="blog.html" class="nav-link">Blog</a>
+          <div class="nav-dropdown">
+            <a href="#" class="nav-link dropdown-toggle" onclick="return false;">
+              Product
+              <svg class="dropdown-chevron" width="10" height="10" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 1L5 5L9 1" />
+              </svg>
+            </a>
+            <div class="dropdown-menu">
+              <a href="ats.html" class="dropdown-item">
+                <span class="item-title">ATS</span>
+                <span class="item-desc">Applicant Tracking System</span>
+              </a>
+              <a href="crm.html" class="dropdown-item">
+                <span class="item-title">CRM</span>
+                <span class="item-desc">Customer Relations</span>
+              </a>
+            </div>
+          </div>
+          <!-- Contact Us CTA for mobile menu -->
+          <a href="contact.html" class="nav-cta-btn mobile-only">
+            <span>Contact Us</span>
+            <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </nav>
 
             <!-- Right Side Actions -->
             <div class="navbar-actions">

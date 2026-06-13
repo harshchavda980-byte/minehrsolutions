@@ -113,46 +113,16 @@ document.addEventListener("DOMContentLoaded", function() {
   const form = document.querySelector(".apply-form-box form");
 
   if(form){
-    // FormSubmit requires these hidden fields for proper AJAX submission
-    const hiddenEmail = document.createElement("input");
-    hiddenEmail.type = "hidden";
-    hiddenEmail.name = "_replyto";
-    hiddenEmail.value = "info@minehrsolutions.com";
-    form.appendChild(hiddenEmail);
-
-    const hiddenSubject = document.createElement("input");
-    hiddenSubject.type = "hidden";
-    hiddenSubject.name = "_subject";
-    hiddenSubject.value = "New Job Application - MineHR";
-    form.appendChild(hiddenSubject);
-
-    // Disable captcha for AJAX
-    const hiddenCaptcha = document.createElement("input");
-    hiddenCaptcha.type = "hidden";
-    hiddenCaptcha.name = "_captcha";
-    hiddenCaptcha.value = "false";
-    form.appendChild(hiddenCaptcha);
-
     form.addEventListener("submit", async function(e) {
       e.preventDefault();
-
-      // Show loading state on button
-      const submitBtn = form.querySelector("button[type='submit']");
-      const originalText = submitBtn.innerText;
-      submitBtn.innerText = "Submitting...";
-      submitBtn.disabled = true;
 
       const formData = new FormData(form);
 
       try {
-        const response = await fetch("https://formsubmit.co/ajax/info@minehrsolutions.com", {
+        const response = await fetch("/api/apply", {
           method: "POST",
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+          body: formData
         });
-        
         if(response.ok){
           // Close apply modal
           const applyModal = document.getElementById("applyModal");
@@ -164,13 +134,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
           form.reset();
         } else {
-          alert("Application failed. Please check your internet connection.");
+          alert("Application failed. Please try again.");
         }
       } catch (err) {
-        alert("Error submitting application. Please try again.");
-      } finally {
-        submitBtn.innerText = originalText;
-        submitBtn.disabled = false;
+        alert("Error submitting application.");
       }
     });
   }
@@ -213,7 +180,7 @@ window.onclick = function(event) {
 
 function chatRecruiter(jobTitle) {
 
-  const number = "917574063353";
+  const number = "917990977434";
 
   const message =
     `Hello, I am interested in the ${jobTitle} position. Please share more details.`;

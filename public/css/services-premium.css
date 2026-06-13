@@ -808,30 +808,98 @@ body {
     .container-wide {
         padding: 0 24px;
     }
+
+    .services-hero-premium .hero-content {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 }
 
 @media (max-width: 900px) {
+    .services-hero-premium {
+        padding: 100px 0 60px;
+    }
+
+    .services-hero-premium .hero-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
     .hero-title {
-        font-size: 48px;
+        font-size: 44px;
+    }
+
+    .hero-subtitle br {
+        display: none;
+    }
+
+    /* 2 Column grid for service cards */
+    .services-premium-section .container-wide {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+        padding: 0 24px !important;
+    }
+
+    .service-card-premium {
+        margin-bottom: 0 !important;
     }
 
     .service-card-inner {
-        grid-template-columns: 1fr;
-        gap: 24px;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 24px !important;
     }
 
     .service-icon-premium {
-        width: 100px;
-        height: 100px;
+        width: 80px !important;
+        height: 80px !important;
     }
 
     .service-icon-premium img {
-        width: 60px;
-        height: 60px;
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .service-header-group {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .service-title {
+        font-size: 20px !important;
+    }
+
+    .service-description {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .service-benefits,
+    .service-meta {
+        display: none !important; /* Hide checklist and meta to keep 2-column cards clean */
     }
 
     .service-cta {
-        flex-direction: row;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+        align-items: stretch !important;
+    }
+
+    .btn-service-primary {
+        padding: 10px 16px !important;
+        font-size: 13px !important;
+        border-radius: 8px !important;
+    }
+
+    .btn-expand {
+        padding: 8px 12px !important;
+        font-size: 12px !important;
+        border-radius: 8px !important;
     }
 
     .trust-stats {
@@ -850,11 +918,11 @@ body {
 
 @media (max-width: 640px) {
     .hero-title {
-        font-size: 36px;
+        font-size: 32px;
     }
 
     .hero-subtitle {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .filter-tabs {
@@ -867,16 +935,21 @@ body {
         padding: 10px 16px;
     }
 
+    .services-premium-section .container-wide {
+        gap: 16px !important;
+        padding: 0 16px !important;
+    }
+
     .service-title {
-        font-size: 22px;
+        font-size: 18px !important;
     }
 
     .service-card-inner {
-        padding: 24px;
+        padding: 20px !important;
     }
 
-    .service-cta {
-        flex-direction: column;
+    .service-expanded-content.open {
+        padding: 20px !important;
     }
 
     .floating-cta {
@@ -893,6 +966,125 @@ body {
         height: 56px;
         padding: 0;
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 26px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .filter-tabs {
+        gap: 6px;
+    }
+
+    .filter-tab {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .services-premium-section .container-wide {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 0 8px !important;
+    }
+
+    .service-card-inner {
+        padding: 12px !important;
+        gap: 10px !important;
+        border-radius: 12px !important;
+    }
+
+    .service-icon-premium {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 8px !important;
+    }
+
+    .service-icon-premium img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .service-header-group {
+        gap: 4px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .service-title {
+        font-size: 14px !important;
+    }
+
+    .service-badge {
+        font-size: 8px !important;
+        padding: 1px 4px !important;
+    }
+
+    .service-description {
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .btn-service-primary {
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
+    }
+
+    .btn-expand {
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+        border-radius: 6px !important;
+    }
+
+    .service-expanded-content.open {
+        padding: 12px !important;
+    }
+
+    .expanded-inner h3 {
+        font-size: 11px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .features-list {
+        gap: 6px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .features-list li {
+        font-size: 10px !important;
+    }
+
+    .btn-demo {
+        padding: 8px 12px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
+    }
+
+    .trust-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+
+    .trust-stat-number {
+        font-size: 32px !important;
+    }
+
+    .trust-stat-label {
+        font-size: 13px !important;
+    }
+
+    .final-cta-title {
+        font-size: 24px;
+    }
+
+    .final-cta-subtitle {
+        font-size: 13px;
     }
 }
 

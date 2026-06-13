@@ -52,22 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('Thank you! Your message has been sent successfully.');
                     form.reset();
                 } else {
-                    // Even if DB fails, we might get a 500 but let's check for specific success
-                    if (result.error && result.error.includes('Database error')) {
-                         // Graceful fallback for demo if DB is not connected
-                         alert('Thank you! Your message has been received (Demo Mode).');
-                         form.reset();
-                    } else if (result.error) {
-                        alert('Submission failed: ' + result.error);
-                    } else {
-                        alert('Oops! Something went wrong. Please try again.');
-                    }
+                    alert('Submission failed: ' + (result.error || 'Please try again.'));
                 }
             } catch (error) {
                 console.error('Submission error:', error);
-                // Fallback for environment where DB might not be fully ready
-                alert('Thank you! Your message has been received (Demo Mode).');
-                form.reset();
+                alert('Submission failed. Please try again.');
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;

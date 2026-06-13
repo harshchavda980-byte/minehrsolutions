@@ -14,23 +14,20 @@ body {
 /* ================= HERO ================= */
 
 .hero {
-  padding: 80px 24px 60px 60px;
+  padding: 80px 24px;
   background: #ffffff;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
+  justify-content: space-between;
+  align-items: center;
   max-width: 1440px;
   margin: 0 auto;
-  gap: 30px;
+  gap: 40px;
 }
 
 /* TEXT PART */
 .hero-text {
-  max-width: 700px;
+  max-width: 600px;
   margin-bottom: 0;
-  text-align: left;
 }
 
 .hero-text h1 {
@@ -42,9 +39,7 @@ body {
 .hero-text p {
   color: #555;
   margin-bottom: 30px;
-  max-width: 560px;
-  margin-left: 0;
-  margin-right: 0;
+  max-width: 500px;
 }
 
 .hero-btn {
@@ -397,8 +392,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0;
-  width: 100%;
+  margin-top: 100px;
 }
 
 /* MAIN CIRCLE */
@@ -563,8 +557,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0;
-  width: 100%;
+  margin-top: 80px;
 }
 
 /* MAIN CIRCLE */
@@ -881,4 +874,142 @@ html {
     width: 90%;
   }
 
+}
+
+/* ===== CAREER PAGE DARK THEME OVERRIDES ===== */
+[data-theme="dark"] body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .hero {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .hero-text h1 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .hero-text p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .circle-left {
+  background: #1e3a8a;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .circle-right {
+  background: #854d0e;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .circle-half.light {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .circle-half.white {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .bottom-white {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .top-white {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .connector {
+  background: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .recommendation-section {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .section-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .job-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .job-card:hover {
+  border-color: #4f46e5;
+  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2);
+}
+
+[data-theme="dark"] .job-card h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tags span {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .info p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .apply-form-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .apply-form-box input {
+  background: #0f172a;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] .apply-form-box input:focus {
+  border-color: #6366f1;
+}
+
+[data-theme="dark"] .close-btn {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .close-btn:hover {
+  color: #ef4444;
+}
+
+[data-theme="dark"] .job-modal-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] .success-box {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] .success-box button {
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .overlay-text,
+[data-theme="dark"] .text-content {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .circle {
+  border-color: #334155;
 }

@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
+const crypto = require('crypto');
 
 const app = express();
 app.use(cors());
@@ -41,14 +42,20 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Insert into DB (wrapped in try-catch so database issues don't crash email delivery)
   try {
     const db = getPool();
     await db.query(
       'INSERT INTO contacts (name, email, contact_number, company, message, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())',
       [name, email, contact_number, company, message]
     );
+  } catch (dbErr) {
+    console.warn('Database error (skipping database insert):', dbErr.message);
+  }
 
-    // Send email notification
+  // Send email notification to hr@minehrsolutions.com
+  let emailSent = false;
+  try {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -60,18 +67,20 @@ app.post('/api/contact', async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: 'New Contact Us Submission - MineHR',
+      from: email,
+      to: process.env.HR_EMAIL || 'hr@minehrsolutions.com',
+      replyTo: email,
+      subject: `New Contact Us Submission from ${name} - MineHR`,
       text: `Name: ${name}\nEmail: ${email}\nContact Number: ${contact_number}\nCompany: ${company}\nMessage: ${message}`
     };
 
     await transporter.sendMail(mailOptions);
-    res.json({ success: true });
-  } catch (err) {
-    console.error('Contact API error:', err);
-    res.status(500).json({ error: 'Server error' });
+    emailSent = true;
+  } catch (emailErr) {
+    console.error('Nodemailer send error:', emailErr.message);
   }
+
+  res.json({ success: true, emailSent });
 });
 
 // Job application form API

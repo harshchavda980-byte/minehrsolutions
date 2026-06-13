@@ -926,3 +926,111 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== HOME PAGE DARK THEME OVERRIDES ===== */
+[data-theme="dark"] .stats-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .stat-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .stat-card:hover {
+  background: #1e293b;
+  border-color: #475569;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .stat-number {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .stat-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .why-section {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .why-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .why-card .card-body {
+  background: transparent;
+}
+
+[data-theme="dark"] .why-card:hover {
+  border-color: #4f46e5;
+  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.25);
+}
+
+[data-theme="dark"] .why-card h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .why-card p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .why-desc {
+  color: #cbd5e1;
+  background: linear-gradient(to right, rgba(15, 23, 42, 0), rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0));
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .services-section {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .services-title {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .services-desc {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .services-btn {
+  border-color: #f1f5f9;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .services-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+[data-theme="dark"] .services-scroll-section {
+  background: #0f172a;
+}
+
+[data-theme="dark"] .service-card-scroll {
+  background: #1e293b;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .service-card-scroll h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .service-card-scroll p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .card-btn {
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+[data-theme="dark"] .card-btn:hover {
+  background: #818cf8;
+  color: #ffffff;
+}

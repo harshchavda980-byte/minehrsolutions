@@ -115,30 +115,22 @@
             }
         }
 
-        // Detect if we're inside a subfolder (e.g. /services/)
-        const isSubPage = window.location.pathname.includes('/services/');
-        const base = isSubPage ? '../' : '';
-
         // Dynamic Search Database
         const searchDatabase = [
-            { title: 'Home', url: base + 'index.html', keywords: ['home', 'main', 'index', 'start'] },
-            { title: 'Smart CRM', url: base + 'crm.html', keywords: ['crm', 'smart crm', 'customer', 'relationship', 'leads', 'sales'] },
-            { title: 'ATS / Recruiter CRM', url: base + 'ats.html', keywords: ['ats', 'recruiter', 'hiring', 'tracking', 'applicant'] },
-            { title: 'HRMS Software', url: base + 'services/hrms-software.html', keywords: ['hrms', 'hr software', 'human resources'] },
-            { title: 'Payroll Management', url: base + 'services/payroll-management.html', keywords: ['payroll', 'salary', 'compensation'] },
-            { title: 'Web Development', url: base + 'services/web-development.html', keywords: ['web', 'development', 'website', 'design'] },
-            { title: 'Logo & Branding', url: base + 'services/logo-branding.html', keywords: ['logo', 'branding', 'design'] },
-            { title: 'CRM Solutions', url: base + 'services/crm-solutions.html', keywords: ['crm solutions', 'customer management'] },
-            { title: 'Custom Software', url: base + 'services/custom-software.html', keywords: ['custom', 'software', 'app'] },
-            { title: 'IT Support', url: base + 'services/it-support.html', keywords: ['it', 'support', 'helpdesk'] },
-            { title: 'Employee Relations', url: base + 'services/employee-relations.html', keywords: ['employee', 'relations', 'engagement'] },
-            { title: 'HR Services', url: base + 'services/hr-services.html', keywords: ['hr services', 'human resources', 'outsourcing'] },
-            { title: 'Recruitment & Staffing', url: base + 'services/recruitment-staffing.html', keywords: ['recruitment', 'staffing', 'hiring'] },
-            { title: 'Contact Us', url: base + 'contact.html', keywords: ['contact', 'support', 'help'] },
-            { title: 'Blog', url: base + 'blog.html', keywords: ['blog', 'news', 'articles'] },
-            { title: 'Career', url: base + 'career.html', keywords: ['career', 'jobs', 'hiring', 'work'] },
-            { title: 'Trust & Security', url: base + 'trust.html', keywords: ['trust', 'security', 'privacy'] },
-            { title: 'All Services', url: base + 'services.html', keywords: ['services', 'solutions'] }
+            { title: 'Home', url: '/index.html', keywords: ['home', 'main', 'index', 'start'] },
+            { title: 'ATS / Recruiter CRM', url: '/ats.html', keywords: ['ats', 'recruiter', 'hiring', 'tracking'] },
+            { title: 'HRMS Software', url: '/services/hrms-software.html', keywords: ['hrms', 'hr', 'human resources'] },
+            { title: 'Payroll Management', url: '/services/payroll-management.html', keywords: ['payroll', 'salary', 'compensation'] },
+            { title: 'Web Development', url: '/services/web-development.html', keywords: ['web', 'development', 'website', 'design'] },
+            { title: 'Logo & Branding', url: '/services/logo-branding.html', keywords: ['logo', 'branding', 'design'] },
+            { title: 'CRM Solutions', url: '/services/crm-solutions.html', keywords: ['crm', 'customer', 'relationship'] },
+            { title: 'Custom Software', url: '/services/custom-software.html', keywords: ['custom', 'software', 'app'] },
+            { title: 'IT Support', url: '/services/it-support.html', keywords: ['it', 'support', 'helpdesk'] },
+            { title: 'Contact Us', url: '/contact.html', keywords: ['contact', 'support', 'help'] },
+            { title: 'Blog', url: '/blog.html', keywords: ['blog', 'news', 'articles'] },
+            { title: 'Career', url: '/career.html', keywords: ['career', 'jobs', 'hiring', 'work'] },
+            { title: 'Trust & Security', url: '/trust.html', keywords: ['trust', 'security', 'privacy'] },
+            { title: 'All Services', url: '/services.html', keywords: ['services', 'solutions'] }
         ];
 
         const suggestionsContainer = document.querySelector('.search-suggestions');
@@ -166,11 +158,11 @@
 
         // Handle typing for dynamic suggestions
         if (searchInput) {
-            searchInput.placeholder = '...'; // Match design
+            searchInput.placeholder = 'Search services, products, blog posts...';
             searchInput.addEventListener('input', (e) => {
                 const query = e.target.value.toLowerCase().trim();
                 
-                if (query.length >= 1) {
+                if (query.length >= 3) {
                     const matches = searchDatabase.filter(item => 
                         item.title.toLowerCase().includes(query) || 
                         item.keywords.some(k => k.includes(query))
@@ -268,16 +260,31 @@
             }
         });
 
+        // ===== MOBILE DROPDOWN TOGGLE =====
+        const dropdownToggles = document.querySelectorAll('.nav-dropdown .dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 900) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const parent = toggle.closest('.nav-dropdown');
+                    if (parent) {
+                        parent.classList.toggle('active');
+                    }
+                }
+            });
+        });
+
         // ===== ACTIVE LINK HIGHLIGHTING =====
 
         updateActiveLink();
 
         function updateActiveLink() {
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const allNavLinks = document.querySelectorAll('.nav-link');
+            const allNavLinks = document.querySelectorAll('.nav-link, .dropdown-item');
 
             allNavLinks.forEach(link => {
-                const linkPage = link.getAttribute('href');
+                const linkPage = link.getAttribute('href') ? link.getAttribute('href').split('/').pop() : '';
 
                 // Remove active from all
                 link.classList.remove('active');
@@ -289,6 +296,14 @@
                     link.classList.add('active');
                 }
             });
+
+            // If current page is ats.html or crm.html, highlight the Product toggle
+            if (currentPage === 'ats.html' || currentPage === 'crm.html') {
+                const productToggle = document.querySelector('.nav-dropdown .dropdown-toggle');
+                if (productToggle) {
+                    productToggle.classList.add('active');
+                }
+            }
         }
 
         // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
