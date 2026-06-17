@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>
-  <link rel="icon" type="image/png" href="public/assets/logo.png" />Contact Us | MineHR</title>
+  <link rel="icon" type="image/png" href="public/assets/logo.png" />
+  <title>Contact Us | MineHR Solutions</title>
     <meta name="description" content="Contact MineHR Solutions for expert HR, IT, and business services. Get in touch for recruitment, payroll, web development, and more.">
     <meta name="keywords" content="MineHR, contact, HR services, IT solutions, recruitment, payroll, web development">
     <meta name="robots" content="index, follow">
@@ -203,7 +203,40 @@
           </div>
            <div class="row">
             <input type="text" name="company" placeholder="Company Name *" required>
-            <input type="tel" name="contact_number" placeholder="Contact Number *" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" maxlength="10" required>
+            <input type="tel" name="contact_number" placeholder="Contact Number (e.g. +91 9898989898) *" maxlength="17" required>
+          </div>
+          <div class="custom-select-wrapper">
+            <div class="custom-select">
+              <div class="custom-select-trigger">
+                <span>Select Subject / Service of Interest *</span>
+                <div class="arrow"></div>
+              </div>
+              <div class="custom-options">
+                <span class="custom-option" data-value="HRMS Software">HRMS Software</span>
+                <span class="custom-option" data-value="Payroll Management">Payroll Management</span>
+                <span class="custom-option" data-value="Recruitment & Staffing">Recruitment & Staffing</span>
+                <span class="custom-option" data-value="End-to-End HR Services">End-to-End HR Services</span>
+                <span class="custom-option" data-value="CRM Solutions">CRM Solutions</span>
+                <span class="custom-option" data-value="Web Development">Web Development</span>
+                <span class="custom-option" data-value="Logo & Branding">Logo & Branding</span>
+                <span class="custom-option" data-value="Custom Software">Custom Software</span>
+                <span class="custom-option" data-value="IT Support & Maintenance">IT Support & Maintenance</span>
+                <span class="custom-option" data-value="Other Inquiry">Other Inquiry</span>
+              </div>
+            </div>
+            <select name="subject" required style="display: none;">
+              <option value="" disabled selected>Select Subject / Service of Interest *</option>
+              <option value="HRMS Software">HRMS Software</option>
+              <option value="Payroll Management">Payroll Management</option>
+              <option value="Recruitment & Staffing">Recruitment & Staffing</option>
+              <option value="End-to-End HR Services">End-to-End HR Services</option>
+              <option value="CRM Solutions">CRM Solutions</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Logo & Branding">Logo & Branding</option>
+              <option value="Custom Software">Custom Software</option>
+              <option value="IT Support & Maintenance">IT Support & Maintenance</option>
+              <option value="Other Inquiry">Other Inquiry</option>
+            </select>
           </div>
           <textarea name="message" placeholder="Your message" rows="5" required></textarea>        
 
@@ -235,12 +268,15 @@
       <span>📧 Email: Contact@minehrsolutions.com</span>
       <span>📞 Phone: +91 75740 63353</span>
     </div>
-    <!-- MAP SECTION -->
-<div class="contact-map">
+    <div class="contact-map">
   <iframe 
-    src="https://www.google.com/maps?q=509,Ananta+elysium,Hill+town+circle,ankur+chokadi,New+india+colony,ankur+tenament,Nikol,Ahmedabad,380049&output=embed"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6362197527554!2d72.6541!3d23.0414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b4e704c77b%3A0x4a035a78b691ded6!2sMineHR%20Solutions!5e0!3m2!1sen!2sin!4v1718600000000!5m2!1sen!2sin"
+    width="100%"
+    height="100%"
+    style="border:0;"
     allowfullscreen=""
-    loading="lazy">
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 </div>
 
@@ -259,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
       if (!privacy.checked) {
         e.preventDefault();
-        alert('Please agree to the privacy policy before submitting.');
+        // Handled by contact-handler.js
       }
     });
   }

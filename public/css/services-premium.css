@@ -839,16 +839,28 @@ body {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;
         padding: 0 24px !important;
+        align-items: stretch !important;
     }
 
     .service-card-premium {
         margin-bottom: 0 !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .service-card-inner {
-        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 1 auto !important;
         gap: 16px !important;
         padding: 24px !important;
+    }
+
+    .service-content {
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .service-icon-premium {
@@ -926,13 +938,57 @@ body {
     }
 
     .filter-tabs {
-        flex-wrap: wrap;
-        gap: 8px;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        row-gap: 12px;
+        padding: 0 8px;
     }
 
     .filter-tab {
         font-size: 13px;
-        padding: 10px 16px;
+        padding: 6px 8px;
+    }
+
+    .filter-tab[data-category="all"] {
+        grid-column: 1 / span 3;
+        justify-self: center;
+        margin-bottom: 8px;
+        font-size: 14px;
+        padding: 10px 24px;
+    }
+
+    .filter-tab:not([data-category="all"]) {
+        border: none !important;
+        background: transparent !important;
+        color: var(--gray-600) !important;
+        border-radius: 0 !important;
+        padding: 4px 6px !important;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .filter-tab:not([data-category="all"]):hover {
+        color: var(--primary-600) !important;
+    }
+
+    .filter-tab:not([data-category="all"]).active {
+        color: var(--primary-600) !important;
+        font-weight: 700 !important;
+    }
+
+    .filter-tab[data-category="hr"]::after,
+    .filter-tab[data-category="tech"]::after {
+        content: "|";
+        margin-left: 12px;
+        color: var(--gray-300);
+        font-weight: 300;
+        pointer-events: none;
     }
 
     .services-premium-section .container-wide {
@@ -979,12 +1035,23 @@ body {
     }
 
     .filter-tabs {
-        gap: 6px;
+        gap: 0;
+        row-gap: 8px;
     }
 
     .filter-tab {
         font-size: 12px;
-        padding: 8px 12px;
+        padding: 4px 6px;
+    }
+
+    .filter-tab[data-category="all"] {
+        font-size: 13px;
+        padding: 8px 18px;
+    }
+
+    .filter-tab[data-category="hr"]::after,
+    .filter-tab[data-category="tech"]::after {
+        margin-left: 8px;
     }
 
     .services-premium-section .container-wide {

@@ -38,7 +38,7 @@ function getPool() {
 // Contact form API
 app.post('/api/contact', async (req, res) => {
   const { name, email, contact_number, company, message } = req.body;
-  if (!name || !email || !message) {
+  if (!name || !email || !contact_number || !company) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 

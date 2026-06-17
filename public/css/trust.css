@@ -488,4 +488,114 @@ body {
     .cta-buttons {
         flex-direction: column;
     }
+
+    .mobile-break br {
+        display: block !important;
+    }
+}
+
+.mobile-break br {
+    display: none;
+}
+
+/* =========================================================
+   DARK THEME OVERRIDES FOR TRUST PAGE
+   ========================================================= */
+[data-theme="dark"] .bg-light {
+    background: #0f172a;
+}
+
+[data-theme="dark"] .section-title {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .section-desc {
+    color: #cbd5e1;
+}
+
+/* Why Companies Choose Us Features Grid */
+[data-theme="dark"] .feature-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .feature-card:hover {
+    background: #1e293b;
+    border-color: #d946ef;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .feature-card h3 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .feature-card p {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .feature-icon {
+    background: rgba(79, 70, 229, 0.2);
+}
+
+/* Process Section */
+[data-theme="dark"] .step-number {
+    border-color: #0f172a;
+    box-shadow: 0 0 0 4px #1e1b4b;
+}
+
+[data-theme="dark"] .step-content {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .step-content h3 {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .step-content p {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .process-step:hover .step-content {
+    border-left: 5px solid #4f46e5;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Stats Section */
+[data-theme="dark"] .trust-stat {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .stat-num {
+    color: #818cf8;
+}
+
+[data-theme="dark"] .stat-label {
+    color: #94a3b8;
+}
+
+/* Testimonials Section */
+[data-theme="dark"] .testimonial-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .testimonial-text {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .quote-icon {
+    color: rgba(79, 70, 229, 0.15);
+}
+
+[data-theme="dark"] .client-info strong {
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .client-info span {
+    color: #818cf8;
 }

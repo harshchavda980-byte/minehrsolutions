@@ -630,6 +630,21 @@ section {
   z-index: -1;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
 .form-group label {
   display: block;
   font-weight: 600;
@@ -776,4 +791,278 @@ section {
 
 .ats-quick-nav-link .icon {
   font-size: 1.2rem;
+}
+
+/* ================= NEW CONTACT INFO STYLING ================= */
+.contact-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info h2 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.contact-info h2 span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.contact-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebar-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.sidebar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+}
+
+.sidebar-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--primary);
+  padding-left: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Core Features List */
+.sidebar-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sidebar-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.feat-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(37, 99, 235, 0.06);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-features-list li strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+}
+
+.sidebar-features-list li p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Support Benefits Grid */
+.support-benefits-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.support-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.support-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(16, 185, 129, 0.06);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.support-item strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+}
+
+.support-item p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Dark Mode overrides for Sidebar Cards */
+[data-theme="dark"] .sidebar-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .sidebar-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+[data-theme="dark"] .feat-icon {
+  background: rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="dark"] .support-icon {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+}
+
+/* ================= CONTACT TRUST SECTION ================= */
+.contact-trust-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  background: var(--white);
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.contact-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+/* Simple divider line on desktop */
+.contact-trust-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -15px;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: #e2e8f0;
+}
+
+.contact-trust-item strong {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.contact-trust-item span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Dark Theme overrides */
+[data-theme="dark"] .contact-trust-section {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .contact-trust-item:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .contact-trust-item strong {
+  color: #60a5fa;
+}
+
+@media (max-width: 900px) {
+  .contact-trust-section {
+    margin-bottom: 3.5rem;
+    padding: 30px 20px;
+    gap: 20px;
+  }
+  .contact-trust-item strong {
+    font-size: 38px;
+  }
+  .contact-trust-item span {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-trust-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .contact-trust-item:not(:last-child)::after {
+    display: none;
+  }
+  .contact-trust-item {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 20px;
+  }
+  .contact-trust-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  [data-theme="dark"] .contact-trust-item {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
 }

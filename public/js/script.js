@@ -70,56 +70,49 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// Stats counting animation script
-
+// Stats counting animation script using IntersectionObserver
 const counters = document.querySelectorAll(".stat-number");
-let started = false;
+const statsSection = document.querySelector(".stats-section");
 
-function startCounting() {
-  if (started) return;
+if (statsSection && counters.length > 0) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        counters.forEach(counter => {
+          const target = +counter.getAttribute("data-target");
+          let count = 0;
+          const increment = target / 100;
 
-  const section = document.querySelector(".stats-section");
-  const sectionTop = section.getBoundingClientRect().top;
-  const screenHeight = window.innerHeight;
-
-  if (sectionTop < screenHeight - 100) {
-    counters.forEach(counter => {
-      const target = +counter.getAttribute("data-target");
-      const isPercent = counter.nextElementSibling.textContent.includes("%");
-      let count = 0;
-
-      const increment = target / 100;
-
-      const updateCounter = () => {
-        count += increment;
-        if (count < target) {
-          counter.textContent = Math.ceil(count);
-          requestAnimationFrame(updateCounter);
-        } else {
-          counter.textContent = target;
-          if (counter.getAttribute("data-target") == "1800") {
-            counter.textContent = "1.8K+";
-          }
-          if (counter.getAttribute("data-target") == "48") {
-            counter.textContent = "48%+";
-          }
-          if (counter.getAttribute("data-target") == "11") {
-            counter.textContent = "11+";
-          }
-          if (counter.getAttribute("data-target") == "3") {
-            counter.textContent = "3";
-          }
-        }
-      };
-
-      updateCounter();
+          const updateCounter = () => {
+            count += increment;
+            if (count < target) {
+              counter.textContent = Math.ceil(count);
+              requestAnimationFrame(updateCounter);
+            } else {
+              if (target === 1800) {
+                counter.textContent = "1.8K+";
+              } else if (target === 48) {
+                counter.textContent = "48%+";
+              } else if (target === 11) {
+                counter.textContent = "11+";
+              } else if (target === 3) {
+                counter.textContent = "3";
+              } else {
+                counter.textContent = target;
+              }
+            }
+          };
+          updateCounter();
+        });
+        observer.unobserve(statsSection);
+      }
     });
+  }, {
+    threshold: 0.1 // Trigger when 10% of the section is visible
+  });
 
-    started = true;
-  }
+  observer.observe(statsSection);
 }
-
-window.addEventListener("scroll", startCounting);
 
 
 

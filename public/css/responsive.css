@@ -203,23 +203,23 @@ img, video, iframe {
         display: none !important; /* Hide desktop CTA */
     }
 
-    /* Animated words static behavior on mobile to avoid overflow */
+    /* Animated words — keep cycling animation on mobile */
     .animated-words {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important;
-        margin-top: 10px !important;
+        display: inline-block !important;
+        height: 1.2em !important;
+        overflow: hidden !important;
+        margin-top: 4px !important;
+        vertical-align: bottom !important;
     }
 
     .animated-words span {
-        display: inline-block !important;
-        animation: none !important;
-        color: #cf61ff !important;
-        margin-right: 10px !important;
+        display: block !important;
+        animation: slideWords 10s infinite !important;
+        margin-right: 0 !important;
     }
 
     .animated-words span:not(:first-child) {
-        display: none !important; /* Show only first text in loop */
+        display: block !important;
     }
 
     /* Stacking grids to one column */
@@ -261,8 +261,29 @@ img, video, iframe {
     }
 
     .service-card-scroll {
-        min-width: 260px !important;
-        width: 260px !important;
+        min-width: 240px !important;
+        width: 240px !important;
+        height: fit-content !important;
+    }
+
+    .service-card-scroll .card-header {
+        height: 210px !important;
+    }
+
+    .service-card-scroll .card-icon {
+        width: 170px !important;
+        height: 170px !important;
+        padding: 6px !important;
+    }
+
+    .service-card-scroll .card-body {
+        padding: 16px 12px 20px !important;
+        gap: 10px !important;
+    }
+
+    .service-card-scroll h3 {
+        font-size: 16px !important;
+        margin-bottom: 0 !important;
     }
 
     /* Timeline Adjustments */

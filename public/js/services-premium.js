@@ -296,6 +296,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger initial nav update
     updateActiveNav();
 
+    // ===== TRUST SECTION STATS COUNTING ANIMATION =====
+    const trustCounters = document.querySelectorAll(".trust-stat-number");
+
+    if (trustCounters.length > 0) {
+        const trustObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute("data-target");
+                    if (isNaN(target)) return;
+
+                    let count = 0;
+                    const increment = target / 100;
+
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.textContent = Math.ceil(count);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                            // Add suffix back
+                            if (target === 100) {
+                                counter.textContent = "100+";
+                            } else if (target === 500) {
+                                counter.textContent = "500+";
+                            } else if (target === 98) {
+                                counter.textContent = "98%";
+                            } else if (target === 3) {
+                                counter.textContent = "3+";
+                            }
+                        }
+                    };
+
+                    updateCounter();
+                    trustObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        trustCounters.forEach(counter => trustObserver.observe(counter));
+    }
+
     console.log('Premium Services page initialized ✨');
 
 });
