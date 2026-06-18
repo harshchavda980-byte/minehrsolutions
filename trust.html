@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="public/components/navbar-premium.css" />
+    <link rel="stylesheet" href="public/components/navbar-premium.css?v=1.2" />
     <link rel="stylesheet" href="public/css/styles.css" />
     <link rel="stylesheet" href="public/css/trust.css" />
     <link rel="stylesheet" href="public/css/responsive.css" />
@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="public/css/dark-theme.css" />
 </head>
 
 <body>
@@ -169,10 +170,31 @@
 
     <!-- ================= HERO SECTION ================= -->
     <section class="trust-hero">
+
+        <!-- Decorative floating particles -->
+        <div class="trust-hero-dots" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+
         <div class="trust-hero-content">
+            <!-- Eyebrow label -->
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow-dot"></span>
+                Trusted by Businesses Across India
+            </div>
+
             <h1 class="hero-title">Built on Trust. <span class="gradient-text">Driven by Results.</span></h1>
-            <p class="hero-subtext">From HRMS and Payroll to Custom Software and IT Support, we help businesses grow
-                with secure, reliable, and scalable solutions.</p>
+            <p class="hero-subtext">From HRMS and Payroll to Custom Software and IT Support, we help
+                businesses grow with secure, reliable, and scalable solutions.</p>
+
+            <!-- CTA Button -->
+            <a href="contact.html" class="hero-cta" id="trust-hero-cta">
+                Talk to Our Experts
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
 
             <div class="trust-badges">
                 <div class="badge-item">
@@ -398,10 +420,12 @@
           <div class="footer-col">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="trust.html">Trust</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="index.html" data-footer-link="index.html">Home</a></li>
+              <li><a href="trust.html" data-footer-link="trust.html">Trust</a></li>
+              <li><a href="services.html" data-footer-link="services.html">Services</a></li>
+              <li><a href="career.html" data-footer-link="career.html">Career</a></li>
+              <li><a href="blog.html" data-footer-link="blog.html">Blog</a></li>
+              <li><a href="contact.html" data-footer-link="contact.html">Contact Us</a></li>
             </ul>
           </div>
 
@@ -475,7 +499,7 @@
         </div>
     </footer>
 
-    <script src="public/components/navbar-premium.js"></script>
+    <script src="public/components/navbar-premium.js?v=1.2"></script>
     <script src="public/js/trust.js"></script>
 </body>
 

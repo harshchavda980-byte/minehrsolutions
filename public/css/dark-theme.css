@@ -1,0 +1,741 @@
+/* =========================================================
+   GLOBAL DARK THEME — MineHR Solutions
+   Covers: All pages (blog, crm, ats, career, contact, index)
+   Applied via [data-theme="dark"] on <html>
+   ========================================================= */
+
+/* ===== BASE — body & text ===== */
+[data-theme="dark"] {
+    --dark: #f1f5f9;
+    --gray: #cbd5e1;
+}
+
+[data-theme="dark"] body {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+/* ===== BLOG PAGE ===== */
+
+[data-theme="dark"] .blog-wrapper .blog-card,
+[data-theme="dark"] .blog-card {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+}
+
+[data-theme="dark"] .blog-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45) !important;
+    border-color: #4f46e5 !important;
+}
+
+[data-theme="dark"] .blog-card h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .blog-card p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .blog-card .meta,
+[data-theme="dark"] .meta {
+    color: #818cf8 !important;
+}
+
+/* Blog page body/hero bg */
+[data-theme="dark"] .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
+}
+
+/* Featured section */
+[data-theme="dark"] .featured {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .featured-content h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .featured-content p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .featured-content .meta {
+    color: #818cf8 !important;
+}
+
+[data-theme="dark"] .featured-content button {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+}
+
+/* Pagination */
+[data-theme="dark"] .pagination button {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .pagination button.active {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #4f46e5 !important;
+}
+
+/* Blog detail page */
+[data-theme="dark"] .detail-container,
+[data-theme="dark"] .blog-detail-container {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35) !important;
+}
+
+[data-theme="dark"] .detail-container h1,
+[data-theme="dark"] .detail-container h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .detail-container p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .back-btn {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+}
+
+/* Demo modal (blog) */
+[data-theme="dark"] .demo-container {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .demo-container h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .demo-subtext {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .demo-form input,
+[data-theme="dark"] .demo-form textarea {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .demo-form input:focus,
+[data-theme="dark"] .demo-form textarea:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
+}
+
+/* ===== CRM PAGE ===== */
+
+[data-theme="dark"] .crm-features {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .section-header h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .section-header p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .crm-features .feature-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
+}
+
+[data-theme="dark"] .crm-features .feature-card:hover {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+}
+
+[data-theme="dark"] .crm-features .feature-card h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .crm-features .feature-card p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .crm-benefits {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .benefits-inner {
+    background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+    border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .benefits-title h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .benefits-title p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .benefit-item {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+    box-shadow: none !important;
+}
+
+/* ===== ATS PAGE ===== */
+
+[data-theme="dark"] .ats-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+}
+
+[data-theme="dark"] .ats-hero-content h1 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .ats-hero-content p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #334155 !important;
+}
+
+[data-theme="dark"] .ats-demo {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .demo-wrapper h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .demo-wrapper p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .ats-contact {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .contact-info h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .contact-info p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .contact-form-wrapper {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,0.4) !important;
+}
+
+[data-theme="dark"] .form-group label {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    border-color: #2563eb !important;
+    background: #0f172a !important;
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.15) !important;
+}
+
+/* ATS Trial Banner */
+[data-theme="dark"] .trial-banner {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .trial-banner h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .trial-banner p {
+    color: #94a3b8 !important;
+}
+
+/* ATS Pricing non-featured plan button (Removed to allow redesigned gradients on ats.html) */
+/*
+[data-theme="dark"] .btn-plan:not(.featured .btn-plan) {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .btn-plan:not(.featured .btn-plan):hover {
+    background: #475569 !important;
+}
+*/
+
+/* ===== CONTACT PAGE ===== */
+
+[data-theme="dark"] .contact-split {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .contact-left-card {
+    background: #1e293b !important;
+}
+
+[data-theme="dark"] .left-slide {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .left-slide h2,
+[data-theme="dark"] .left-slide h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .left-slide p {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .contact-left-card h1,
+[data-theme="dark"] .contact-form-card h1,
+[data-theme="dark"] .left-slide h1.main-title {
+    background: linear-gradient(90deg, #f1f5f9, #a78bfa) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="dark"] .intro {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .feature-item,
+[data-theme="dark"] .feature-list li {
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .feature-list li::before {
+    color: #a78bfa !important;
+}
+
+[data-theme="dark"] .support-text {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .support-text a {
+    color: #c084fc !important;
+}
+
+[data-theme="dark"] .contact-form {
+    background: #1e293b !important;
+}
+
+[data-theme="dark"] .contact-form h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form textarea,
+[data-theme="dark"] .contact-form select {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .contact-form input::placeholder,
+[data-theme="dark"] .contact-form textarea::placeholder {
+    color: #64748b !important;
+}
+
+[data-theme="dark"] .contact-form input:focus,
+[data-theme="dark"] .contact-form textarea:focus,
+[data-theme="dark"] .contact-form select:focus {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.2) !important;
+}
+
+[data-theme="dark"] .contact-form label {
+    color: #cbd5e1 !important;
+}
+
+/* Custom Select Component Dark Mode */
+[data-theme="dark"] .custom-select-trigger {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .custom-select-trigger:hover,
+[data-theme="dark"] .custom-select.open .custom-select-trigger {
+    border-color: #7b5cff !important;
+    box-shadow: 0 0 0 3px rgba(123, 92, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .custom-options {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .custom-option {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .custom-option:hover {
+    background: #1e293b !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .custom-option.selected {
+    background: rgba(123, 92, 255, 0.15) !important;
+    color: #7b5cff !important;
+}
+
+[data-theme="dark"] .custom-select-trigger .arrow::before,
+[data-theme="dark"] .custom-select-trigger .arrow::after {
+    background-color: #7b5cff !important;
+}
+
+[data-theme="dark"] .custom-options::-webkit-scrollbar-track {
+    background: #1e293b !important;
+}
+
+[data-theme="dark"] .custom-options::-webkit-scrollbar-thumb {
+    background: #334155 !important;
+}
+
+[data-theme="dark"] .custom-options::-webkit-scrollbar-thumb:hover {
+    background: #7b5cff !important;
+}
+
+/* Privacy Link Gradient Dark Mode */
+[data-theme="dark"] #privacyPolicyLink {
+    background-image: linear-gradient(90deg, #a5b4fc, #38bdf8) !important;
+}
+
+[data-theme="dark"] #privacyPolicyLink:hover {
+    background-image: linear-gradient(90deg, #38bdf8, #a5b4fc) !important;
+}
+
+/* Privacy Policy Modal Dark Mode */
+[data-theme="dark"] .modal {
+    background: rgba(2, 6, 23, 0.8) !important;
+}
+
+[data-theme="dark"] .modal-content {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .modal-content h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .close {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .close:hover {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .policy-text h3 {
+    color: #a5b4fc !important;
+}
+
+[data-theme="dark"] .policy-text p,
+[data-theme="dark"] .policy-text li {
+    color: #cbd5e1 !important;
+}
+
+/* ===== INDEX / HOME PAGE ===== */
+
+[data-theme="dark"] body:not([class]) {
+    background-color: #0f172a !important;
+}
+
+/* Hero banner on home - already an image, but overlay text */
+[data-theme="dark"] .hero-content h1 {
+    color: #ffffff !important;
+}
+
+/* ===== GLOBAL SHARED COMPONENTS ===== */
+
+/* Generic white/light section backgrounds */
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] section.bg-white,
+[data-theme="dark"] .bg-light-page {
+    background: #0f172a !important;
+}
+
+/* Generic card patterns */
+[data-theme="dark"] .card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Generic form inputs (catch-all) */
+[data-theme="dark"] input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Generic headings in main content — scoped to avoid overriding card internals */
+[data-theme="dark"] main > h1,
+[data-theme="dark"] main > h2,
+[data-theme="dark"] main > h3,
+[data-theme="dark"] main > h4,
+[data-theme="dark"] main > section h1,
+[data-theme="dark"] main > section h2,
+[data-theme="dark"] main > section h3 {
+    color: #f1f5f9;
+}
+
+/* Modals (generic) */
+[data-theme="dark"] .modal-box,
+[data-theme="dark"] .apply-form-box,
+[data-theme="dark"] .job-modal-box,
+[data-theme="dark"] .success-box {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #334155 !important;
+}
+
+/* Tables */
+[data-theme="dark"] table {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] th {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] td {
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+/* Scrollbar dark mode */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* =========================================================
+   SERVICES PAGE — DARK THEME
+   ========================================================= */
+
+/* Page & section backgrounds */
+[data-theme="dark"] .services-premium-section {
+    background: #0d1526 !important;
+}
+
+[data-theme="dark"] .filter-section {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-bottom-color: #1e293b !important;
+}
+
+/* Filter tabs */
+[data-theme="dark"] .filter-tab {
+    background: transparent !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .filter-tab:hover {
+    border-color: #6366f1 !important;
+    color: #818cf8 !important;
+}
+
+[data-theme="dark"] .filter-tab.active {
+    background: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+    color: #ffffff !important;
+}
+
+/* ── Service cards ── */
+[data-theme="dark"] .service-card-premium {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+[data-theme="dark"] .service-card-premium:hover {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Service icon box */
+[data-theme="dark"] .service-icon-premium {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border: 1px solid #334155;
+}
+
+/* Service title */
+[data-theme="dark"] .service-title {
+    color: #f1f5f9 !important;
+}
+
+/* Service description */
+[data-theme="dark"] .service-description {
+    color: #94a3b8 !important;
+}
+
+/* Benefit items — the checkmark rows */
+[data-theme="dark"] .benefit-item {
+    color: #cbd5e1 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Service meta line */
+[data-theme="dark"] .service-use-case {
+    color: #64748b !important;
+}
+
+[data-theme="dark"] .service-trust {
+    color: #818cf8 !important;
+}
+
+/* Service badge */
+[data-theme="dark"] .service-badge {
+    background: rgba(79, 70, 229, 0.2) !important;
+    color: #a5b4fc !important;
+}
+
+[data-theme="dark"] .service-badge.badge-tech {
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: #34d399 !important;
+}
+
+/* "Learn More" expand button */
+[data-theme="dark"] .btn-expand {
+    background: transparent !important;
+    border-color: #475569 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .btn-expand:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: #6366f1 !important;
+    color: #818cf8 !important;
+}
+
+/* Expanded detail panel */
+[data-theme="dark"] .service-expanded-content {
+    background: #0f172a !important;
+    border-top-color: #334155 !important;
+}
+
+[data-theme="dark"] .expanded-inner h3 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .features-list li {
+    color: #94a3b8 !important;
+}
+
+/* Trust section at bottom of services page */
+[data-theme="dark"] .trust-section {
+    background: #0f172a !important;
+}
+
+[data-theme="dark"] .section-title-center {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .trust-stat-label {
+    color: #94a3b8 !important;
+}
+
+/* Side navigation */
+[data-theme="dark"] .sidenav-link {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .sidenav-link:hover,
+[data-theme="dark"] .sidenav-link.active {
+    background: rgba(79, 70, 229, 0.15) !important;
+    border-color: #4f46e5 !important;
+    color: #818cf8 !important;
+}
+
+/* ===== SERVICE DETAIL PAGES — DARK THEME ===== */
+[data-theme="dark"] .service-detail-content h2 {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .service-detail-content h3 {
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .service-detail-content p,
+[data-theme="dark"] .service-detail-content li {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .service-detail-content strong {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .back-link {
+    color: #60a5fa !important;
+}
+
+/* ===== TRANSITION — smooth theme switch ===== */
+*,
+*::before,
+*::after {
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Exclude elements where transitions cause flicker */
+img, svg, video, canvas, .theme-icon, .logo-img {
+    transition: none !important;
+}

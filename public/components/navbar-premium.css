@@ -656,7 +656,7 @@
 
     .nav-dropdown .dropdown-menu {
         position: static;
-        transform: none;
+        transform: none !important;
         opacity: 1;
         visibility: visible;
         box-shadow: none;
@@ -682,8 +682,10 @@
         padding: 10px 16px;
     }
     
-    .dropdown-item:hover {
-        transform: none;
+    .dropdown-item:hover,
+    .dropdown-item:active,
+    .dropdown-item:focus {
+        transform: none !important;
     }
 
     .navbar-actions .nav-cta-btn {

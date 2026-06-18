@@ -228,29 +228,38 @@
         }
 
         function toggleMobileMenu() {
+            const isOpening = !navMenu?.classList.contains('active');
             mobileMenuToggle?.classList.toggle('active');
             navMenu?.classList.toggle('active');
 
             // Prevent body scroll when menu is open
-            if (navMenu?.classList.contains('active')) {
+            if (isOpening) {
                 document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = '';
+                // Collapse any open dropdowns when closing menu
+                closeAllDropdowns();
             }
         }
 
-        // Close mobile menu when clicking on a link
+        function closeAllDropdowns() {
+            document.querySelectorAll('.nav-dropdown.active').forEach(dd => {
+                dd.classList.remove('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (excluding the dropdown toggles)
         if (navMenu) {
-            const navLinks = navMenu.querySelectorAll('.nav-link, .nav-cta-btn');
+            const navLinks = navMenu.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .nav-cta-btn');
             navLinks.forEach(link => {
                 link.addEventListener('click', closeMobileMenu);
             });
         }
-
         function closeMobileMenu() {
             mobileMenuToggle?.classList.remove('active');
             navMenu?.classList.remove('active');
             document.body.style.overflow = '';
+            closeAllDropdowns();
         }
 
         // Close mobile menu when clicking outside
@@ -263,13 +272,21 @@
         // ===== MOBILE DROPDOWN TOGGLE =====
         const dropdownToggles = document.querySelectorAll('.nav-dropdown .dropdown-toggle');
         dropdownToggles.forEach(toggle => {
+            // Remove inline onclick to avoid conflicts with our handler
+            toggle.removeAttribute('onclick');
             toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // Only toggle dropdown in mobile view
                 if (window.innerWidth <= 900) {
-                    e.preventDefault();
-                    e.stopPropagation();
                     const parent = toggle.closest('.nav-dropdown');
                     if (parent) {
-                        parent.classList.toggle('active');
+                        const isAlreadyOpen = parent.classList.contains('active');
+                        // Close all first, then open this one if it was closed
+                        closeAllDropdowns();
+                        if (!isAlreadyOpen) {
+                            parent.classList.add('active');
+                        }
                     }
                 }
             });
@@ -298,10 +315,16 @@
             });
 
             // If current page is ats.html or crm.html, highlight the Product toggle
+            // but do NOT open the dropdown (do not add 'active' to .nav-dropdown parent)
             if (currentPage === 'ats.html' || currentPage === 'crm.html') {
                 const productToggle = document.querySelector('.nav-dropdown .dropdown-toggle');
                 if (productToggle) {
                     productToggle.classList.add('active');
+                    // Explicitly ensure the parent .nav-dropdown does NOT have 'active'
+                    const navDropdown = productToggle.closest('.nav-dropdown');
+                    if (navDropdown) {
+                        navDropdown.classList.remove('active');
+                    }
                 }
             }
         }
@@ -370,6 +393,37 @@
         const debouncedScroll = debounce(handleScroll, 10);
         window.removeEventListener('scroll', handleScroll);
         window.addEventListener('scroll', debouncedScroll);
+
+        // ===== FOOTER: AUTO-HIDE CURRENT PAGE LINK FROM QUICK LINKS =====
+        try {
+            const pathParts = window.location.pathname.split('/');
+            let currentPage = pathParts[pathParts.length - 1] || 'index.html';
+            
+            // Normalize current page (e.g. "trust.html" -> "trust", or "trust/" -> "trust")
+            let currentPageBase = currentPage.replace(/\.html$/, '').trim();
+            if (!currentPageBase || currentPageBase === 'index') {
+                currentPageBase = 'index';
+            }
+
+            const footerLinks = document.querySelectorAll('[data-footer-link]');
+            footerLinks.forEach(link => {
+                const footerVal = link.getAttribute('data-footer-link');
+                if (footerVal) {
+                    const footerValBase = footerVal.replace(/\.html$/, '').trim();
+                    if (footerValBase === currentPageBase) {
+                        // Hide the parent <li> element to keep the list clean
+                        const parentLi = link.closest('li');
+                        if (parentLi) {
+                            parentLi.style.display = 'none';
+                        } else {
+                            link.style.display = 'none';
+                        }
+                    }
+                }
+            });
+        } catch (e) {
+            console.error('Error auto-hiding footer link:', e);
+        }
 
         // ===== INITIALIZATION COMPLETE =====
 

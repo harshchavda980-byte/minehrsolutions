@@ -116,7 +116,7 @@ if (statsSection && counters.length > 0) {
 
 
 
-// ===== SERVICES INFINITE MARQUEE SCROLL =====
+// ===== SERVICES INFINITE MARQUEE SCROLL (AUTO & MANUAL) =====
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".services-scroll-container");
   if (!container) return;
@@ -132,51 +132,158 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let scrollPos = 0;
   let isHovered = false;
+  let isMouseOver = false;
+  let isDragging = false;
+  let startX = 0;
+  let dragScrollPos = 0;
+  let moved = false;
+  let resumeTimeout = null;
   let animationFrameId;
 
-  // Set gap and display
+  // Set initial style properties
   container.style.display = "flex";
   container.style.gap = "30px";
   container.style.overflow = "hidden";
   container.style.width = "max-content";
+  container.style.cursor = "grab";
 
-  // Wrap container in a parent that hides overflow (done in css by .services-scroll-section)
-  
+  function updateScrollPos(newVal) {
+    const firstCardWidth = cards[0].offsetWidth || 280;
+    const totalWidth = (firstCardWidth + 30) * cards.length;
+    
+    // Wrap around to keep scrollPos strictly between (-totalWidth, 0]
+    while (newVal > 0) {
+      newVal -= totalWidth;
+    }
+    while (newVal <= -totalWidth) {
+      newVal += totalWidth;
+    }
+    
+    scrollPos = newVal;
+    container.style.transform = `translateX(${scrollPos}px)`;
+  }
+
   function scroll() {
-    if (!isHovered) {
-      scrollPos -= 1.5; // Adjust speed
-      
-      // Calculate total width of original cards + gaps
-      const firstCardWidth = cards[0].offsetWidth;
+    if (!isHovered && !isDragging) {
+      const firstCardWidth = cards[0].offsetWidth || 280;
       const totalWidth = (firstCardWidth + 30) * cards.length;
       
-      // Reset if we've scrolled past the first set
-      if (Math.abs(scrollPos) >= totalWidth) {
-        scrollPos = 0;
+      let newVal = scrollPos - 1.5; // Adjust speed
+      
+      // Wrap around
+      while (newVal > 0) {
+        newVal -= totalWidth;
+      }
+      while (newVal <= -totalWidth) {
+        newVal += totalWidth;
       }
       
+      scrollPos = newVal;
       container.style.transform = `translateX(${scrollPos}px)`;
     }
     animationFrameId = requestAnimationFrame(scroll);
   }
 
-  container.addEventListener("mouseenter", () => {
+  function handleStart(clientX) {
+    isDragging = true;
     isHovered = true;
+    startX = clientX;
+    dragScrollPos = scrollPos;
+    container.style.cursor = "grabbing";
+    moved = false;
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+  }
+
+  function handleMove(clientX) {
+    if (!isDragging) return;
+    const dx = clientX - startX;
+    if (Math.abs(dx) > 5) {
+      moved = true;
+    }
+    updateScrollPos(dragScrollPos + dx);
+  }
+
+  function handleEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    container.style.cursor = "grab";
+    
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(() => {
+      if (!isMouseOver) {
+        isHovered = false;
+      }
+    }, 2000); // Resume auto scroll after 2s of inactivity if not hovering
+  }
+
+  // Mouse drag events
+  container.addEventListener("mousedown", (e) => {
+    e.preventDefault(); // Prevents image drag ghosting & text selection
+    handleStart(e.clientX);
   });
 
-  container.addEventListener("mouseleave", () => {
-    isHovered = false;
+  window.addEventListener("mousemove", (e) => {
+    handleMove(e.clientX);
   });
 
-  // Handle touch events to pause on mobile
-  container.addEventListener("touchstart", () => {
-    isHovered = true;
+  window.addEventListener("mouseup", () => {
+    handleEnd();
+  });
+
+  // Touch drag events
+  container.addEventListener("touchstart", (e) => {
+    handleStart(e.touches[0].clientX);
+  }, { passive: true });
+
+  container.addEventListener("touchmove", (e) => {
+    handleMove(e.touches[0].clientX);
   }, { passive: true });
 
   container.addEventListener("touchend", () => {
-    isHovered = false;
+    handleEnd();
   }, { passive: true });
 
+  // Prevent link click action if dragging occurred
+  container.addEventListener("click", (e) => {
+    if (moved) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true); // Use capture phase to intercept click before children get it
+
+  // Mouse hover pause events
+  container.addEventListener("mouseenter", () => {
+    isMouseOver = true;
+    isHovered = true;
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isMouseOver = false;
+    if (!isDragging) {
+      isHovered = false;
+    }
+  });
+
+  // Wheel scroll event
+  container.addEventListener("wheel", (e) => {
+    // Suppress vertical scrolling on the page when scrolling over the horizontal marquee container
+    e.preventDefault();
+    isHovered = true;
+    isMouseOver = true;
+    
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+
+    // Combine horizontal and vertical delta for horizontal scroll control
+    updateScrollPos(scrollPos - e.deltaY - e.deltaX);
+
+    resumeTimeout = setTimeout(() => {
+      if (!isMouseOver) {
+        isHovered = false;
+      }
+    }, 2000); // Resume after 2s if no longer hovering
+  }, { passive: false });
+
+  // Start the marquee animation loop
   scroll();
 });
-

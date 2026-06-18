@@ -833,6 +833,14 @@ body {
         display: none;
     }
 
+    .filter-section {
+        padding: 20px 0;
+    }
+
+    .services-premium-section {
+        padding: 28px 0 60px;
+    }
+
     /* 2 Column grid for service cards */
     .services-premium-section .container-wide {
         display: grid !important;
@@ -937,6 +945,14 @@ body {
         font-size: 15px;
     }
 
+    .filter-section {
+        padding: 16px 0;
+    }
+
+    .services-premium-section {
+        padding: 20px 0 40px;
+    }
+
     .filter-tabs {
         display: grid;
         grid-template-columns: auto auto auto;
@@ -1032,6 +1048,14 @@ body {
 
     .hero-subtitle {
         font-size: 14px;
+    }
+
+    .filter-section {
+        padding: 12px 0;
+    }
+
+    .services-premium-section {
+        padding: 16px 0 32px;
     }
 
     .filter-tabs {

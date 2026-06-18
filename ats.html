@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="public/favicon.png" />
-  <title>ATS / Recruiter CRM | MineHR</title>
+  <title>ATS / Recruiter CRM | MineHR Solutions</title>
   <meta name="description"
     content="Streamline your hiring process with MineHR’s user-friendly ATS and Recruiter CRM. Features AI CV extraction, bulk upload, and automated communication.">
   <link rel="shortcut icon" href="public/favicon.png" type="image/x-icon" />
 
-  <link rel="stylesheet" href="public/components/navbar-premium.css">
+  <link rel="stylesheet" href="public/components/navbar-premium.css?v=1.2">
   <link rel="stylesheet" href="public/css/styles.css">
   <link rel="stylesheet" href="public/css/ats.css">
   <link rel="stylesheet" href="public/css/responsive.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/dark-theme.css" />
 </head>
 
 <body>
@@ -267,107 +268,382 @@
   <section id="pricing" class="ats-pricing">
     <div class="container">
       <div class="section-header">
-        <h2>Choose the Ideal Plan</h2>
-        <p>Flexible pricing tailored to your recruitment scale.</p>
+        <span class="pricing-badge">PRICING</span>
+        <h2>Simple, Transparent Pricing</h2>
+        <p>Choose the perfect plan for your hiring journey. All plans include core ATS features.</p>
       </div>
 
       <div class="pricing-grid">
         <!-- Starter Plan -->
-        <div class="pricing-card">
+        <div class="pricing-card" data-plan="starter">
           <div class="pricing-header">
-            <h3>Starter Plan</h3>
-            <p class="plan-tagline">Essential hiring features</p>
+            <div class="plan-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plan-icon rocket-icon">
+                <path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5L18 5l-3-3L4.5 16.5Z"/>
+                <path d="m12 15-3-3"/>
+                <path d="M19 15h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2h-1"/>
+                <path d="M9 19v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1"/>
+              </svg>
+            </div>
+            <h3>Starter</h3>
+            <p class="plan-tagline">Perfect for small teams getting started with ATS.</p>
             <div class="price-container">
-              <span class="currency">₹</span>
-              <span class="amount">1,999</span>
-              <span class="duration">/ month</span>
+              <div class="price-value">
+                <span class="currency">₹</span>
+                <span class="amount">1,999</span>
+              </div>
+              <span class="duration">/month, billed annually</span>
             </div>
           </div>
           <ul class="plan-features">
-            <li>4 Recruiter Panels</li>
-            <li>Unlimited Job Posting</li>
-            <li>Free Applications</li>
-            <li>1,000 Auto SMS Free</li>
-            <li>Free Training + Installation</li>
-            <li>Dedicated Career Page</li>
-            <li>AI Driven CV Data Fetch</li>
-            <li>Bulk Data Upload / Download</li>
-            <li>Basic Support</li>
+            <li><span class="check-icon">✓</span>Up to 3 Users</li>
+            <li><span class="check-icon">✓</span>Up to 250 Active Jobs</li>
+            <li><span class="check-icon">✓</span>Resume Parsing</li>
+            <li><span class="check-icon">✓</span>Candidate Database</li>
+            <li><span class="check-icon">✓</span>Kanban Pipeline View</li>
+            <li><span class="check-icon">✓</span>Email Integrations</li>
+            <li><span class="check-icon">✓</span>Basic Reports</li>
+            <li><span class="check-icon">✓</span>Mobile Responsive</li>
           </ul>
-          <a href="#contact" class="btn-plan">Get Started Now</a>
+          <div class="plan-cta-wrapper">
+            <a href="#contact" class="btn-plan">
+              <span>Start Free Trial</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <p class="cta-subtext">14-day free trial • No credit card required</p>
+          </div>
         </div>
 
         <!-- Growth Plan -->
-        <div class="pricing-card featured">
-          <div class="popular-badge">Most Popular</div>
+        <div class="pricing-card featured" data-plan="growth">
+          <div class="popular-badge">
+            <svg class="star-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span>MOST POPULAR</span>
+          </div>
           <div class="pricing-header">
-            <h3>Growth Plan</h3>
-            <p class="plan-tagline">For growing recruitment teams</p>
+            <div class="plan-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plan-icon growth-icon">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <h3>Growth</h3>
+            <p class="plan-tagline">Ideal for growing teams scaling their hiring.</p>
             <div class="price-container">
-              <span class="currency">₹</span>
-              <span class="amount">4,999</span>
-              <span class="duration">/ month</span>
+              <div class="price-value">
+                <span class="currency">₹</span>
+                <span class="amount">4,999</span>
+              </div>
+              <span class="duration">/month, billed annually</span>
             </div>
           </div>
           <ul class="plan-features">
-            <li>10 Recruiter Panels</li>
-            <li>Unlimited Job Posting</li>
-            <li>Free Applications</li>
-            <li>2,500 Auto SMS Free</li>
-            <li>Free Training + Installation</li>
-            <li>Dedicated Career Page</li>
-            <li>AI Driven CV Data Fetch</li>
-            <li>Bulk Data Upload / Download</li>
-            <li>Auto Email Notifications</li>
-            <li>Priority Support</li>
+            <li><span class="check-icon">✓</span>Up to 10 Users</li>
+            <li><span class="check-icon">✓</span>Up to 1,000 Active Jobs</li>
+            <li><span class="check-icon">✓</span>All Starter Features</li>
+            <li><span class="check-icon">✓</span>Advanced Search & Filters</li>
+            <li><span class="check-icon">✓</span>Interview Scheduling</li>
+            <li><span class="check-icon">✓</span>Assessment Integrations</li>
+            <li><span class="check-icon">✓</span>Custom Career Page</li>
+            <li><span class="check-icon">✓</span>Advanced Reports</li>
+            <li><span class="check-icon">✓</span>Priority Email Support</li>
           </ul>
-          <a href="#contact" class="btn-plan">Unlock Access</a>
+          <div class="plan-cta-wrapper">
+            <a href="#contact" class="btn-plan">
+              <span>Get Started</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <p class="cta-subtext">14-day free trial • No credit card required</p>
+          </div>
         </div>
 
         <!-- Professional Plan -->
-        <div class="pricing-card">
+        <div class="pricing-card" data-plan="professional">
           <div class="pricing-header">
-            <h3>Professional Plan</h3>
-            <p class="plan-tagline">Advanced hiring automation</p>
+            <div class="plan-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plan-icon professional-icon">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <h3>Professional</h3>
+            <p class="plan-tagline">For established teams with advanced hiring needs.</p>
             <div class="price-container">
-              <span class="currency">₹</span>
-              <span class="amount">9,999</span>
-              <span class="duration">/ month</span>
+              <div class="price-value">
+                <span class="currency">₹</span>
+                <span class="amount">9,999</span>
+              </div>
+              <span class="duration">/month, billed annually</span>
             </div>
           </div>
           <ul class="plan-features">
-            <li>20 Recruiter Panels</li>
-            <li>Unlimited Job Posting</li>
-            <li>Free Applications</li>
-            <li>5,000 Auto SMS Free</li>
-            <li>Free Training + Installation</li>
-            <li>Dedicated Career Page</li>
-            <li>AI Driven CV Data Fetch</li>
-            <li>Bulk Data Upload / Download</li>
-            <li>Auto Email & WhatsApp Notifications</li>
-            <li>24/7 Priority Support</li>
+            <li><span class="check-icon">✓</span>Up to 25 Users</li>
+            <li><span class="check-icon">✓</span>Up to 5,000 Active Jobs</li>
+            <li><span class="check-icon">✓</span>All Growth Features</li>
+            <li><span class="check-icon">✓</span>Workflow Automation</li>
+            <li><span class="check-icon">✓</span>Offer Management</li>
+            <li><span class="check-icon">✓</span>Background Verification</li>
+            <li><span class="check-icon">✓</span>SSO & Role Permissions</li>
+            <li><span class="check-icon">✓</span>Advanced Analytics</li>
+            <li><span class="check-icon">✓</span>Priority Support</li>
           </ul>
-          <a href="#contact" class="btn-plan">Try Professional</a>
+          <div class="plan-cta-wrapper">
+            <a href="#contact" class="btn-plan">
+              <span>Get Started</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <p class="cta-subtext">14-day free trial • No credit card required</p>
+          </div>
         </div>
 
         <!-- Enterprise Plan -->
-        <div class="pricing-card">
+        <div class="pricing-card" data-plan="enterprise">
           <div class="pricing-header">
-            <h3>Enterprise Plan</h3>
-            <p class="plan-tagline">Tailored solutions for scale</p>
+            <div class="plan-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plan-icon enterprise-icon">
+                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/>
+                <path d="M5 20h14a2 2 0 0 0 2-2v-1H3v1a2 2 0 0 0 2 2z"/>
+              </svg>
+            </div>
+            <h3>Enterprise</h3>
+            <p class="plan-tagline">For large organizations with complex hiring at scale.</p>
             <div class="price-container">
-              <span class="amount" style="font-size: 2.8rem; font-weight: 800; white-space: nowrap;">Custom Pricing</span>
+              <div class="price-value">
+                <span class="amount custom-price-title">Custom Pricing</span>
+              </div>
+              <span class="duration">Tailored to your needs</span>
             </div>
           </div>
           <ul class="plan-features">
-            <li>Unlimited employees</li>
-            <li>Multi-location hiring</li>
-            <li>Custom integrations</li>
-            <li>White-label options</li>
-            <li>Dedicated support</li>
-            <li>SLA-based services</li>
+            <li><span class="check-icon">✓</span>Unlimited Users</li>
+            <li><span class="check-icon">✓</span>Unlimited Active Jobs</li>
+            <li><span class="check-icon">✓</span>All Professional Features</li>
+            <li><span class="check-icon">✓</span>API Access</li>
+            <li><span class="check-icon">✓</span>White Label</li>
+            <li><span class="check-icon">✓</span>Custom Workflow</li>
+            <li><span class="check-icon">✓</span>Dedicated Account Manager</li>
+            <li><span class="check-icon">✓</span>SLA & Uptime Guarantee</li>
+            <li><span class="check-icon">✓</span>Dedicated Support</li>
           </ul>
-          <a href="#contact" class="btn-plan">Contact Us</a>
+          <div class="plan-cta-wrapper">
+            <a href="#contact" class="btn-plan">
+              <span>Schedule Demo</span>
+              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <p class="cta-subtext">Let's build the right solution for you</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= FEATURE COMPARISON TABLE ================= -->
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="table-title">FEATURE COMPARISON</th>
+              <th>
+                <div class="col-header-plan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table-plan-icon"><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5L18 5l-3-3L4.5 16.5Z"/></svg>
+                  <span>Starter</span>
+                </div>
+              </th>
+              <th>
+                <div class="col-header-plan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table-plan-icon"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  <span>Growth</span>
+                  <span class="table-pop-badge">POPULAR</span>
+                </div>
+              </th>
+              <th>
+                <div class="col-header-plan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table-plan-icon"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  <span>Professional</span>
+                </div>
+              </th>
+              <th>
+                <div class="col-header-plan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table-plan-icon"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/></svg>
+                  <span>Enterprise</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feat-icon-sm"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Users</span>
+              </td>
+              <td>Up to 3</td>
+              <td>Up to 10</td>
+              <td>Up to 25</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feat-icon-sm"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>Active Jobs</span>
+              </td>
+              <td>Up to 250</td>
+              <td>Up to 1,000</td>
+              <td>Up to 5,000</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feat-icon-sm"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+                <span>Custom Workflow</span>
+              </td>
+              <td class="value-dash">—</td>
+              <td>
+                <span class="table-icon-dash">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="#334155" stroke-width="2"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#64748b"></line>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-check">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="2"></circle>
+                    <polyline points="8 12 11 15 16 9" stroke="#22c55e"></polyline>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-check">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="2"></circle>
+                    <polyline points="8 12 11 15 16 9" stroke="#22c55e"></polyline>
+                  </svg>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feat-icon-sm"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>API Access</span>
+              </td>
+              <td class="value-dash">—</td>
+              <td>
+                <span class="table-icon-dash">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="#334155" stroke-width="2"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#64748b"></line>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-check">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="2"></circle>
+                    <polyline points="8 12 11 15 16 9" stroke="#22c55e"></polyline>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-check">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="2"></circle>
+                    <polyline points="8 12 11 15 16 9" stroke="#22c55e"></polyline>
+                  </svg>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="feature-name">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feat-icon-sm"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>White Label</span>
+              </td>
+              <td class="value-dash">—</td>
+              <td>
+                <span class="table-icon-dash">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="#334155" stroke-width="2"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#64748b"></line>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-dash">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="#334155" stroke-width="2"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#64748b"></line>
+                  </svg>
+                </span>
+              </td>
+              <td>
+                <span class="table-icon-check">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" stroke-width="2"></circle>
+                    <polyline points="8 12 11 15 16 9" stroke="#22c55e"></polyline>
+                  </svg>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ================= TRUST BADGES ================= -->
+      <div class="pricing-trust-badges">
+        <div class="trust-badge-item">
+          <div class="badge-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 11 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="badge-content">
+            <h4>Secure & Compliant</h4>
+            <p>SOC 2 Type II • GDPR Ready</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="badge-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="badge-content">
+            <h4>99.9% Uptime</h4>
+            <p>Reliable & Always Available</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="badge-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div class="badge-content">
+            <h4>Your Data is Yours</h4>
+            <p>Export Anytime • No Lock-in</p>
+          </div>
+        </div>
+        <div class="trust-badge-item">
+          <div class="badge-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <div class="badge-content">
+            <h4>Human Support</h4>
+            <p>Real People • Real Help</p>
+          </div>
         </div>
       </div>
 
@@ -377,6 +653,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- ================= DEMO VIDEO ================= -->
   <section id="demo" class="ats-demo">
@@ -517,10 +794,12 @@
           <div class="footer-col">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="trust.html">Trust</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="index.html" data-footer-link="index.html">Home</a></li>
+              <li><a href="trust.html" data-footer-link="trust.html">Trust</a></li>
+              <li><a href="services.html" data-footer-link="services.html">Services</a></li>
+              <li><a href="career.html" data-footer-link="career.html">Career</a></li>
+              <li><a href="blog.html" data-footer-link="blog.html">Blog</a></li>
+              <li><a href="contact.html" data-footer-link="contact.html">Contact Us</a></li>
             </ul>
           </div>
 
@@ -578,38 +857,140 @@
     </div>
   </footer>
 
-  <script src="public/js/contact-handler.js"></script>
-  <script src="public/components/navbar-premium.js"></script>
+  <script src="public/js/contact-handler.js?v=1.1"></script>
+  <script src="public/components/navbar-premium.js?v=1.2"></script>
 
   <!-- ================= ATS QUICK NAV (FLOATING) ================= -->
   <div class="ats-quick-nav">
     <div class="ats-quick-nav-menu">
       <a href="#features" class="ats-quick-nav-link">
-        <span class="icon">✨</span>
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+        </svg>
         <span>Features</span>
       </a>
       <a href="#pricing" class="ats-quick-nav-link">
-        <span class="icon">🏷️</span>
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l5.58-5.58c.94-.94.94-2.48 0-3.42L12 2Z"/>
+          <path d="M7 7h.01"/>
+        </svg>
         <span>Pricing</span>
       </a>
       <a href="#demo" class="ats-quick-nav-link">
-        <span class="icon">▶️</span>
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8"/>
+        </svg>
         <span>Demo</span>
       </a>
       <a href="#contact" class="ats-quick-nav-link">
-        <span class="icon">📞</span>
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
         <span>Contact</span>
       </a>
     </div>
     <button class="ats-quick-nav-btn" aria-label="Quick Navigation">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="1"></circle>
-        <circle cx="19" cy="12" r="1"></circle>
-        <circle cx="5" cy="12" r="1"></circle>
-      </svg>
+      <div class="ats-quick-nav-icon-wrap">
+        <svg class="icon-dots" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="1.5"></circle>
+          <circle cx="19" cy="12" r="1.5"></circle>
+          <circle cx="5" cy="12" r="1.5"></circle>
+        </svg>
+        <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
     </button>
   </div>
+
   <script>
+    // ATS Quick Navigation interactive behavior
+    document.addEventListener("DOMContentLoaded", () => {
+      const quickNav = document.querySelector('.ats-quick-nav');
+      const quickNavBtn = document.querySelector('.ats-quick-nav-btn');
+      
+      if (quickNav && quickNavBtn) {
+        quickNavBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          quickNav.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!quickNav.contains(e.target)) {
+            quickNav.classList.remove('active');
+          }
+        });
+
+        const quickNavLinks = quickNav.querySelectorAll('.ats-quick-nav-link');
+        quickNavLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            quickNav.classList.remove('active');
+          });
+        });
+      }
+    });
+  </script>
+  <script>
+    // Top Stats Counter Animation on Scroll
+    const topStats = document.querySelectorAll('.stat-value');
+    const topStatsSection = document.querySelector('.ats-stats');
+
+    if (topStatsSection && topStats.length > 0) {
+      const topObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            topStats.forEach(stat => {
+              const target = +stat.getAttribute('data-target');
+              let count = 0;
+              const duration = 1500; // 1.5 seconds animation duration
+              const startTime = performance.now();
+
+              const updateCounter = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                
+                // Ease out quad function
+                const easeProgress = progress * (2 - progress);
+                const currentCount = Math.floor(easeProgress * target);
+
+                if (target === 10000) {
+                  stat.textContent = currentCount.toLocaleString() + '+';
+                } else if (target === 150 || target === 500) {
+                  stat.textContent = currentCount + '+';
+                } else {
+                  stat.textContent = currentCount;
+                }
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCounter);
+                } else {
+                  // Final correct value display
+                  if (target === 10000) {
+                    stat.textContent = '10,000+';
+                  } else if (target === 150) {
+                    stat.textContent = '150+';
+                  } else if (target === 500) {
+                    stat.textContent = '500+';
+                  } else {
+                    stat.textContent = target;
+                  }
+                }
+              };
+
+              requestAnimationFrame(updateCounter);
+            });
+            topObserver.unobserve(topStatsSection);
+          }
+        });
+      }, {
+        threshold: 0.15
+      });
+
+      topObserver.observe(topStatsSection);
+    }
+
     // Trust Stats Counter Animation on Scroll
     const stats = document.querySelectorAll('.contact-trust-value');
     const statsSection = document.querySelector('.contact-trust-section');

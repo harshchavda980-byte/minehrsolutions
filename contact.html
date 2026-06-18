@@ -13,13 +13,14 @@
   <link rel="shortcut icon" href="public/favicon.png" type="image/x-icon" />
 
 
-  <link rel="stylesheet" href="public/components/navbar-premium.css">
+  <link rel="stylesheet" href="public/components/navbar-premium.css?v=1.2">
   <link rel="stylesheet" href="public/css/style.css">
   <link rel="stylesheet" href="public/css/styles.css">
   <link rel="stylesheet" href="public/css/responsive.css">
   <script src="public/js/script.js" defer></script>
-  <script src="public/components/navbar-premium.js"></script>
-  <script src="public/js/contact-handler.js" defer></script>
+  <script src="public/components/navbar-premium.js?v=1.2"></script>
+  <script src="public/js/contact-handler.js?v=1.1" defer></script>
+    <link rel="stylesheet" href="public/css/dark-theme.css" />
 </head>
 <body>
   <header class="site-header-premium" id="navbar">
@@ -198,12 +199,20 @@
 
         <form class="contact-form">
           <div class="row">
-            <input type="text" name="name" placeholder="Name *" required>
-            <input type="email" name="email" placeholder="Email address *" required>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Name *" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email address *" required>
+            </div>
           </div>
-           <div class="row">
-            <input type="text" name="company" placeholder="Company Name *" required>
-            <input type="tel" name="contact_number" placeholder="Contact Number (e.g. +91 9898989898) *" maxlength="17" required>
+          <div class="row">
+            <div class="form-group">
+              <input type="text" name="company" placeholder="Company Name *" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" name="contact_number" placeholder="Contact Number *" maxlength="17" required>
+            </div>
           </div>
           <div class="custom-select-wrapper">
             <div class="custom-select">
@@ -268,7 +277,7 @@
       <span>📧 Email: Contact@minehrsolutions.com</span>
       <span>📞 Phone: +91 75740 63353</span>
     </div>
-    <div class="contact-map">
+    <div class="contact-map" id="desktopMap">
   <iframe 
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6362197527554!2d72.6541!3d23.0414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b4e704c77b%3A0x4a035a78b691ded6!2sMineHR%20Solutions!5e0!3m2!1sen!2sin!4v1718600000000!5m2!1sen!2sin"
     width="100%"
@@ -278,6 +287,36 @@
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
+</div>
+
+<!-- Mobile-only map icon button -->
+<button class="mobile-map-btn" id="mobileMapBtn" aria-label="View location on map">
+  <svg class="mobile-map-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#fff"/>
+    <circle cx="12" cy="9" r="2.5" fill="#4f46e5"/>
+  </svg>
+  <span>View on Map</span>
+</button>
+
+<!-- Map Modal (mobile) -->
+<div class="map-modal-overlay" id="mapModalOverlay" role="dialog" aria-modal="true" aria-label="Map modal">
+  <div class="map-modal-box">
+    <button class="map-modal-close" id="mapModalClose" aria-label="Close map">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <iframe 
+      id="mapModalIframe"
+      src=""
+      data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6362197527554!2d72.6541!3d23.0414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87b4e704c77b%3A0x4a035a78b691ded6!2sMineHR%20Solutions!5e0!3m2!1sen!2sin!4v1718600000000!5m2!1sen!2sin"
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
 </div>
 
   </div>
@@ -402,6 +441,143 @@ document.addEventListener('DOMContentLoaded', function() {
 // Basic popup styles
 const style = document.createElement('style');
 style.innerHTML = `
+/* ===== MOBILE MAP BUTTON ===== */
+.mobile-map-btn {
+  display: none; /* hidden by default (desktop) */
+}
+
+/* ===== MAP MODAL ===== */
+.map-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.75);
+  align-items: center;
+  justify-content: center;
+  animation: mapFadeIn 0.25s ease;
+}
+
+.map-modal-overlay.open {
+  display: flex;
+}
+
+@keyframes mapFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.map-modal-box {
+  position: relative;
+  width: 94vw;
+  height: 82vh;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  animation: mapSlideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes mapSlideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.map-modal-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.map-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.map-modal-close:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.map-modal-close svg {
+  width: 18px;
+  height: 18px;
+  color: #1e293b;
+}
+
+/* === MOBILE ONLY === */
+@media (max-width: 768px) {
+  /* Hide the inline desktop map */
+  #desktopMap {
+    display: none !important;
+  }
+
+  /* Show the icon button */
+  .mobile-map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    bottom: 1px;
+    right: 16px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(79,70,229,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 5;
+    font-family: inherit;
+  }
+
+  .mobile-map-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 28px rgba(79,70,229,0.6);
+  }
+
+  .mobile-map-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* Pulsing ring around the icon */
+  .mobile-map-btn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    border: 2px solid rgba(79,70,229,0.4);
+    animation: mapPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes mapPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.12); opacity: 0.4; }
+  }
+
+  .mobile-map-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+}
+
 /* Gradient text for privacy policy link */
 #privacyPolicyLink {
   background: none;
@@ -466,6 +642,42 @@ style.innerHTML = `
 }
 `;
 document.head.appendChild(style);
+
+// ===== MOBILE MAP MODAL LOGIC =====
+(function() {
+  var btn    = document.getElementById('mobileMapBtn');
+  var overlay = document.getElementById('mapModalOverlay');
+  var closeBtn = document.getElementById('mapModalClose');
+  var iframe  = document.getElementById('mapModalIframe');
+  if (!btn || !overlay || !closeBtn || !iframe) return;
+
+  function openMap() {
+    // Lazy-load the iframe src only on first open
+    if (!iframe.src || iframe.src === window.location.href) {
+      iframe.src = iframe.getAttribute('data-src');
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMap() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', openMap);
+  closeBtn.addEventListener('click', closeMap);
+
+  // Close on overlay background click
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeMap();
+  });
+
+  // Close on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMap();
+  });
+})();
 </script>
 <!-- ================= FOOTER ================= -->
   <footer class="site-footer">
@@ -484,10 +696,12 @@ document.head.appendChild(style);
           <div class="footer-col">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="trust.html">Trust</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="index.html" data-footer-link="index.html">Home</a></li>
+              <li><a href="trust.html" data-footer-link="trust.html">Trust</a></li>
+              <li><a href="services.html" data-footer-link="services.html">Services</a></li>
+              <li><a href="career.html" data-footer-link="career.html">Career</a></li>
+              <li><a href="blog.html" data-footer-link="blog.html">Blog</a></li>
+              <li><a href="contact.html" data-footer-link="contact.html">Contact Us</a></li>
             </ul>
           </div>
 

@@ -402,6 +402,36 @@
       .mhr-cc-value { font-size: 12px; }
       .mhr-modal-header-title { font-size: 20px; }
     }
+
+    /* ── Inline validation styles ── */
+    .invalid-input {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+    }
+    
+    input.invalid-input::placeholder,
+    textarea.invalid-input::placeholder {
+      color: #ef4444 !important;
+      opacity: 1 !important;
+    }
+    
+    .custom-select-trigger.invalid-input {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+    }
+    
+    .custom-select-trigger.invalid-input span {
+      color: #ef4444 !important;
+    }
+    
+    [data-theme="dark"] .invalid-input {
+      border-color: #ef4444 !important;
+      background-color: rgba(239, 68, 68, 0.15) !important;
+    }
+    [data-theme="dark"] .custom-select-trigger.invalid-input {
+      border-color: #ef4444 !important;
+      background-color: rgba(239, 68, 68, 0.15) !important;
+    }
   `;
   document.head.appendChild(style);
 })();
@@ -534,33 +564,76 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // ── HTML5 / Custom Field Validation ──
-      // Clear existing validation errors
-      form.querySelectorAll('.error-text').forEach(err => err.remove());
-      form.querySelectorAll('.invalid-input').forEach(input => input.classList.remove('invalid-input'));
-
       let isValid = true;
       let firstInvalidInput = null;
 
       function showError(input, message) {
         input.classList.add('invalid-input');
         
-        let errorSpan = document.createElement('span');
-        errorSpan.className = 'error-text';
-        errorSpan.innerHTML = message;
-        errorSpan.style.color = '#ef4444';
-        errorSpan.style.fontSize = '0.85rem';
-        errorSpan.style.marginTop = '0.35rem';
-        errorSpan.style.display = 'block';
-        errorSpan.style.fontWeight = '500';
-        
+        // Handle select dropdown
         if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
           const wrapper = input.closest('.custom-select-wrapper');
-          wrapper.after(errorSpan);
-        } else if (input.type === 'checkbox') {
+          if (wrapper) {
+            const trigger = wrapper.querySelector('.custom-select-trigger');
+            if (trigger) {
+              trigger.classList.add('invalid-input');
+              const span = trigger.querySelector('span');
+              if (span) {
+                if (!span.dataset.originalText) {
+                  span.dataset.originalText = span.textContent;
+                }
+                span.textContent = message;
+              }
+            }
+          }
+        } 
+        // Handle checkbox
+        else if (input.type === 'checkbox') {
           const row = input.closest('.checkbox-row') || input;
-          row.after(errorSpan);
-        } else {
-          input.after(errorSpan);
+          row.style.color = '#ef4444';
+        } 
+        // Handle regular inputs (text, email, tel, textarea)
+        else {
+          if (!input.dataset.originalPlaceholder) {
+            input.dataset.originalPlaceholder = input.placeholder || '';
+          }
+          input.value = '';
+          input.placeholder = message;
+        }
+      }
+
+      function clearError(input) {
+        input.classList.remove('invalid-input');
+        
+        // Handle select dropdown
+        if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
+          const wrapper = input.closest('.custom-select-wrapper');
+          if (wrapper) {
+            const trigger = wrapper.querySelector('.custom-select-trigger');
+            if (trigger) {
+              trigger.classList.remove('invalid-input');
+              const span = trigger.querySelector('span');
+              if (span && span.dataset.originalText) {
+                span.textContent = span.dataset.originalText;
+                if (input.value) {
+                  trigger.style.color = "var(--dark)";
+                } else {
+                  trigger.style.color = "#888";
+                }
+              }
+            }
+          }
+        } 
+        // Handle checkbox
+        else if (input.type === 'checkbox') {
+          const row = input.closest('.checkbox-row') || input;
+          row.style.color = '';
+        } 
+        // Handle regular inputs
+        else {
+          if (input.dataset.originalPlaceholder !== undefined) {
+            input.placeholder = input.dataset.originalPlaceholder;
+          }
         }
       }
 
@@ -569,33 +642,23 @@ document.addEventListener('DOMContentLoaded', function () {
         form.dataset.validationInitialized = 'true';
         const allRequired = form.querySelectorAll('[required]');
         allRequired.forEach(input => {
-          const clearError = () => {
-            input.classList.remove('invalid-input');
-            let errorSpan;
-            if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
-              const wrapper = input.closest('.custom-select-wrapper');
-              errorSpan = wrapper.nextElementSibling;
-            } else if (input.type === 'checkbox') {
-              errorSpan = (input.closest('.checkbox-row') || {}).nextElementSibling;
-            } else {
-              errorSpan = input.nextElementSibling;
-            }
-            if (errorSpan && errorSpan.classList.contains('error-text')) {
-              errorSpan.remove();
-            }
-          };
-          input.addEventListener('input', clearError);
-          input.addEventListener('change', clearError);
+          const reset = () => clearError(input);
+          input.addEventListener('focus', reset);
+          input.addEventListener('input', reset);
+          input.addEventListener('change', reset);
         });
       }
 
-      // Validate required elements
+      // Clear existing validation state on submit
       const requiredInputs = form.querySelectorAll('[required]');
+      requiredInputs.forEach(input => clearError(input));
+
+      // Validate required elements
       requiredInputs.forEach(input => {
         if (input.type === 'checkbox') {
           if (!input.checked) {
             isValid = false;
-            showError(input, 'Please agree to the Privacy Policy before submitting.');
+            showError(input, 'Please agree to the Privacy Policy.');
             if (!firstInvalidInput) firstInvalidInput = input;
           }
         } else {
@@ -622,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(emailInput.value.trim())) {
           isValid = false;
-          showError(emailInput, 'Please enter a valid email address (e.g. name@example.com).');
+          showError(emailInput, 'Please enter a valid email address.');
           if (!firstInvalidInput) firstInvalidInput = emailInput;
         }
       }
@@ -633,7 +696,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const phoneRegex = /^(\+?\d{1,4}[\s-]?)?\d{10}$/;
         if (!phoneRegex.test(phoneInput.value.trim())) {
           isValid = false;
-          showError(phoneInput, 'Please enter a valid 10-digit contact number.');
+          showError(phoneInput, 'Please enter a valid 10-digit number.');
           if (!firstInvalidInput) firstInvalidInput = phoneInput;
         }
       }

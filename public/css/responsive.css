@@ -11,6 +11,11 @@ html, body {
     box-sizing: border-box;
 }
 
+/* Prevent any child from causing horizontal scroll */
+* {
+    min-width: 0;
+}
+
 img, video, iframe {
     max-width: 100% !important;
     height: auto;
@@ -176,6 +181,76 @@ img, video, iframe {
 
 /* --- MOBILE (max-width: 768px) --- */
 @media (max-width: 768px) {
+
+    /* ===== CONTACT PAGE FIXES ===== */
+
+    /* Stack the two panels vertically */
+    .contact-split {
+        grid-template-columns: 1fr !important;
+        padding: 16px !important;
+        gap: 20px !important;
+        min-height: unset !important;
+    }
+
+    /* Left card: remove fixed height & clipping so form is fully visible */
+    .contact-left-card {
+        height: auto !important;
+        min-height: unset !important;
+        overflow: visible !important;
+        padding: 0 !important;
+    }
+
+    /* Slider: disable the horizontal slide on mobile —
+       show only the active slide in full height */
+    .left-slider {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    /* Hide the inactive slide, show active slide fully */
+    .left-slide {
+        display: none !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 24px 20px !important;
+    }
+
+    .left-slide.active,
+    .left-slide:first-child {
+        display: flex !important;
+    }
+
+    /* When slider moves to slide 2 (JS adds .slider-active to .left-slider),
+       show the second slide instead */
+    .left-slider.slider-active .left-slide:first-child {
+        display: none !important;
+    }
+
+    .left-slider.slider-active .left-slide:last-child {
+        display: flex !important;
+    }
+
+    /* Ensure the form rows stack on mobile */
+    .contact-form .row {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .contact-form .row input {
+        width: 100% !important;
+    }
+
+    /* Right image panel: reasonable height on mobile */
+    .image-wrapper {
+        height: 320px !important;
+        min-height: unset !important;
+    }
+
+    /* ===== END CONTACT PAGE FIXES ===== */
+
     /* Font resizing */
     h1,
     .hero-title,
@@ -251,39 +326,57 @@ img, video, iframe {
         justify-content: center !important;
     }
 
-    /* Swipeable Services Scroll Section */
-    .services-scroll-container {
-        overflow-x: auto !important;
-        gap: 15px !important;
-        padding: 10px !important;
-        cursor: grab;
-        -webkit-overflow-scrolling: touch;
+    /* Swipeable Services Scroll Section — full-width snap scrolling */
+    .services-scroll-section {
+        padding: 24px 0 !important;
     }
 
+    .services-scroll-container {
+        overflow-x: auto !important;
+        gap: 16px !important;
+        padding: 12px 16px !important;
+        cursor: grab;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    /* Each card = nearly full viewport width so user sees 1 at a time */
     .service-card-scroll {
-        min-width: 240px !important;
-        width: 240px !important;
+        min-width: calc(85vw) !important;
+        width: calc(85vw) !important;
         height: fit-content !important;
+        scroll-snap-align: center;
+        flex-shrink: 0 !important;
     }
 
     .service-card-scroll .card-header {
-        height: 210px !important;
+        height: 200px !important;
     }
 
     .service-card-scroll .card-icon {
-        width: 170px !important;
-        height: 170px !important;
-        padding: 6px !important;
+        width: 140px !important;
+        height: 140px !important;
+        padding: 12px !important;
     }
 
     .service-card-scroll .card-body {
-        padding: 16px 12px 20px !important;
-        gap: 10px !important;
+        padding: 20px 18px 24px !important;
+        gap: 12px !important;
     }
 
     .service-card-scroll h3 {
-        font-size: 16px !important;
-        margin-bottom: 0 !important;
+        font-size: 20px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .service-card-scroll p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    .card-btn {
+        padding: 10px 28px !important;
+        font-size: 14px !important;
     }
 
     /* Timeline Adjustments */
@@ -304,17 +397,34 @@ img, video, iframe {
         padding-left: 0 !important;
     }
 
-    /* Trust Badges - Horizontal Scroll */
+    /* Trust Badges - Equal 2×2 Grid on Mobile */
     .trust-badges {
-        justify-content: flex-start !important;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        padding: 0 !important;
+        overflow-x: visible !important;
     }
 
     .badge-item {
-        flex-shrink: 0 !important;
+        justify-content: center !important;
+        width: 100% !important;
+        font-size: 13px !important;
+        padding: 12px 10px !important;
+        white-space: normal !important;
+        text-align: center !important;
+    }
+
+    /* Trust Hero padding on mobile */
+    .trust-hero {
+        padding: 100px 20px 60px !important;
+        min-height: auto !important;
+        align-items: flex-start !important;
+    }
+
+    .hero-eyebrow {
+        font-size: 11px !important;
+        padding: 5px 12px !important;
     }
 
     /* Security */
@@ -409,6 +519,12 @@ img, video, iframe {
         padding: 50px 0 !important;
         display: flex !important;
         align-items: center !important;
+        overflow: hidden !important;     /* clip any transient overflow during animations */
+    }
+
+    .hero-inner {
+        width: 100% !important;
+        overflow: hidden !important;
     }
 
     .hero-content {
@@ -417,79 +533,107 @@ img, video, iframe {
         text-align: center !important;
         width: 100% !important;
         max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .hero-content h1 {
-        font-size: 28px !important;
+        font-size: 26px !important;
         line-height: 1.35 !important;
         margin-top: 10px !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
     }
 
-    .hero-typing {
-        font-size: 16px !important;
-        min-height: auto !important;
-        margin-bottom: 15px !important;
+    /* Fix animated-words: switch to block so it doesn't
+       overflow the inline flow and cause horizontal slide */
+    .animated-words {
+        display: block !important;
+        width: 100% !important;
+        height: 1.3em !important;
+        overflow: hidden !important;
+        text-align: center !important;
+        margin-top: 4px !important;
     }
 
+    .animated-words span {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        animation: slideWords 10s infinite !important;
+    }
+
+    /* Signature: position it so the opacity fade doesn't shift layout */
     .hero-signature {
         text-align: center !important;
         font-size: 14px !important;
+        width: 100% !important;
+        min-height: 1.5em !important;   /* reserve height so it doesn't jump */
+        display: block !important;
+    }
+
+    .hero-typing {
+        font-size: 15px !important;
+        min-height: 1.5em !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+        text-align: center !important;
     }
 
     /* Boosting Businesses stats grid 2x2 on mobile */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-        padding: 0 10px !important;
+        gap: 16px !important;
+        padding: 0 12px !important;
     }
 
     .stat-card {
-        padding: 24px 12px !important;
-        border-radius: 16px !important;
+        padding: 28px 16px !important;
+        border-radius: 18px !important;
     }
 
     .stat-number {
-        font-size: 26px !important;
-        margin-bottom: 6px !important;
+        font-size: 34px !important;
+        margin-bottom: 8px !important;
     }
 
     .stat-label {
-        font-size: 11px !important;
-        letter-spacing: 0.5px !important;
+        font-size: 13px !important;
+        letter-spacing: 0.4px !important;
     }
 
-    /* Why Choose MineHR cards 2x2 grid on mobile */
+    /* Why Choose MineHR cards — 2 column, bigger & readable */
     .why-cards {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-        padding: 0 10px !important;
+        gap: 16px !important;
+        padding: 0 12px !important;
     }
 
     .why-card {
-        border-radius: 8px !important;
+        border-radius: 12px !important;
     }
 
     .why-card .card-header {
-        height: 60px !important;
+        height: 90px !important;
     }
 
     .why-card .card-icon {
-        width: 32px !important;
-        height: 32px !important;
+        width: 44px !important;
+        height: 44px !important;
     }
 
     .why-card .card-body {
-        padding: 12px 8px !important;
+        padding: 16px 12px !important;
     }
 
     .why-card h3 {
-        font-size: 14px !important;
-        margin-bottom: 4px !important;
+        font-size: 16px !important;
+        margin-bottom: 6px !important;
+        line-height: 1.3 !important;
     }
 
     .why-card p {
-        font-size: 11px !important;
-        line-height: 1.3 !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
     }
 
     /* Trust Page Features Grid 2-column mobile layout */
@@ -572,20 +716,28 @@ img, video, iframe {
         font-size: 22px !important;
     }
 
+    /* Stats: keep 2-column but tighter */
     .stat-number {
-        font-size: 20px !important;
+        font-size: 28px !important;
     }
 
     .stat-label {
-        font-size: 10px !important;
+        font-size: 12px !important;
     }
 
+    /* Why cards: keep 2-col but slightly smaller */
     .why-card h3 {
-        font-size: 13px !important;
+        font-size: 15px !important;
     }
 
     .why-card p {
-        font-size: 10px !important;
+        font-size: 12px !important;
+    }
+
+    /* Services scroll cards: almost full-width */
+    .service-card-scroll {
+        min-width: calc(90vw) !important;
+        width: calc(90vw) !important;
     }
 
     /* Trust Page Features Grid SMALL mobile */
@@ -657,5 +809,111 @@ img, video, iframe {
 
     .ats-quick-nav {
         right: 10px !important;
+    }
+}
+
+/* ============================================================
+   TABLET (769px – 1024px) — iPad, large phones landscape
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Services scroll: show ~2 cards at a time */
+    .services-scroll-section {
+        padding: 32px 24px !important;
+    }
+
+    .services-scroll-container {
+        gap: 20px !important;
+        padding: 16px 20px !important;
+        scroll-snap-type: x mandatory;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .service-card-scroll {
+        min-width: 300px !important;
+        width: 300px !important;
+        scroll-snap-align: start;
+        flex-shrink: 0 !important;
+    }
+
+    .service-card-scroll .card-header {
+        height: 200px !important;
+    }
+
+    .service-card-scroll .card-icon {
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .service-card-scroll h3 {
+        font-size: 18px !important;
+    }
+
+    .service-card-scroll p {
+        font-size: 14px !important;
+    }
+
+    /* Why Choose: 4 columns still fine on tablet */
+    .why-cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+        padding: 0 20px !important;
+    }
+
+    .why-card .card-header {
+        height: 100px !important;
+    }
+
+    .why-card .card-icon {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .why-card .card-body {
+        padding: 20px 16px !important;
+    }
+
+    .why-card h3 {
+        font-size: 18px !important;
+    }
+
+    .why-card p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Stats: 4-column on tablet */
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    .stat-card {
+        padding: 36px 20px !important;
+    }
+
+    .stat-number {
+        font-size: 40px !important;
+    }
+
+    .stat-label {
+        font-size: 14px !important;
+    }
+
+    /* Services text+image section */
+    .services-grid {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+
+    .services-container {
+        padding: 0 40px !important;
+    }
+
+    .services-desc {
+        margin: 0 auto 30px !important;
+        max-width: 600px !important;
+        text-align: center !important;
     }
 }

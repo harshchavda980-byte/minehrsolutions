@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="../public/favicon.png" />
-    <title>Category Filter - Web Development – MineHR Solutions</title>
+    <title>Web Development – MineHR Solutions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
         content="Explore MineHR's Web Development services designed to create dynamic and responsive websites for HR businesses. Our expert team specializes in custom web solutions, including front-end and back-end development, to enhance your online presence and drive business growth. Contact us today to build a powerful website that meets your HR needs." />
@@ -12,7 +12,7 @@
         content="MineHR, Web Development Services, HR Website Design, Custom Web Solutions, Front-end Development, Back-end Development, Responsive Web Design" />
     <meta name="robots" content="index, follow" />
     <link rel="shortcut icon" href="../public/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="../public/components/navbar-premium.css" />
+    <link rel="stylesheet" href="../public/components/navbar-premium.css?v=1.2" />
     <link rel="stylesheet" href="../public/css/services-premium.css" />
     <link rel="stylesheet" href="../public/css/styles.css" />
     <link rel="stylesheet" href="../public/css/responsive.css" />
@@ -118,6 +118,7 @@
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
         }
     </style>
+    <link rel="stylesheet" href="../public/css/dark-theme.css" />
 </head>
 
 <body>
@@ -317,10 +318,12 @@
                     <div class="footer-col">
                         <h3>Quick Links</h3>
                         <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="../trust.html">Trust</a></li>
-                            <li><a href="../services.html">Services</a></li>
-                            <li><a href="../contact.html">Contact Us</a></li>
+                            <li><a href="../index.html" data-footer-link="index.html">Home</a></li>
+                            <li><a href="../trust.html" data-footer-link="trust.html">Trust</a></li>
+                            <li><a href="../services.html" data-footer-link="services.html">Services</a></li>
+                            <li><a href="../career.html" data-footer-link="career.html">Career</a></li>
+                            <li><a href="../blog.html" data-footer-link="blog.html">Blog</a></li>
+                            <li><a href="../contact.html" data-footer-link="contact.html">Contact Us</a></li>
                         </ul>
                     </div>
 
@@ -394,7 +397,7 @@
         </div>
     </footer>
 
-    <script src="../public/components/navbar-premium.js"></script>
+    <script src="../public/components/navbar-premium.js?v=1.2"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {

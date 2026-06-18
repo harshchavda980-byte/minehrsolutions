@@ -12,7 +12,7 @@
   <meta name="robots" content="index, follow">
   <link rel="shortcut icon" href="public/favicon.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="public/components/navbar-premium.css" />
+  <link rel="stylesheet" href="public/components/navbar-premium.css?v=1.2" />
   <link rel="stylesheet" href="public/css/services-premium.css" />
   <link rel="stylesheet" href="public/css/styles.css" />
   <link rel="stylesheet" href="public/css/responsive.css" />
@@ -21,6 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
+    <link rel="stylesheet" href="public/css/dark-theme.css" />
 </head>
 
 <body>
@@ -246,7 +247,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/hrms-software.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=hrms-demo" class="btn-service-primary">Get a Demo</a>
             <button class="btn-expand" data-expand="hrms">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -325,7 +326,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/payroll-management.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=payroll-quote" class="btn-service-primary">Get a Quote</a>
             <button class="btn-expand" data-expand="payroll">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -403,7 +404,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/recruitment-staffing.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=recruitment" class="btn-service-primary">Start Hiring</a>
             <button class="btn-expand" data-expand="recruitment">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -481,7 +482,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/hr-services.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=hr-services" class="btn-service-primary">Contact Sales</a>
             <button class="btn-expand" data-expand="hr-services">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -560,7 +561,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/crm-solutions.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=crm-demo" class="btn-service-primary">Try Free Demo</a>
             <button class="btn-expand" data-expand="crm">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -638,7 +639,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/web-development.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=web-dev" class="btn-service-primary">Start a Project</a>
             <button class="btn-expand" data-expand="web-dev">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -716,7 +717,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/logo-branding.html" class="btn-service-primary">Book Now</a>
+            <a href="services/logo-branding.html" class="btn-service-primary">View Portfolio</a>
             <button class="btn-expand" data-expand="branding">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -794,7 +795,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/custom-software.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=custom-software" class="btn-service-primary">Discuss Project</a>
             <button class="btn-expand" data-expand="custom-soft">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -872,7 +873,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/it-support.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=it-support" class="btn-service-primary">Get Support Plan</a>
             <button class="btn-expand" data-expand="it-support">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -950,7 +951,7 @@
             </div>
           </div>
           <div class="service-cta">
-            <a href="services/ems.html" class="btn-service-primary">Book Now</a>
+            <a href="contact.html?service=ems-demo" class="btn-service-primary">Request Demo</a>
             <button class="btn-expand" data-expand="ems">
               <span>Learn More</span>
               <svg class="expand-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -1055,10 +1056,12 @@
           <div class="footer-col">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="trust.html">Trust</a></li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="index.html" data-footer-link="index.html">Home</a></li>
+              <li><a href="trust.html" data-footer-link="trust.html">Trust</a></li>
+              <li><a href="services.html" data-footer-link="services.html">Services</a></li>
+              <li><a href="career.html" data-footer-link="career.html">Career</a></li>
+              <li><a href="blog.html" data-footer-link="blog.html">Blog</a></li>
+              <li><a href="contact.html" data-footer-link="contact.html">Contact Us</a></li>
             </ul>
           </div>
 
@@ -1133,7 +1136,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="public/components/navbar-premium.js"></script>
+  <script src="public/components/navbar-premium.js?v=1.2"></script>
   <script src="public/js/services-premium.js"></script>
 
 </body>

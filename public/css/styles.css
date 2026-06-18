@@ -76,6 +76,7 @@ body {
   background-size: cover;
   background-position: center;
   margin: 0 auto;
+  overflow: hidden;  /* Prevent animation overflow from causing horizontal scroll */
 }
 
 .hero-inner {
@@ -194,6 +195,8 @@ body {
   opacity: 0;
   transition: opacity 0.5s ease;
   font-weight: 400;
+  min-height: 1.6em;  /* Reserve space to prevent layout jump when it fades in */
+  display: block;
 }
 
 /* =========================================================
@@ -424,7 +427,6 @@ body {
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  height: fit-content;
   transform: translateX(0);
   transform-origin: center;
   will-change: transform;
@@ -474,6 +476,10 @@ body {
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 12px;
+  min-height: 2.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .service-card-scroll p {
