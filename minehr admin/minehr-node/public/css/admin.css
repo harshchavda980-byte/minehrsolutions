@@ -65,6 +65,8 @@ body {
     color: var(--text-primary);
     transition: background 0.5s ease, color 0.5s ease;
     overflow-x: hidden;
+    overflow-y: scroll;          /* Always reserve vertical scrollbar space — prevents layout shift */
+    scrollbar-gutter: stable;   /* Modern browsers: gutter always reserved, no content jump */
     height: 100vh;
 }
 
@@ -86,7 +88,7 @@ body.login-page {
 
 .login-container {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
     padding: 20px;
 }
 
@@ -121,8 +123,11 @@ body.login-page {
     margin: 0;
     font-size: 24px;
     letter-spacing: .5px;
-    color: #0f172a;
     font-weight: 800;
+    background: linear-gradient(135deg, #0f172a 0%, #6366f1 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: block;
 }
 
 .login-box .brand p {
@@ -134,7 +139,7 @@ body.login-page {
 /* Tabs */
 .login-tabs {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 25px;
     background: #f1f5f9;
     padding: 6px;
@@ -146,16 +151,17 @@ body.login-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 10px 0;
+    gap: 6px;
+    padding: 10px 12px;
     border: none;
     background: transparent;
     color: #64748b;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .tab-btn svg {
@@ -171,7 +177,13 @@ body.login-page {
 }
 
 .tab-btn:hover:not(.active) {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.light .tab-btn:hover:not(.active) {
     color: #0f172a;
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .login-box .input-group {
@@ -237,6 +249,11 @@ body.login-page {
     z-index: 1;
 }
 
+.login-box .input-group input:hover:not(:focus) {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+}
+
 .standard-input {
     padding: 12px;
 }
@@ -270,6 +287,21 @@ body.login-page {
     font-size: 18px;
     user-select: none;
     z-index: 2;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.login-box .password-toggle:hover {
+    color: #3b82f6 !important;
+    transform: translateY(-50%) scale(1.1);
+}
+
+#togglePassword {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+#togglePassword:hover {
+    color: var(--primary) !important;
+    transform: translateY(-50%) scale(1.1) !important;
 }
 
 .btn-login {
@@ -346,6 +378,151 @@ body.login-page {
     color: #0f172a;
 }
 
+/* Multi-mode Login & Register styles */
+.login-box .login-mode-form {
+    display: none;
+    animation: loginFadeIn 0.4s ease;
+}
+.login-box .login-mode-form.active {
+    display: block;
+}
+
+@keyframes loginFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* OTP Specifics */
+.otp-inputs {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.otp-digit {
+    flex: 1;
+    height: 48px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.3s ease;
+}
+.otp-digit:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: #ffffff;
+}
+
+/* QR Code Mock Simulator */
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    text-align: center;
+}
+.qr-frame-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    background: #f8fafc;
+    border: 2px solid #cbd5e1;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+.qr-frame-wrapper::before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 20px);
+    height: 2px;
+    background: #10b981;
+    top: 10px;
+    left: 10px;
+    box-shadow: 0 0 8px #10b981;
+    animation: scanLaser 3s linear infinite;
+    z-index: 2;
+}
+@keyframes scanLaser {
+    0% { top: 10px; }
+    50% { top: 170px; }
+    100% { top: 10px; }
+}
+.qr-frame-wrapper img {
+    width: 140px;
+    height: 140px;
+    opacity: 0.95;
+    transition: all 0.3s ease;
+}
+.qr-frame-wrapper.success::before {
+    display: none;
+}
+.qr-frame-wrapper.success img {
+    filter: blur(4px) grayscale(50%);
+    opacity: 0.3;
+}
+.qr-status {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+}
+.qr-success-mark {
+    position: absolute;
+    color: #10b981;
+    font-size: 48px;
+    display: none;
+    z-index: 3;
+    animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes scaleUp {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* OTP Resend Link & Button Styling */
+.resend-container {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #64748b;
+}
+.resend-btn {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+.resend-btn:hover:not(:disabled) {
+    color: #2563eb;
+    text-decoration: underline;
+}
+.resend-btn:disabled {
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Dynamic slide anims for Register form toggle */
+.login-box {
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.login-container.register-mode {
+    max-width: 480px;
+}
+
 /* --- DASHBOARD LAYOUT --- */
 .admin-layout {
     display: flex;
@@ -377,6 +554,20 @@ body.login-page {
     height: 45px;
     object-fit: contain;
     transition: var(--transition);
+}
+
+.sidebar .brand a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sidebar .brand a:hover .brand-logo {
+    transform: scale(1.06);
+    opacity: 0.85;
 }
 
 .topbar-logo {
@@ -419,19 +610,16 @@ body.sidebar-collapsed .brand-logo {
     text-decoration: none;
 }
 
-.arrow {
-    width: 18px;
-    height: 18px;
-    opacity: 0.6;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: block;
-    margin-left: auto;
-}
-
-.has-dropdown.open .arrow {
-    transform: rotate(90deg);
-    opacity: 1;
-    color: var(--primary);
+.card p {
+    font-size: 28px;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 5px;
+    letter-spacing: -0.5px;
 }
 
 .menu-item:hover {
@@ -455,7 +643,7 @@ body.sidebar-collapsed .brand-logo {
 }
 
 .has-dropdown.open .submenu {
-    max-height: 500px;
+    max-height: 2000px;
     margin-top: 5px;
     margin-bottom: 10px;
 }
@@ -507,6 +695,9 @@ body.sidebar-collapsed .brand-logo {
     flex: 1;
     margin-left: var(--sidebar-width);
     transition: var(--transition);
+    overflow-x: hidden;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .topbar {
@@ -757,7 +948,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 }
 
 .has-dropdown.open .submenu {
-    max-height: 500px;
+    max-height: 2000px;
     margin-top: 5px;
     margin-bottom: 10px;
 }
@@ -782,6 +973,9 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     flex: 1;
     margin-left: var(--sidebar-width);
     transition: var(--transition);
+    overflow-x: hidden;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .topbar {
@@ -928,7 +1122,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 .topbar-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     flex-shrink: 0;
 }
 
@@ -1154,7 +1348,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 }
 
 .has-dropdown.open .submenu {
-    max-height: 500px;
+    max-height: 2000px;
     margin-top: 5px;
     margin-bottom: 10px;
 }
@@ -1179,6 +1373,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     flex: 1;
     margin-left: var(--sidebar-width);
     transition: var(--transition);
+    overflow-x: hidden;
 }
 
 .topbar {
@@ -1257,7 +1452,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 .topbar-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     flex-shrink: 0;
 }
 
@@ -1294,6 +1489,15 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 
 .content {
     padding: 40px;
+}
+
+/* Page title row — title + action button side by side */
+.page-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .page-title h1 {
@@ -1360,43 +1564,49 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 }
 
 .card-icon {
-    width: 48px;
-    height: 48px;
+    /* Uniform icon container for all stat cards */
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: none;
     border-radius: 14px;
     color: var(--primary);
     flex-shrink: 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+    transition: none;
+    box-shadow: 0 8px 28px rgba(2,6,23,0.55);
 }
 
 .card:hover .card-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    /* disable hover transformations for a stable, professional look */
+    transform: none !important;
+    background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
+    box-shadow: 0 8px 28px rgba(2,6,23,0.55) !important;
+}
+
+.card-icon svg {
+    /* Force SVGs to scale to the container consistently (overrides inline attrs) */
+    width: 60% !important;
+    height: 60% !important;
+    display: block;
+    stroke-width: 1.6;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* Larger variant for emphasis */
+.card-icon--large {
+    /* kept for compatibility but same size as default */
+    width: 56px;
+    height: 56px;
     border-radius: 14px;
-    color: var(--primary);
-    flex-shrink: 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
-    right: 0;
-    width: 250px;
-    background: var(--bg-panel);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: var(--panel-shadow);
-    display: none;
-    overflow: hidden;
-    z-index: 1001;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+}
+.card-icon--large svg {
+    width: 60% !important;
+    height: 60% !important;
 }
 
 .profile.active .profile-menu {
@@ -1503,7 +1713,8 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 .filter-group select,
 .filter-group input {
     background: transparent;
-    border: 1px solid var(--glass-border);
+    /* remove inner control border to keep only outer two borders */
+    border: none;
     color: var(--text-primary);
     width: 100%;
     outline: none;
@@ -1521,23 +1732,29 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     letter-spacing: 0.5px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    white-space: nowrap;
     gap: 6px;
 }
 
-.status-active {
+.status-active,
+.status-verified,
+.status-approved {
     background: rgba(16, 185, 129, 0.1);
     color: #10b981;
     border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
-.status-warning {
+.status-warning,
+.status-pending {
     background: rgba(245, 158, 11, 0.1);
     color: #f59e0b;
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .status-expired,
-.status-inactive {
+.status-inactive,
+.status-rejected {
     background: rgba(239, 68, 68, 0.1);
     color: #ef4444;
     border: 1px solid rgba(239, 68, 68, 0.2);
@@ -1573,6 +1790,8 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 .admin-table td {
     padding: 18px 20px;
     border: none;
+    color: var(--text-primary);
+    font-size: 14px;
 }
 
 .admin-table td:first-child {
@@ -1658,6 +1877,25 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     box-shadow: var(--panel-shadow);
 }
 
+.modal-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -1732,6 +1970,116 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     justify-content: space-between;
 }
 
+/* --- ACTIVITY LOG ITEMS --- */
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--glass-border);
+    transition: background 0.15s ease;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activity-item:first-child {
+    padding-top: 0;
+}
+
+.activity-dot-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    flex-shrink: 0;
+    padding-top: 3px;
+}
+
+.activity-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px currentColor;
+}
+
+.activity-dot.login    { background: #10b981; color: #10b981; }
+.activity-dot.logout   { background: #64748b; color: #64748b; }
+.activity-dot.register { background: #6366f1; color: #6366f1; }
+.activity-dot.delete   { background: #ef4444; color: #ef4444; }
+.activity-dot.update   { background: #f59e0b; color: #f59e0b; }
+.activity-dot.default  { background: #a855f7; color: #a855f7; }
+
+.activity-item-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.activity-item-top {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.activity-action {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.activity-module {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.activity-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.activity-ip {
+    font-size: 11px;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: var(--glass-bg);
+    padding: 2px 7px;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+}
+
+/* Activity logs panel — auto height, no scroll clipping */
+.activity-logs-panel {
+    height: auto !important;
+    overflow: visible !important;
+}
+
 /* --- RESPONSIVENESS (MEDIA QUERIES) --- */
 
 /* Tablet & Smaller (Max 1024px) */
@@ -1767,7 +2115,14 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
 
     .sidebar {
         left: calc(-1 * var(--sidebar-width));
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1001;
+    }
+
+    /* Ensure hamburger toggle is always tappable above the overlay */
+    .sidebar-toggle {
+        position: relative;
+        z-index: 1002;
     }
 
     /* Override collapsed state for mobile to work as a drawer */
@@ -1795,7 +2150,8 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     /* Global Responsiveness Fixes */
     .premium-table-container {
         width: 100%;
-        overflow-x: auto;
+        overflow-x: scroll;
+        scrollbar-gutter: stable;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -1824,7 +2180,7 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     
     .topbar {
         position: relative;
-        margin-bottom: 65px;
+        margin-bottom: 50px;
     }
 
     .search-box {
@@ -1940,7 +2296,8 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
     }
 
     body.sidebar-mobile-active .sidebar {
-        transform: translateX(var(--sidebar-width));
+        left: 0;
+        transform: translateX(0);
     }
 
     @keyframes fadeIn {
@@ -1951,6 +2308,36 @@ input[type="date"].premium-filter::-webkit-calendar-picker-indicator {
         to {
             opacity: 1;
         }
+    }
+
+    /* Company Growth chart header — fix dropdown alignment on mobile */
+    .chart-panel-header {
+        align-items: flex-start !important;
+    }
+
+    .chart-panel-header .chart-filter-bar {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .chart-panel-header .chart-range-wrapper {
+        min-width: 0 !important;
+        width: 100%;
+    }
+
+    .chart-panel-header #chartRangeTrigger {
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: space-between;
+    }
+
+    /* Ensure dropdown options panel never clips off-screen on mobile */
+    #chartRangeOptions {
+        left: 0 !important;
+        right: 0 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
     }
 }
 
@@ -2074,6 +2461,7 @@ p {
     align-items: center;
     gap: 6px;
     border: 1px solid transparent;
+    white-space: nowrap;
 }
 
 .badge-info {
@@ -2169,6 +2557,10 @@ p {
     min-width: 200px;
 }
 
+.form-group {
+    margin-bottom: 20px;
+}
+
 .form-group label {
     font-size: 12px;
     font-weight: 700;
@@ -2176,6 +2568,8 @@ p {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-left: 5px;
+    margin-bottom: 8px;
+    display: inline-block;
 }
 
 .form-control {
@@ -2189,6 +2583,16 @@ p {
     transition: var(--transition);
     outline: none;
     width: 100%;
+}
+
+.form-control:hover:not(:focus) {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.light .form-control:hover:not(:focus) {
+    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.01);
 }
 
 .form-control:focus {
@@ -2279,8 +2683,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 }
 
 .form-control::placeholder {
-    color: var(--text-muted);
-    opacity: 0.6;
+    color: var(--text-secondary) !important;
+    opacity: 0.8 !important;
+}
+
+.light .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.8 !important;
 }
 
 /* ==========================================================================
@@ -2367,6 +2776,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     gap: 8px;
     border: 1px solid transparent;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
 }
 
 .badge::before {
@@ -2540,6 +2950,33 @@ select option {
     background-color: var(--bg-body);
     color: var(--text-primary);
 }
+
+/* ── Fix: native <select> dropdown renders above sibling panels globally ──
+   Chrome/Edge GPU compositing can clip native select popups when a following
+   sibling has overflow:hidden + border-radius. Elevating filter containers
+   to their own stacking context (z-index) prevents this on all admin pages. */
+.filter-row,
+.filters-panel,
+.filter-bar,
+.filter-group-row,
+.search-filter-row {
+    position: relative;
+    z-index: 20;
+}
+
+/* Panels and table containers sit below filter rows */
+.panel,
+.premium-table-container,
+.data-table-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Modals always on top */
+.modal {
+    z-index: 1000;
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    LIVE NOTIFICATIONS & TOAST ALERTS SYSTEM
@@ -2884,11 +3321,10 @@ h1 {
 
 /* Advanced Micro-Animations for Table Rows */
 .admin-table tbody tr, table.data-table tbody tr {
-    transition: background 0.25s, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background 0.25s !important;
 }
 .admin-table tbody tr:hover, table.data-table tbody tr:hover {
     background: rgba(99, 102, 241, 0.04) !important;
-    transform: scale(1.008) !important;
 }
 .light .admin-table tbody tr:hover, .light table.data-table tbody tr:hover {
     background: rgba(99, 102, 241, 0.02) !important;
@@ -2911,3 +3347,847 @@ h1 {
     background: rgba(99, 102, 241, 0.4);
 }
 
+/* --- BUG FIXES & COMPONENT STYLING IMPROVEMENTS --- */
+
+/* Action Button Icon Size Alignment Fix (Row 14) */
+.btn-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block;
+}
+
+/* Hide HTML5 Spin Buttons / Number Input Alignment Fix (Row 21) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Global Responsive Tables Fix for iPad Pro and Mobile (Row 19) */
+.premium-table-container {
+    width: 100% !important;
+    overflow-x: scroll !important;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Global Form Controls & Form Group Styling for Modals (Row 17) */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-control {
+    background: var(--bg-body, rgba(0, 0, 0, 0.2));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
+
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+/* Modal Open Background Scroll Locking (Row 20) */
+body.modal-open, body:has(.modal.active) {
+    overflow: hidden !important;
+}
+
+/* Print layout optimizations for Analytics PDF Export (Row 24) */
+.pdf-export {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    padding: 20px !important;
+}
+
+.pdf-export .panel, 
+.pdf-export .card {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    color: #1e293b !important;
+}
+
+.pdf-export .card p {
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    color: #4f46e5 !important;
+}
+
+.pdf-export th {
+    color: #64748b !important;
+}
+
+.pdf-export td {
+    color: #334155 !important;
+}
+
+.pdf-export .admin-table tbody tr {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* ===== GLOBAL EMPTY STATE (Fixes Bugs 104, 123, 125) ===== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 60px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    width: 100%;
+}
+
+.empty-state svg {
+    opacity: 0.35;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.empty-state p {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.empty-state small {
+    font-size: 13px;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+/* ===== DARK MODE CALENDAR PICKER ICON FIX (Fixes Bug 109) ===== */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.5);
+    cursor: pointer;
+}
+
+.light input[type="date"]::-webkit-calendar-picker-indicator,
+.light input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+.light input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0) opacity(0.6);
+}
+
+/* ===== BUG FIX BATCH (Bugs 1, 13, 14, 16, 17, 19) ===== */
+
+/* Bug 1 & 16: Remove underline from .btn anchor elements globally */
+a.btn, a.btn-primary, a.btn-outline {
+    text-decoration: none !important;
+}
+
+/* Bug 13: Fix pagination dropdown (select) display in light mode */
+.light .btn-page {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    color: var(--text-secondary) !important;
+}
+.light .btn-page:hover:not(:disabled) {
+    background: rgba(79, 70, 229, 0.08) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+.light .btn-page.active {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary) !important;
+}
+
+/* Bug 13: Pagination "per page" select in light mode */
+.light select[onchange*="changePerPage"] {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(0,0,0,0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+    background-size: 12px !important;
+}
+
+/* Bug 14 & 17: Fix form-control select dropdown color in light mode (theme consistency) */
+.light select.form-control {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 16px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+.light select.form-control option {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+}
+
+.light select.form-control:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+/* Bug 17: Module dropdown in Recent Activities - light mode fix */
+.light #moduleFilter {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Bug 19: Dropdown arrow icon for filter-select-premium not visible in Dark mode */
+body:not(.light) select.filter-select-premium {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23f8fafc' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 15px center !important;
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Bug 19: Fix light mode filter-select-premium arrow visibility */
+.light select.filter-select-premium {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(0,0,0,0.12) !important;
+}
+
+/* Light mode styling for premium-filter select and its options */
+.light select.premium-filter {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+.light select.premium-filter option {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+}
+
+/* ===================================================
+   PAGINATION — Global styles (Operations, Tables, etc.)
+   =================================================== */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 4px 4px;
+}
+
+/* Groups the info label + buttons together, pushed to the right */
+.pagination-right-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+
+.pagination-btns {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* Base page button */
+.btn-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: visible;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, box-shadow 0.18s, transform 0.15s;
+    line-height: 1;
+}
+
+.btn-page:hover:not(:disabled):not(.active) {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: var(--primary, #6366f1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.btn-page.active {
+    background: var(--primary, #6366f1);
+    border-color: var(--primary, #6366f1);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    cursor: default;
+    pointer-events: none;
+}
+
+.btn-page:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Prev / Next nav buttons — wider to fit label + icon */
+.btn-page-nav {
+    min-width: 80px;
+    padding: 0 14px;
+    gap: 6px;
+    /* Dark-mode: make Prev/Next clearly visible */
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: var(--text-primary, #f8fafc) !important;
+}
+.btn-page-nav:hover:not(:disabled) {
+    background: rgba(99, 102, 241, 0.18) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    color: #a5b4fc !important;
+}
+.btn-page-nav svg {
+    flex-shrink: 0;
+}
+
+/* Light-mode: reset nav button overrides back to subtle */
+.light .btn-page-nav {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    color: var(--text-secondary, #475569) !important;
+}
+.light .btn-page-nav:hover:not(:disabled) {
+    background: rgba(79, 70, 229, 0.08) !important;
+    border-color: var(--primary, #4f46e5) !important;
+    color: var(--primary, #4f46e5) !important;
+}
+
+/* Ellipsis between page numbers */
+.pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+/* Light-mode overrides */
+.light .btn-page {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    color: var(--text-secondary) !important;
+}
+.light .btn-page:hover:not(:disabled):not(.active) {
+    background: rgba(79, 70, 229, 0.08) !important;
+    color: var(--primary, #4f46e5) !important;
+    border-color: var(--primary, #4f46e5) !important;
+}
+.light .btn-page.active {
+    background: var(--primary, #4f46e5) !important;
+    color: #fff !important;
+    border-color: var(--primary, #4f46e5) !important;
+}
+.light .pagination-info {
+    color: #64748b !important;
+}
+.light .pagination-ellipsis {
+    color: #94a3b8 !important;
+}
+
+/* ===================================================
+   BTN-SM — Small button variant used in pagination rows
+   (activities, plans, and other pages that use
+   class="btn btn-sm" for their Prev/Next/page buttons)
+   =================================================== */
+.btn-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    /* Override base .btn overflow:hidden so SVG arrows are not clipped */
+    overflow: visible !important;
+    transition: background 0.18s, border-color 0.18s, color 0.18s,
+                box-shadow 0.18s, transform 0.15s;
+    line-height: 1;
+    min-width: 36px;
+    text-decoration: none;
+}
+
+.btn-sm:hover:not(:disabled):not(.disabled) {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.35);
+    color: var(--primary, #6366f1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.btn-sm:disabled,
+.btn-sm.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* When btn-sm is paired with btn-primary */
+.btn.btn-sm.btn-primary {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+.btn.btn-sm.btn-primary:hover:not(:disabled) {
+    box-shadow: 0 0 22px rgba(99, 102, 241, 0.5);
+    transform: translateY(-1px);
+}
+
+/* When btn-sm is paired with btn-outline */
+.btn.btn-sm.btn-outline {
+    background: transparent;
+    border-color: var(--glass-border);
+    color: var(--text-secondary);
+}
+.btn.btn-sm.btn-outline:hover:not(:disabled):not(.disabled) {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: var(--primary);
+}
+
+/* SVG inside btn-sm must be visible, aligned, and not clipped */
+.btn-sm svg {
+    flex-shrink: 0;
+    display: block;
+    overflow: visible;
+}
+
+/* Light-mode overrides for btn-sm */
+.light .btn-sm {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    color: var(--text-secondary) !important;
+}
+.light .btn-sm:hover:not(:disabled):not(.disabled) {
+    background: rgba(79, 70, 229, 0.08) !important;
+    color: var(--primary, #4f46e5) !important;
+    border-color: var(--primary, #4f46e5) !important;
+}
+.light .btn.btn-sm.btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+.light .btn.btn-sm.btn-outline {
+    background: transparent !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    color: #334155 !important;
+}
+.light .btn.btn-sm.btn-outline:hover:not(:disabled) {
+    background: rgba(79, 70, 229, 0.06) !important;
+    border-color: var(--primary, #4f46e5) !important;
+    color: var(--primary, #4f46e5) !important;
+}
+
+/* ===================================================
+   PAGINATION-CONTROLS — wrapper used by activities.js,
+   plans.js, and other files that don't use .pagination-btns
+   =================================================== */
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS AND MOBILE/TABLET STYLES
+   ========================================================================== */
+
+/* --- TABLET & MOBILE VIEWPORTS (max-width: 1024px) --- */
+@media screen and (max-width: 1024px) {
+    .admin-layout {
+        position: relative;
+    }
+    
+    .sidebar {
+        left: 0;
+        transform: translateX(-100%);
+        width: var(--sidebar-width);
+        box-shadow: var(--panel-shadow);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1001; /* Layer above topbar */
+    }
+
+    body.sidebar-collapsed .sidebar {
+        transform: translateX(0);
+    }
+    
+    .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        min-width: 0;
+    }
+
+    .topbar {
+        padding: 0 20px !important;
+    }
+
+    .topbar-left {
+        gap: 15px;
+    }
+
+    /* Add overlay when sidebar is open */
+    body.sidebar-collapsed::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 999;
+        pointer-events: auto;
+    }
+    
+    /* Search box adjustments */
+    .search-box {
+        width: 100% !important;
+        max-width: 250px !important;
+    }
+    .search-box input:focus {
+        width: 100% !important;
+        max-width: 280px !important;
+    }
+    
+    /* Grid layout stacking */
+    .form-grid-2,
+    .form-grid-3,
+    .form-grid,
+    .preview-grid,
+    .dashboard-grid,
+    .analytics-container,
+    .filters-panel {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Support inline grid matching */
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr 1fr 1fr"],
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns:repeat(4,1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"],
+    [style*="grid-template-columns:repeat(3,1fr)"],
+    [style*="grid-template-columns: repeat(2, 1fr)"],
+    [style*="grid-template-columns:repeat(2,1fr)"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stack flex filter rows */
+    .filter-row {
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+    }
+    .filter-row .filter-group,
+    .filter-row .btn,
+    .filter-row button {
+        flex: 1 1 auto !important;
+        width: 100% !important;
+        min-width: 150px !important;
+    }
+}
+
+/* --- MOBILE SPECIFIC VIEWPORTS (max-width: 576px) --- */
+@media screen and (max-width: 576px) {
+    /* Topbar adjustments */
+    .topbar {
+        padding: 0 12px !important;
+    }
+    
+    /* Hide profile name and role, show only avatar */
+    .profile-trigger div {
+        display: none !important;
+    }
+    
+    /* Title sizing */
+    .page-title h1 {
+        font-size: 1.8rem !important;
+    }
+    .page-title p {
+        font-size: 0.95rem !important;
+    }
+
+    /* Reduce content area padding on mobile */
+    .content {
+        padding: 8px 14px !important;
+    }
+
+    /* Stack page-title-row (title + action button) vertically on mobile */
+    .page-title-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+    .page-title-row .btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    /* Form sections */
+    .form-section {
+        padding: 15px !important;
+    }
+
+    /* Modals scaling */
+    .modal-content.glass {
+        width: 95% !important;
+        margin: 10px auto !important;
+        padding: 15px !important;
+    }
+    
+    .modal-body {
+        max-height: 70vh !important;
+        overflow-y: auto !important;
+    }
+
+    /* Table horizontal scroll container styling */
+    .premium-table-container,
+    .table-responsive {
+        overflow-x: auto !important;
+        width: 100% !important;
+        display: block;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 12px;
+        border: 1px solid var(--glass-border);
+    }
+    
+    .admin-table {
+        min-width: 600px; /* Force scrollable context */
+    }
+
+    /* Adjust notification panel for mobile so it fits screen width and doesn't clip */
+    .notif-panel {
+        position: fixed !important;
+        top: calc(var(--topbar-height) + 10px) !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-width: calc(100vw - 24px) !important;
+    }
+}
+
+/* ── Notification Bell (Dashboard Style Globalized) ─────────────────────── */
+.notif-btn {
+    position: relative;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--glass-bg, rgba(255,255,255,0.03));
+    border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted, #94a3b8);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+.notif-btn:hover {
+    border-color: var(--primary, #6366f1);
+    color: var(--primary, #6366f1);
+    background: rgba(99,102,241,0.08);
+}
+.notif-badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    min-width: 18px; height: 18px;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 10px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 4px;
+    border: 2px solid var(--bg-topbar, var(--bg-body, #05070a));
+    animation: badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes badgePop { from { transform: scale(0); } to { transform: scale(1); } }
+.notif-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 340px;
+    background: var(--bg-card, #11141e);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border, rgba(255,255,255,0.08));
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 0; transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.notif-panel.open {
+    opacity: 1; transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+.notif-panel-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+}
+.notif-panel-header h3 {
+    font-size: 14px; font-weight: 800;
+    color: var(--text-primary, #ffffff); margin: 0;
+}
+.notif-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    color: inherit;
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-item:hover { background: var(--glass-bg, rgba(255,255,255,0.02)); }
+.notif-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    margin-top: 5px; flex-shrink: 0;
+}
+.notif-panel-footer {
+    padding: 10px 18px;
+    border-top: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+    text-align: center;
+}
+.light .notif-panel {
+    background: #ffffff;
+    border-color: rgba(0,0,0,0.08);
+}
+
+.light .ob-page-title {
+    background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* ── Company Preview Modal — Mobile fixes (≤576px) ───────────────────────
+   The modal is built entirely with JS inline styles, so !important is
+   required to override them at this breakpoint.
+   ──────────────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 576px) {
+    /* Overlay: scroll from top, padding so modal doesn't touch edges */
+    #_companyPreviewModal {
+        align-items: flex-start !important;
+        padding: 12px !important;
+        overflow-y: auto !important;
+    }
+
+    /* Modal content: full width, compact padding, scrollable internally */
+    #_companyPreviewModal .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 18px 16px !important;
+        border-radius: 16px !important;
+        max-height: calc(100dvh - 24px) !important;
+        overflow-y: auto !important;
+        margin-top: 4px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Modal header: tighter spacing */
+    #_companyPreviewModal .modal-header {
+        margin-bottom: 16px !important;
+        padding-bottom: 10px !important;
+    }
+
+    #_companyPreviewModal .modal-header h2 {
+        font-size: 17px !important;
+    }
+
+    /* Preview grid: collapse 2-column to single column */
+    #_companyPreviewModal .preview-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Close button: full width, centered */
+    #_closePreviewBtn {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 11px 20px !important;
+        border-radius: 10px !important;
+        font-size: 14px !important;
+        box-sizing: border-box !important;
+    }
+}
