@@ -404,33 +404,81 @@
     }
 
     /* ── Inline validation styles ── */
-    .invalid-input {
+    .field-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .error-msg {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ef4444;
+      margin-top: 5px;
+      padding-left: 2px;
+      line-height: 1.4;
+      animation: errFadeIn 0.2s ease;
+    }
+    .error-msg.visible {
+      display: flex;
+    }
+    .error-msg::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ef4444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='8'/%3E%3Cline x1='10' y1='6' x2='10' y2='10'/%3E%3Ccircle cx='10' cy='14' r='0.5' fill='%23ef4444'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-top: 1px;
+    }
+    @keyframes errFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .invalid-input,
+    input.invalid-input,
+    textarea.invalid-input {
       border-color: #ef4444 !important;
-      background-color: #fef2f2 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+      background-color: #fff8f8 !important;
     }
-    
-    input.invalid-input::placeholder,
-    textarea.invalid-input::placeholder {
-      color: #ef4444 !important;
-      opacity: 1 !important;
-    }
-    
+
     .custom-select-trigger.invalid-input {
       border-color: #ef4444 !important;
-      background-color: #fef2f2 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+      background-color: #fff8f8 !important;
     }
-    
-    .custom-select-trigger.invalid-input span {
+
+    .checkbox-field-wrap .checkbox-row label {
+      transition: color 0.2s;
+    }
+    .checkbox-field-wrap.invalid-check label {
       color: #ef4444 !important;
     }
-    
-    [data-theme="dark"] .invalid-input {
+
+    [data-theme="dark"] .invalid-input,
+    [data-theme="dark"] input.invalid-input,
+    [data-theme="dark"] textarea.invalid-input {
       border-color: #ef4444 !important;
-      background-color: rgba(239, 68, 68, 0.15) !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+      background-color: rgba(239, 68, 68, 0.08) !important;
     }
     [data-theme="dark"] .custom-select-trigger.invalid-input {
       border-color: #ef4444 !important;
-      background-color: rgba(239, 68, 68, 0.15) !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+      background-color: rgba(239, 68, 68, 0.08) !important;
+    }
+    [data-theme="dark"] .error-msg {
+      color: #fca5a5;
+    }
+    [data-theme="dark"] .error-msg::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fca5a5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='8'/%3E%3Cline x1='10' y1='6' x2='10' y2='10'/%3E%3Ccircle cx='10' cy='14' r='0.5' fill='%23fca5a5'/%3E%3C/svg%3E");
     }
   `;
   document.head.appendChild(style);
@@ -549,138 +597,143 @@ document.addEventListener('DOMContentLoaded', function () {
   const contactForms = document.querySelectorAll('.contact-form, .ats-contact-form');
 
   contactForms.forEach(form => {
-    // Prevent browser default validation tooltips
+    // Always suppress browser native validation tooltips
     form.setAttribute('novalidate', 'true');
+
+    /* ── Helper: find error-msg span for a given input ── */
+    function getErrorSpan(input) {
+      const id = input.id;
+      if (id) {
+        const span = form.querySelector(`.error-msg[data-for="${id}"]`);
+        if (span) return span;
+      }
+      // Fallback: sibling or closest field-wrap child
+      const wrap = input.closest('.field-wrap');
+      if (wrap) return wrap.querySelector('.error-msg');
+      return null;
+    }
+
+    /* ── Show an error on an input ── */
+    function showError(input, message) {
+      // Mark the visual element
+      if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
+        const trigger = input.closest('.custom-select-wrapper').querySelector('.custom-select-trigger');
+        if (trigger) trigger.classList.add('invalid-input');
+      } else if (input.type === 'checkbox') {
+        const wrap = input.closest('.checkbox-field-wrap');
+        if (wrap) wrap.classList.add('invalid-check');
+      } else {
+        input.classList.add('invalid-input');
+      }
+
+      // Show the error message span
+      const span = getErrorSpan(input);
+      if (span) {
+        span.textContent = message;
+        span.classList.add('visible');
+      }
+    }
+
+    /* ── Clear an error from an input ── */
+    function clearError(input) {
+      if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
+        const trigger = input.closest('.custom-select-wrapper').querySelector('.custom-select-trigger');
+        if (trigger) trigger.classList.remove('invalid-input');
+      } else if (input.type === 'checkbox') {
+        const wrap = input.closest('.checkbox-field-wrap');
+        if (wrap) wrap.classList.remove('invalid-check');
+      } else {
+        input.classList.remove('invalid-input');
+      }
+
+      const span = getErrorSpan(input);
+      if (span) {
+        span.textContent = '';
+        span.classList.remove('visible');
+      }
+    }
+
+    /* ── Attach live clear-on-input listeners once ── */
+    if (!form.dataset.validationInitialized) {
+      form.dataset.validationInitialized = 'true';
+
+      // Regular inputs & textarea
+      form.querySelectorAll('input:not([type="checkbox"]), textarea').forEach(input => {
+        input.addEventListener('input', () => clearError(input));
+        input.addEventListener('focus', () => clearError(input));
+      });
+
+      // Checkbox
+      const cb = form.querySelector('#privacy');
+      if (cb) {
+        cb.addEventListener('change', () => clearError(cb));
+      }
+
+      // Hidden select — clear when custom option is picked (change event fired by custom select JS)
+      const hiddenSelect = form.querySelector('select[name="subject"]');
+      if (hiddenSelect) {
+        hiddenSelect.addEventListener('change', () => clearError(hiddenSelect));
+      }
+    }
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.innerText : 'Send Message';
+      const originalText = submitBtn ? submitBtn.innerText : 'Send Message →';
 
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerText = 'Sending…';
       }
 
-      // ── HTML5 / Custom Field Validation ──
       let isValid = true;
       let firstInvalidInput = null;
 
-      function showError(input, message) {
-        input.classList.add('invalid-input');
-        
-        // Handle select dropdown
-        if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
-          const wrapper = input.closest('.custom-select-wrapper');
-          if (wrapper) {
-            const trigger = wrapper.querySelector('.custom-select-trigger');
-            if (trigger) {
-              trigger.classList.add('invalid-input');
-              const span = trigger.querySelector('span');
-              if (span) {
-                if (!span.dataset.originalText) {
-                  span.dataset.originalText = span.textContent;
-                }
-                span.textContent = message;
-              }
-            }
-          }
-        } 
-        // Handle checkbox
-        else if (input.type === 'checkbox') {
-          const row = input.closest('.checkbox-row') || input;
-          row.style.color = '#ef4444';
-        } 
-        // Handle regular inputs (text, email, tel, textarea)
-        else {
-          if (!input.dataset.originalPlaceholder) {
-            input.dataset.originalPlaceholder = input.placeholder || '';
-          }
-          input.value = '';
-          input.placeholder = message;
+      // Clear all existing errors first
+      form.querySelectorAll('input, textarea, select').forEach(inp => clearError(inp));
+
+      /* ── Validate each required field ── */
+      const nameInput    = form.querySelector('[name="name"], [name="first_name"]');
+      const emailInput   = form.querySelector('[name="email"]');
+      const companyInput = form.querySelector('[name="company"], [name="company_name"]');
+      const phoneInput   = form.querySelector('[name="contact_number"], [name="phone"]');
+      const subjectInput = form.querySelector('[name="subject"]');
+      const messageInput = form.querySelector('[name="message"]');
+      const privacyCb    = form.querySelector('#privacy');
+
+      function flagEmpty(input, label) {
+        if (input && input.hasAttribute('required') && !input.value.trim()) {
+          isValid = false;
+          let labelText = label;
+          if (input.name === 'first_name') labelText = 'First name';
+          else if (input.name === 'phone') labelText = 'Phone number';
+          showError(input, `${labelText} is required.`);
+          if (!firstInvalidInput) firstInvalidInput = input;
         }
       }
 
-      function clearError(input) {
-        input.classList.remove('invalid-input');
-        
-        // Handle select dropdown
-        if (input.tagName === 'SELECT' && input.closest('.custom-select-wrapper')) {
-          const wrapper = input.closest('.custom-select-wrapper');
-          if (wrapper) {
-            const trigger = wrapper.querySelector('.custom-select-trigger');
-            if (trigger) {
-              trigger.classList.remove('invalid-input');
-              const span = trigger.querySelector('span');
-              if (span && span.dataset.originalText) {
-                span.textContent = span.dataset.originalText;
-                if (input.value) {
-                  trigger.style.color = "var(--dark)";
-                } else {
-                  trigger.style.color = "#888";
-                }
-              }
-            }
-          }
-        } 
-        // Handle checkbox
-        else if (input.type === 'checkbox') {
-          const row = input.closest('.checkbox-row') || input;
-          row.style.color = '';
-        } 
-        // Handle regular inputs
-        else {
-          if (input.dataset.originalPlaceholder !== undefined) {
-            input.placeholder = input.dataset.originalPlaceholder;
-          }
-        }
+      flagEmpty(nameInput,    'Name');
+      flagEmpty(emailInput,   'Email address');
+      flagEmpty(companyInput, 'Company name');
+      flagEmpty(phoneInput,   'Contact number');
+      flagEmpty(messageInput, 'Message');
+
+      // Subject (custom select — hidden select)
+      if (subjectInput && !subjectInput.value) {
+        isValid = false;
+        showError(subjectInput, 'Please select a subject / service.');
+        if (!firstInvalidInput) firstInvalidInput = subjectInput;
       }
 
-      // Add input event listeners to clear error dynamically
-      if (!form.dataset.validationInitialized) {
-        form.dataset.validationInitialized = 'true';
-        const allRequired = form.querySelectorAll('[required]');
-        allRequired.forEach(input => {
-          const reset = () => clearError(input);
-          input.addEventListener('focus', reset);
-          input.addEventListener('input', reset);
-          input.addEventListener('change', reset);
-        });
+      // Checkbox
+      if (privacyCb && !privacyCb.checked) {
+        isValid = false;
+        showError(privacyCb, 'Please agree to the privacy policy.');
+        if (!firstInvalidInput) firstInvalidInput = privacyCb;
       }
 
-      // Clear existing validation state on submit
-      const requiredInputs = form.querySelectorAll('[required]');
-      requiredInputs.forEach(input => clearError(input));
-
-      // Validate required elements
-      requiredInputs.forEach(input => {
-        if (input.type === 'checkbox') {
-          if (!input.checked) {
-            isValid = false;
-            showError(input, 'Please agree to the Privacy Policy.');
-            if (!firstInvalidInput) firstInvalidInput = input;
-          }
-        } else {
-          if (!input.value.trim()) {
-            isValid = false;
-            showError(input, 'Please fill out this field.');
-            if (!firstInvalidInput) firstInvalidInput = input;
-          }
-        }
-      });
-
-      const fd = new FormData(form);
-      const data = {
-        name: fd.get('name') || `${fd.get('first_name') || ''} ${fd.get('last_name') || ''}`.trim(),
-        email: fd.get('email'),
-        contact_number: fd.get('contact_number') || fd.get('phone'),
-        company: fd.get('company') || fd.get('company_name'),
-        message: fd.get('message') || (form.querySelector('textarea') || {}).value || ''
-      };
-
-      // Validate email format if populated
-      const emailInput = form.querySelector('[name="email"]');
+      // Email format
       if (emailInput && emailInput.value.trim() && isValid) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(emailInput.value.trim())) {
@@ -690,11 +743,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      // Validate phone format if populated
-      const phoneInput = form.querySelector('[name="phone"], [name="contact_number"]');
+      // Phone format
       if (phoneInput && phoneInput.value.trim() && isValid) {
         const phoneRegex = /^(\+?\d{1,4}[\s-]?)?\d{10}$/;
-        if (!phoneRegex.test(phoneInput.value.trim())) {
+        if (!phoneRegex.test(phoneInput.value.trim().replace(/[\s-]/g, ''))) {
           isValid = false;
           showError(phoneInput, 'Please enter a valid 10-digit number.');
           if (!firstInvalidInput) firstInvalidInput = phoneInput;
@@ -703,21 +755,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!isValid) {
         if (firstInvalidInput) {
-          firstInvalidInput.focus();
-          firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // For hidden select, scroll to the custom trigger instead
+          const scrollTarget = (firstInvalidInput.tagName === 'SELECT')
+            ? (firstInvalidInput.closest('.custom-select-wrapper') || firstInvalidInput)
+            : firstInvalidInput;
+          scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (firstInvalidInput.type !== 'checkbox' && firstInvalidInput.tagName !== 'SELECT') {
+            firstInvalidInput.focus();
+          }
         }
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerText = originalText;
-        }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = originalText; }
         return;
       }
 
-      // ── Subject Dropdown prefill ──
+      /* ── Build data payload ── */
+      const fd = new FormData(form);
       const subject = fd.get('subject');
-      if (subject) {
-        data.message = `Subject: ${subject}\n\nMessage:\n${data.message}`;
-      }
+      const data = {
+        name:           fd.get('name') || `${fd.get('first_name') || ''} ${fd.get('last_name') || ''}`.trim(),
+        email:          fd.get('email'),
+        contact_number: fd.get('contact_number') || fd.get('phone'),
+        company:        fd.get('company') || fd.get('company_name'),
+        message:        subject
+          ? `Subject: ${subject}\n\nMessage:\n${fd.get('message') || ''}`
+          : (fd.get('message') || '')
+      };
 
       try {
         const res  = await fetch('/api/contact', {

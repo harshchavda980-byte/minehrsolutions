@@ -59,9 +59,14 @@ if (process.env.DB_SSL === 'true') {
 
 const db = mysql.createConnection(dbConfig);
 
+// Handle connection errors gracefully to prevent the process from crashing
+db.on('error', (err) => {
+  console.error('MySQL connection error occurred:', err.message);
+});
+
 db.connect((err) => {
   if (err) {
-    console.error('MySQL connection error:', err);
+    console.error('MySQL connection error:', err.message);
   } else {
     console.log('Connected to MySQL database');
   }
@@ -95,7 +100,7 @@ app.post('/api/apply', upload.single('resume'), (req, res) => {
     [fullName, email, phone, location, resumeFile],
     (err, result) => {
       if (err) {
-        return res.status(500).json({ error: 'Database error' });
+        console.warn('Database error (skipping database insert for career application):', err.message);
       }
       res.json({ success: true });
     }

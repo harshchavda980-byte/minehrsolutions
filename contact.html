@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="public/css/responsive.css">
   <script src="public/js/script.js" defer></script>
   <script src="public/components/navbar-premium.js?v=1.2"></script>
-  <script src="public/js/contact-handler.js?v=1.1" defer></script>
+  <script src="public/js/contact-handler.js?v=1.2" defer></script>
     <link rel="stylesheet" href="public/css/dark-theme.css" />
 </head>
 <body>
@@ -167,26 +167,45 @@
 
       <!-- SLIDE 1 -->
       <div class="left-slide active">
-        
-        <h1 class="main-title">Let’s Talk About Your HR Needs</h1>
+
+        <h1 class="main-title">Let's Talk About<br><span class="title-highlight">Your HR Needs</span></h1>
 
         <p class="intro">
-          Tell us about your company and challenges — our HR experts
-          will guide you with the right solution.
+          Tell us about your company and challenges — our HR experts will guide you with the right solution.
         </p>
 
         <div class="feature-list">
-          <div class="feature-item">✔ Indian compliance expertise — Payroll, labour laws & statutory support</div>
-          <div class="feature-item">✔ Dedicated HR professionals — Hands-on support for growing teams</div>
-          <div class="feature-item">✔ Transparent pricing — No hidden costs, clear plans</div>
+          <div class="feature-item">
+            <span class="feature-icon">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"/></svg>
+            </span>
+            <span><strong>Indian compliance expertise</strong> — Payroll, labour laws &amp; statutory support</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"/></svg>
+            </span>
+            <span><strong>Dedicated HR professionals</strong> — Hands-on support for growing teams</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10 8 14 16 6"/></svg>
+            </span>
+            <span><strong>Transparent pricing</strong> — No hidden costs, clear plans</span>
+          </div>
         </div>
 
-        <button id="continueBtn" class="primary-btn">Continue →</button>
+        <div class="slide1-actions">
+          <button id="continueBtn" class="cta-btn-filled">
+            Get Started
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12L10 8L6 4"/></svg>
+          </button>
+          <p class="support-text">
+            Or email us at
+            <a href="mailto:contact@minehrsolutions.com">contact@minehrsolutions.com</a>
+          </p>
+        </div>
 
-        <p class="support-text">
-          Or email us directly at
-          <a href="mailto:contact@minehrsolutions.com">contact@minehrsolutions.com</a>
-        </p>
       </div>
 
       <!-- SLIDE 2 -->
@@ -197,71 +216,92 @@
           Have questions or feedback? We’re here to help.
         </p>
 
-        <form class="contact-form">
+        <form class="contact-form" novalidate>
           <div class="row">
             <div class="form-group">
-              <input type="text" name="name" placeholder="Name *" required>
+              <div class="field-wrap">
+                <input type="text" name="name" id="field-name" placeholder="Name *" required>
+                <span class="error-msg" data-for="field-name"></span>
+              </div>
             </div>
             <div class="form-group">
-              <input type="email" name="email" placeholder="Email address *" required>
+              <div class="field-wrap">
+                <input type="email" name="email" id="field-email" placeholder="Email address *" required>
+                <span class="error-msg" data-for="field-email"></span>
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <input type="text" name="company" placeholder="Company Name *" required>
+              <div class="field-wrap">
+                <input type="text" name="company" id="field-company" placeholder="Company Name *" required>
+                <span class="error-msg" data-for="field-company"></span>
+              </div>
             </div>
             <div class="form-group">
-              <input type="tel" name="contact_number" placeholder="Contact Number *" maxlength="17" required>
-            </div>
-          </div>
-          <div class="custom-select-wrapper">
-            <div class="custom-select">
-              <div class="custom-select-trigger">
-                <span>Select Subject / Service of Interest *</span>
-                <div class="arrow"></div>
-              </div>
-              <div class="custom-options">
-                <span class="custom-option" data-value="HRMS Software">HRMS Software</span>
-                <span class="custom-option" data-value="Payroll Management">Payroll Management</span>
-                <span class="custom-option" data-value="Recruitment & Staffing">Recruitment & Staffing</span>
-                <span class="custom-option" data-value="End-to-End HR Services">End-to-End HR Services</span>
-                <span class="custom-option" data-value="CRM Solutions">CRM Solutions</span>
-                <span class="custom-option" data-value="Web Development">Web Development</span>
-                <span class="custom-option" data-value="Logo & Branding">Logo & Branding</span>
-                <span class="custom-option" data-value="Custom Software">Custom Software</span>
-                <span class="custom-option" data-value="IT Support & Maintenance">IT Support & Maintenance</span>
-                <span class="custom-option" data-value="Other Inquiry">Other Inquiry</span>
+              <div class="field-wrap">
+                <input type="tel" name="contact_number" id="field-phone" placeholder="Contact Number *" maxlength="17" required>
+                <span class="error-msg" data-for="field-phone"></span>
               </div>
             </div>
-            <select name="subject" required style="display: none;">
-              <option value="" disabled selected>Select Subject / Service of Interest *</option>
-              <option value="HRMS Software">HRMS Software</option>
-              <option value="Payroll Management">Payroll Management</option>
-              <option value="Recruitment & Staffing">Recruitment & Staffing</option>
-              <option value="End-to-End HR Services">End-to-End HR Services</option>
-              <option value="CRM Solutions">CRM Solutions</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Logo & Branding">Logo & Branding</option>
-              <option value="Custom Software">Custom Software</option>
-              <option value="IT Support & Maintenance">IT Support & Maintenance</option>
-              <option value="Other Inquiry">Other Inquiry</option>
-            </select>
           </div>
-          <textarea name="message" placeholder="Your message" rows="5" required></textarea>        
+          <div class="field-wrap">
+            <div class="custom-select-wrapper">
+              <div class="custom-select">
+                <div class="custom-select-trigger">
+                  <span>Select Subject / Service of Interest *</span>
+                  <div class="arrow"></div>
+                </div>
+                <div class="custom-options">
+                  <span class="custom-option" data-value="HRMS Software">HRMS Software</span>
+                  <span class="custom-option" data-value="Payroll Management">Payroll Management</span>
+                  <span class="custom-option" data-value="Recruitment & Staffing">Recruitment & Staffing</span>
+                  <span class="custom-option" data-value="End-to-End HR Services">End-to-End HR Services</span>
+                  <span class="custom-option" data-value="CRM Solutions">CRM Solutions</span>
+                  <span class="custom-option" data-value="Web Development">Web Development</span>
+                  <span class="custom-option" data-value="Logo & Branding">Logo & Branding</span>
+                  <span class="custom-option" data-value="Custom Software">Custom Software</span>
+                  <span class="custom-option" data-value="IT Support & Maintenance">IT Support & Maintenance</span>
+                  <span class="custom-option" data-value="Other Inquiry">Other Inquiry</span>
+                </div>
+              </div>
+              <select name="subject" id="field-subject" style="display:none;">
+                <option value="" disabled selected>Select Subject / Service of Interest *</option>
+                <option value="HRMS Software">HRMS Software</option>
+                <option value="Payroll Management">Payroll Management</option>
+                <option value="Recruitment & Staffing">Recruitment & Staffing</option>
+                <option value="End-to-End HR Services">End-to-End HR Services</option>
+                <option value="CRM Solutions">CRM Solutions</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Logo & Branding">Logo & Branding</option>
+                <option value="Custom Software">Custom Software</option>
+                <option value="IT Support & Maintenance">IT Support & Maintenance</option>
+                <option value="Other Inquiry">Other Inquiry</option>
+              </select>
+            </div>
+            <span class="error-msg" data-for="field-subject"></span>
+          </div>
+          <div class="field-wrap">
+            <textarea name="message" id="field-message" placeholder="Your message *" rows="4" required></textarea>
+            <span class="error-msg" data-for="field-message"></span>
+          </div>
 
- <div class="form-footer">
-  <div class="checkbox-row">
-    <input type="checkbox" id="privacy" required>
-    <label for="privacy">I agree to the <a href="#" id="privacyPolicyLink">privacy policy</a></label>
-  </div>
-
-  <button type="submit" class="submit-btn">
-    Send Message →
-  </button>
-</div>
-</form>
+          <div class="form-footer">
+            <div class="field-wrap checkbox-field-wrap">
+              <div class="checkbox-row">
+                <input type="checkbox" id="privacy" required>
+                <label for="privacy">I agree to the <a href="#" id="privacyPolicyLink">privacy policy</a></label>
+              </div>
+              <span class="error-msg" data-for="privacy"></span>
+            </div>
+            <button type="submit" class="submit-btn">
+              Send Message →
+            </button>
+          </div>
+        </form>
         
       </div>
+
 
     </div>
   </div>

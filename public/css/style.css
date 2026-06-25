@@ -616,12 +616,62 @@ body {
 .feature-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .feature-item {
-  font-size: 15px;
+  font-size: 14.5px;
   color: #333;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7b5cff22, #a78bfa33);
+  border: 1px solid #7b5cff44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7b5cff;
+  margin-top: 1px;
+}
+
+/* SLIDE 1 BADGE */
+.slide1-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7b5cff;
+  background: linear-gradient(135deg, #7b5cff15, #a78bfa20);
+  border: 1px solid #7b5cff30;
+  border-radius: 20px;
+  padding: 5px 12px;
+  letter-spacing: 0.4px;
+  width: fit-content;
+}
+
+/* TITLE HIGHLIGHT */
+.title-highlight {
+  background: linear-gradient(90deg, #7b5cff, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SLIDE 1 ACTIONS */
+.slide1-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 /* BUTTON */
@@ -637,6 +687,34 @@ body {
 
 .primary-btn:hover {
   text-decoration: underline;
+}
+
+/* FILLED CTA BUTTON */
+.cta-btn-filled {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7b5cff, #9b7aff);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(123, 92, 255, 0.35);
+  font-family: inherit;
+}
+
+.cta-btn-filled:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(123, 92, 255, 0.5);
+}
+
+.cta-btn-filled:active {
+  transform: translateY(0);
 }
 
 /* SUPPORT */

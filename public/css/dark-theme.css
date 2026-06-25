@@ -121,14 +121,14 @@
     color: #94a3b8 !important;
 }
 
-[data-theme="dark"] .demo-form input,
+[data-theme="dark"] .demo-form input:not([type="checkbox"]),
 [data-theme="dark"] .demo-form textarea {
     background: #0f172a !important;
     color: #f1f5f9 !important;
     border-color: #334155 !important;
 }
 
-[data-theme="dark"] .demo-form input:focus,
+[data-theme="dark"] .demo-form input:not([type="checkbox"]):focus,
 [data-theme="dark"] .demo-form textarea:focus {
     border-color: #6366f1 !important;
     box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
@@ -341,6 +341,35 @@
 
 [data-theme="dark"] .support-text a {
     color: #c084fc !important;
+}
+
+/* New Slide 1 elements – dark mode */
+[data-theme="dark"] .slide1-badge {
+    background: linear-gradient(135deg, rgba(123,92,255,0.2), rgba(167,139,250,0.15)) !important;
+    border-color: rgba(167,139,250,0.3) !important;
+    color: #a78bfa !important;
+}
+
+[data-theme="dark"] .title-highlight {
+    background: linear-gradient(90deg, #a78bfa, #c4b5fd) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="dark"] .feature-icon {
+    background: linear-gradient(135deg, rgba(123,92,255,0.25), rgba(167,139,250,0.2)) !important;
+    border-color: rgba(167,139,250,0.35) !important;
+    color: #a78bfa !important;
+}
+
+[data-theme="dark"] .feature-item strong {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .cta-btn-filled {
+    background: linear-gradient(135deg, #7b5cff, #9b7aff) !important;
+    box-shadow: 0 4px 20px rgba(123, 92, 255, 0.4) !important;
 }
 
 [data-theme="dark"] .contact-form {

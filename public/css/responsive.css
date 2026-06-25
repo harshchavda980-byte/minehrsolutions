@@ -379,22 +379,47 @@ img, video, iframe {
         font-size: 14px !important;
     }
 
-    /* Timeline Adjustments */
-    .process-timeline::before {
-        left: 15px !important;
+    /* Timeline Adjustments — Mobile */
+    .process-timeline {
+        gap: 24px !important;
+        padding: 10px 0 !important;
     }
 
+    /* Hide the misaligned left-side vertical connector line on mobile */
+    .process-timeline::before {
+        display: none !important;
+    }
+
+    /* Each step stacks vertically as a full-width centered card */
     .process-step {
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
-        gap: 15px !important;
+        gap: 16px !important;
+        width: 100% !important;
     }
 
+    /* Step number circle: centered above content */
+    .step-number {
+        min-width: 56px !important;
+        height: 56px !important;
+        font-size: 18px !important;
+        flex-shrink: 0 !important;
+        align-self: center !important;
+    }
+
+    /* Card: full width, proper padding, no left-border quirks */
     .step-content {
         width: 100% !important;
-        border: none !important;
-        padding-left: 0 !important;
+        box-sizing: border-box !important;
+        padding: 20px 20px !important;
+        border-radius: 16px !important;
+        border-left: none !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .step-content h3 {
+        font-size: 20px !important;
     }
 
     /* Trust Badges - Equal 2×2 Grid on Mobile */

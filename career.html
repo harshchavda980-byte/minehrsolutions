@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
   <title>Careers | MineHR Solutions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="public/components/navbar-premium.css?v=1.2">
-  <link rel="stylesheet" href="public/css/career.css">
+  <link rel="stylesheet" href="public/css/career.css?v=1.3">
   <link rel="stylesheet" href="public/css/styles.css">
   <link rel="stylesheet" href="public/css/responsive.css" />
   <style>
@@ -456,15 +456,29 @@ Chat With Recruiter
 
     <h2>Job Application Form</h2>
 
-    <form>
-      <input type="text" name="fullName" id="fullName" placeholder="Full Name" required>
-      <input type="email" name="email" id="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+    <form novalidate>
+      <div class="field-wrap">
+        <input type="text" name="fullName" id="fullName" placeholder="Full Name" required>
+        <span class="error-msg" data-for="fullName"></span>
+      </div>
+      <div class="field-wrap">
+        <input type="email" name="email" id="email" placeholder="Email Address" required>
+        <span class="error-msg" data-for="email"></span>
+      </div>
+      <div class="field-wrap">
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+        <span class="error-msg" data-for="phone"></span>
+      </div>
 
-      <input type="text" name="location" id="location" placeholder="Current Location">
+      <div class="field-wrap">
+        <input type="text" name="location" id="location" placeholder="Current Location">
+      </div>
 
-      <label>Upload Resume</label>
-      <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx" required>
+      <div class="field-wrap file-wrap">
+        <label for="resume" style="font-weight: 500; font-size: 14px; display: block; margin-bottom: 5px;">Upload Resume</label>
+        <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx" required>
+        <span class="error-msg" data-for="resume"></span>
+      </div>
 
       <button type="submit" class="submit-btn">Submit Application</button>
     </form>
@@ -595,7 +609,7 @@ Chat With Recruiter
   </footer>
 
 
-<script src="public/js/career.js"></script>
+<script src="public/js/career.js?v=1.3"></script>
 <script src="public/components/navbar-premium.js?v=1.2"></script>
 
 </body>

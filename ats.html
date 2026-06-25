@@ -747,31 +747,49 @@
           <form class="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label>First Name*</label>
-                <input type="text" name="first_name" placeholder="John" required>
+                <label for="field-first-name">First Name*</label>
+                <div class="field-wrap">
+                  <input type="text" name="first_name" id="field-first-name" placeholder="John" required>
+                  <span class="error-msg" data-for="field-first-name"></span>
+                </div>
               </div>
               <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" name="last_name" placeholder="Doe">
+                <label for="field-last-name">Last Name</label>
+                <div class="field-wrap">
+                  <input type="text" name="last_name" id="field-last-name" placeholder="Doe">
+                  <span class="error-msg" data-for="field-last-name"></span>
+                </div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label>E-Mail*</label>
-                <input type="email" name="email" placeholder="john@company.com" required>
+                <label for="field-email">E-Mail*</label>
+                <div class="field-wrap">
+                  <input type="email" name="email" id="field-email" placeholder="john@company.com" required>
+                  <span class="error-msg" data-for="field-email"></span>
+                </div>
               </div>
               <div class="form-group">
-                <label>Phone*</label>
-                <input type="tel" name="phone" placeholder="+91 00000 00000" required>
+                <label for="field-phone">Phone*</label>
+                <div class="field-wrap">
+                  <input type="tel" name="phone" id="field-phone" placeholder="+91 00000 00000" maxlength="17" required>
+                  <span class="error-msg" data-for="field-phone"></span>
+                </div>
               </div>
             </div>
             <div class="form-group">
-              <label>Company Name*</label>
-              <input type="text" name="company_name" placeholder="MineHR Solutions" required>
+              <label for="field-company">Company Name*</label>
+              <div class="field-wrap">
+                <input type="text" name="company_name" id="field-company" placeholder="MineHR Solutions" required>
+                <span class="error-msg" data-for="field-company"></span>
+              </div>
             </div>
             <div class="form-group">
-              <label>Message</label>
-              <textarea name="message" placeholder="Write your message"></textarea>
+              <label for="field-message">Message</label>
+              <div class="field-wrap">
+                <textarea name="message" id="field-message" placeholder="Write your message"></textarea>
+                <span class="error-msg" data-for="field-message"></span>
+              </div>
             </div>
             <button type="submit" class="btn-submit">Book Free Demo</button>
           </form>
@@ -929,6 +947,19 @@
             quickNav.classList.remove('active');
           });
         });
+      }
+
+      // Demo Video Play Behavior
+      const videoPlaceholder = document.querySelector('.video-placeholder');
+      if (videoPlaceholder) {
+        videoPlaceholder.addEventListener('click', function() {
+          const videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+          videoPlaceholder.innerHTML = `
+            <video src="${videoUrl}" controls autoplay style="width: 100%; height: 100%; border-radius: inherit; object-fit: cover; outline: none;"></video>
+          `;
+          videoPlaceholder.style.cursor = 'default';
+          videoPlaceholder.style.filter = 'none';
+        }, { once: true });
       }
     });
   </script>

@@ -396,7 +396,7 @@ body {
 .security-section {
     background: #0f172a;
     color: white;
-    padding: 100px 0;
+    padding: 90px 0;
 }
 
 .security-wrapper {
@@ -406,7 +406,44 @@ body {
 }
 
 .security-text {
-    flex: 1;
+    flex: 1.1;
+}
+
+.security-image {
+    flex: 0.9;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.security-image::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.security-img {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+}
+
+.security-image:hover .security-img {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.15);
 }
 
 .security-text h2 {
@@ -640,6 +677,13 @@ body {
 
     .security-wrapper {
         flex-direction: column;
+        gap: 40px;
+    }
+
+    .security-image {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
     }
 }
 
@@ -684,7 +728,7 @@ body {
    DARK THEME OVERRIDES FOR TRUST PAGE
    ========================================================= */
 [data-theme="dark"] .bg-light {
-    background: #0f172a;
+    background: #1e293b;
 }
 
 [data-theme="dark"] .section-title {
@@ -786,4 +830,11 @@ body {
     background: rgba(255, 255, 255, 0.03);
     border-color: rgba(129, 140, 248, 0.15);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Process Section: dark-mode mobile card border fix --- */
+@media (max-width: 768px) {
+    [data-theme="dark"] .step-content {
+        border-color: #334155 !important;
+    }
 }

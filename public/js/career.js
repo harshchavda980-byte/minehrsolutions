@@ -113,9 +113,120 @@ document.addEventListener("DOMContentLoaded", function() {
   const form = document.querySelector(".apply-form-box form");
 
   if(form){
+    // Suppress browser default validation bubbles
+    form.setAttribute("novalidate", "true");
+
+    const fullNameInput = form.querySelector("#fullName");
+    const emailInput = form.querySelector("#email");
+    const phoneInput = form.querySelector("#phone");
+    const resumeInput = form.querySelector("#resume");
+
+    function getErrorSpan(input) {
+      const fieldWrap = input.closest(".field-wrap");
+      if (fieldWrap) {
+        return fieldWrap.querySelector(".error-msg");
+      }
+      return null;
+    }
+
+    function showError(input, message) {
+      input.classList.add("invalid-input");
+      const span = getErrorSpan(input);
+      if (span) {
+        span.textContent = message;
+        span.classList.add("visible");
+      }
+    }
+
+    function clearError(input) {
+      input.classList.remove("invalid-input");
+      const span = getErrorSpan(input);
+      if (span) {
+        span.textContent = "";
+        span.classList.remove("visible");
+      }
+    }
+
+    // Clear errors on user input/focus
+    [fullNameInput, emailInput, phoneInput, resumeInput].forEach(input => {
+      if (input) {
+        input.addEventListener("input", () => clearError(input));
+        input.addEventListener("focus", () => clearError(input));
+        input.addEventListener("change", () => clearError(input)); // for file input
+      }
+    });
+
     form.addEventListener("submit", async function(e) {
       e.preventDefault();
 
+      let hasError = false;
+      let firstErrorField = null;
+
+      // ─── 1. VALIDATE FULL NAME ───
+      const fullNameVal = fullNameInput.value.trim();
+      if (!fullNameVal) {
+        showError(fullNameInput, "Full Name is required.");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = fullNameInput;
+      } else {
+        clearError(fullNameInput);
+      }
+
+      // ─── 2. VALIDATE EMAIL ───
+      const emailVal = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal) {
+        showError(emailInput, "Email Address is required.");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = emailInput;
+      } else if (!emailRegex.test(emailVal)) {
+        showError(emailInput, "Please enter a valid email address.");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = emailInput;
+      } else {
+        clearError(emailInput);
+      }
+
+      // ─── 3. VALIDATE PHONE ───
+      const phoneVal = phoneInput.value.trim();
+      const phoneClean = phoneVal.replace(/[^0-9]/g, "");
+      if (!phoneVal) {
+        showError(phoneInput, "Phone Number is required.");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = phoneInput;
+      } else if (phoneClean.length < 10) {
+        showError(phoneInput, "Please enter a valid phone number (at least 10 digits).");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = phoneInput;
+      } else {
+        clearError(phoneInput);
+      }
+
+      // ─── 4. VALIDATE RESUME ───
+      if (!resumeInput.files || resumeInput.files.length === 0) {
+        showError(resumeInput, "Please upload your resume.");
+        hasError = true;
+        if (!firstErrorField) firstErrorField = resumeInput;
+      } else {
+        const file = resumeInput.files[0];
+        const allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
+        if (!allowedExtensions.exec(file.name)) {
+          showError(resumeInput, "Only PDF, DOC, or DOCX files are allowed.");
+          hasError = true;
+          if (!firstErrorField) firstErrorField = resumeInput;
+        } else {
+          clearError(resumeInput);
+        }
+      }
+
+      if (hasError) {
+        if (firstErrorField) {
+          firstErrorField.focus();
+        }
+        return; // Stop form submission
+      }
+
+      // Proceed to server submit
       const formData = new FormData(form);
 
       try {
