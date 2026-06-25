@@ -2,6 +2,23 @@
 // APPLY FORM OPEN / CLOSE
 // =====================================
 
+function updateBodyScroll() {
+  const applyModal = document.getElementById("applyModal");
+  const jobModal = document.getElementById("jobModal");
+  const successModal = document.getElementById("successModal");
+  
+  const isAnyModalOpen = 
+    (applyModal && applyModal.style.display === "flex") ||
+    (jobModal && jobModal.style.display === "flex") ||
+    (successModal && successModal.style.display === "flex");
+    
+  if (isAnyModalOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}
+
 function openForm() {
 
   // Close job modal if open
@@ -11,11 +28,15 @@ function openForm() {
   // Open apply modal
   const applyModal = document.getElementById("applyModal");
   if (applyModal) applyModal.style.display = "flex";
+  
+  updateBodyScroll();
 }
 
 function closeForm() {
   const applyModal = document.getElementById("applyModal");
   if (applyModal) applyModal.style.display = "none";
+  
+  updateBodyScroll();
 }
 
 
@@ -96,11 +117,13 @@ function openJob(type) {
     title.innerText = jobData[type].title;
     content.innerHTML = jobData[type].content;
   }
+  updateBodyScroll();
 }
 
 function closeJob(){
   const jobModal = document.getElementById("jobModal");
   if (jobModal) jobModal.style.display = "none";
+  updateBodyScroll();
 }
 
 
@@ -244,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (successModal) successModal.style.display = "flex";
 
           form.reset();
+          updateBodyScroll();
         } else {
           alert("Application failed. Please try again.");
         }
@@ -258,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function closeSuccess(){
   const successModal = document.getElementById("successModal");
   if (successModal) successModal.style.display = "none";
+  updateBodyScroll();
 }
 
 
@@ -270,17 +295,25 @@ window.onclick = function(event) {
   const applyModal = document.getElementById("applyModal");
   const jobModal = document.getElementById("jobModal");
   const successModal = document.getElementById("successModal");
+  let changed = false;
 
   if (event.target === applyModal) {
     applyModal.style.display = "none";
+    changed = true;
   }
 
   if (event.target === jobModal) {
     jobModal.style.display = "none";
+    changed = true;
   }
 
   if (event.target === successModal) {
     successModal.style.display = "none";
+    changed = true;
+  }
+  
+  if (changed) {
+    updateBodyScroll();
   }
 };
 
