@@ -1,11 +1,16 @@
-const continueBtn = document.getElementById("continueBtn");
-const slider = document.querySelector(".left-slider");
+document.addEventListener("DOMContentLoaded", function () {
+  const continueBtn = document.getElementById("continueBtn");
+  const slider = document.querySelector(".left-slider");
 
-if (continueBtn && slider) {
-  continueBtn.addEventListener("click", () => {
-    slider.classList.add("slide-next");
-  });
-}
+  if (continueBtn && slider) {
+    continueBtn.addEventListener("click", () => {
+      // Desktop: translateX(-50%) slide transition
+      // Mobile: toggles visibility via .slider-active class (see responsive.css)
+      slider.classList.add("slide-next");
+      slider.classList.add("slider-active");
+    });
+  }
+});
 
 const backBtn = document.querySelector('.global-back-btn');
 if (backBtn) {

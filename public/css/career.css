@@ -1046,3 +1046,9 @@ html {
 [data-theme="dark"] .circle {
   border-color: #334155;
 }
+
+/* Lock scroll when modal is open */
+html.modal-open,
+body.modal-open {
+  overflow: hidden !important;
+}

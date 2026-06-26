@@ -13,13 +13,15 @@ function updateBodyScroll() {
     (successModal && successModal.style.display === "flex");
     
   if (isAnyModalOpen) {
-    document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("modal-open");
+    document.body.classList.add("modal-open");
   } else {
-    document.body.style.overflow = "";
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
   }
 }
 
-function openForm() {
+function openForm(jobTitle) {
 
   // Close job modal if open
   const jobModal = document.getElementById("jobModal");
@@ -28,6 +30,12 @@ function openForm() {
   // Open apply modal
   const applyModal = document.getElementById("applyModal");
   if (applyModal) applyModal.style.display = "flex";
+  
+  // Set job title in hidden field
+  const appliedJobTitle = document.getElementById("appliedJobTitle");
+  if (appliedJobTitle) {
+    appliedJobTitle.value = jobTitle || "General Application";
+  }
   
   updateBodyScroll();
 }
@@ -55,59 +63,149 @@ function openJob(type) {
   modal.style.display = "flex";
 
   let jobData = {
-    ai: {
-      title: "Senior Staff Gen AI Engineer",
+    bde: {
+      title: "Business Development Executive",
       content: `
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Develop AI and Machine Learning models</li>
-          <li>Work on LLM based applications</li>
-          <li>Collaborate with Data Science team</li>
+          <li>Identify and develop new business opportunities.</li>
+          <li>Build and maintain strong relationships with prospective clients.</li>
+          <li>Pitch company services/products effectively to decision-makers.</li>
+          <li>Achieve monthly/quarterly business development targets.</li>
         </ul>
 
         <p><strong>Requirements:</strong></p>
         <ul>
-          <li>10+ years experience</li>
-          <li>Strong Python & SQL knowledge</li>
-          <li>Experience in Generative AI</li>
+          <li>2–3 Years of experience in Business Development / Sales.</li>
+          <li>Location: Ahmedabad (On-site).</li>
+          <li>Salary: ₹4–5 LPA + Incentives.</li>
+          <li>Excellent communication, negotiation, and interpersonal skills.</li>
+        </ul>
+      `
+    },
+
+    sales_exec: {
+      title: "Sales Executive",
+      content: `
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Direct interaction with potential leads and clients.</li>
+          <li>Understand client requirements and present suitable services.</li>
+          <li>Close sales deals and follow up on inquiries.</li>
+          <li>Work closely with the team to hit sales goals.</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+          <li>0–1 Year experience (Freshers welcome).</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Salary: ₹2–3 LPA + Incentives.</li>
+          <li>Good English and local language speaking skills.</li>
+        </ul>
+      `
+    },
+
+    presales: {
+      title: "Pre-Sales Executive",
+      content: `
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Conduct initial screening and qualify inbound/outbound leads.</li>
+          <li>Explain product/service offerings to potential clients.</li>
+          <li>Schedule meetings/demos for the sales team.</li>
+          <li>Maintain detailed lead status reports.</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+          <li>6 Months–1 Year of experience in a pre-sales or tele-sales role.</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Salary: ₹3 LPA.</li>
+          <li>Strong listening and communication skills.</li>
+        </ul>
+      `
+    },
+
+    devops: {
+      title: "DevOps Developer",
+      content: `
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Manage and optimize cloud infrastructure (AWS/Azure).</li>
+          <li>Build and maintain CI/CD pipelines for deployment.</li>
+          <li>Monitor application performance and system uptime.</li>
+          <li>Implement security best practices and automate system administration.</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+          <li>1 Year of experience in DevOps or Cloud engineering.</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Salary: ₹3 LPA.</li>
+          <li>Hands-on experience with Docker, Git, CI/CD tools, and AWS.</li>
+        </ul>
+      `
+    },
+
+    content_writer: {
+      title: "Content Writer",
+      content: `
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Create engaging and original content for blogs, websites, and social media.</li>
+          <li>Conduct research on industry-related topics to guide writing.</li>
+          <li>Proofread and edit copy before publication.</li>
+          <li>Optimize content using SEO best practices to increase organic reach.</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+          <li>6 Months–2 Years of experience as a content writer or copywriter.</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Salary: ₹3–4 LPA.</li>
+          <li>Excellent written and verbal communication skills in English.</li>
+        </ul>
+      `
+    },
+
+    flutter_intern: {
+      title: "Flutter Developer Intern",
+      content: `
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Assist in designing and building mobile applications using Flutter.</li>
+          <li>Write clean, maintainable, and efficient Dart code.</li>
+          <li>Collaborate with cross-functional teams to define and ship new features.</li>
+          <li>Debug and resolve issues in existing mobile apps.</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+          <li>Fresher with solid understanding of Dart and Flutter fundamentals.</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Stipend: Paid Internship.</li>
+          <li>Portfolio of personal projects or college work is a plus.</li>
         </ul>
       `
     },
 
     fullstack: {
-      title: "Full Stack Developer (Python & JavaScript) – AI",
+      title: "Full Stack Developer",
       content: `
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Develop full stack applications</li>
-          <li>Integrate AI models</li>
-          <li>Work with Django & MERN stack</li>
+          <li>Develop and maintain scalable web applications.</li>
+          <li>Build responsive front-end interfaces and secure back-end APIs.</li>
+          <li>Integrate databases and third-party services.</li>
+          <li>Participate in code reviews and troubleshoot production issues.</li>
         </ul>
 
         <p><strong>Requirements:</strong></p>
         <ul>
-          <li>7+ years experience</li>
-          <li>Strong JavaScript & Python</li>
-          <li>Cloud experience (AWS/Azure)</li>
-        </ul>
-      `
-    },
-
-    sales: {
-      title: "Consultant (Sales) – Education & Immigration",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Handle client communication</li>
-          <li>Manage immigration cases</li>
-          <li>Achieve sales targets</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>2–5 years experience</li>
-          <li>Strong communication skills</li>
-          <li>English speaking mandatory</li>
+          <li>6 Months–1 Year of experience in Full Stack development.</li>
+          <li>Location: Ahmedabad.</li>
+          <li>Salary: ₹2–3 LPA.</li>
+          <li>Proficient in MongoDB, Express, React, and Node.js (MERN).</li>
         </ul>
       `
     }

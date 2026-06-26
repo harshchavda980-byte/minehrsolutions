@@ -87,7 +87,7 @@ body {
 .trust-hero-dots span:nth-child(8)  { width: 6px;  height: 6px;  top: 55%; left: 3%;  animation-duration: 17s; animation-delay: 5s;   }
 
 @keyframes floatDot {
-    0%   { transform: translateY(0)    opacity: 0.12; }
+    0%   { transform: translateY(0);    opacity: 0.12; }
     50%  { transform: translateY(-22px); opacity: 0.22; }
     100% { transform: translateY(0);    opacity: 0.12; }
 }
