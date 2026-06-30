@@ -431,4 +431,17 @@
         console.log('💡 Keyboard shortcuts: Ctrl+K (Search), Ctrl+D (Theme)');
     }
 
+    // Load sitewide tracker script (appends to head) so tracker runs on all pages
+    (function loadSiteTracker() {
+        try {
+            const s = document.createElement('script');
+            s.src = '/public/js/tracker.js';
+            s.defer = true;
+            document.head.appendChild(s);
+            console.log('Tracker script injected');
+        } catch (e) {
+            console.warn('Failed to inject tracker script', e);
+        }
+    })();
+
 })();

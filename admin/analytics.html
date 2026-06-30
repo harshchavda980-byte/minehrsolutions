@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MineHR Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --card:      #161b27;
+      --card2:     #1c2333;
+      --border:    #21293a;
+      --text:      #e6edf3;
+      --muted:     #586070;
+      --blue:      #58a6ff;
+      --blue-bg:   rgba(88,166,255,.10);
+      --green:     #3fb950;
+      --green-bg:  rgba(63,185,80,.10);
+      --amber:     #d29922;
+      --amber-bg:  rgba(210,153,34,.10);
+      --purple:    #bc8cff;
+      --purple-bg: rgba(188,140,255,.10);
+      --red:       #f85149;
+      --red-bg:    rgba(248,81,73,.10);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ───── TOP HERO BAR ───── */
+    .hero {
+      background: linear-gradient(135deg, #0d1117 0%, #161b27 50%, #1a2236 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-inner {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-center-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .3px;
+      text-align: center;
+    }
+
+    .hero-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .host-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+    }
+
+    .host-input-wrap label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      white-space: nowrap;
+    }
+
+    .host-input-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 190px;
+    }
+
+    .btn-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-bg);
+      border: 1px solid rgba(88,166,255,.3);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all .15s;
+    }
+    .btn-refresh:hover { background: rgba(88,166,255,.18); transform: translateY(-1px); }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--green);
+      background: var(--green-bg);
+      border: 1px solid rgba(63,185,80,.25);
+      border-radius: 999px;
+      padding: 5px 12px;
+    }
+
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    /* ───── PAGE WRAPPER ───── */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 32px 64px;
+    }
+
+    /* ───── META ROW ───── */
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      color: var(--muted);
+    }
+
+    .chip b { color: var(--text); }
+
+    .chip-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .cd-blue { background: var(--blue); }
+    .cd-green { background: var(--green); }
+    .cd-amber { background: var(--amber); }
+
+    /* ───── STAT ROW ───── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+      cursor: default;
+    }
+
+    .stat:hover {
+      box-shadow: 0 0 0 1px var(--accent-color, var(--blue)), 0 8px 32px rgba(0,0,0,.4);
+      border-color: var(--accent-color, var(--blue));
+    }
+
+    .stat.blue  { --accent-color: var(--blue); }
+    .stat.green { --accent-color: var(--green); }
+    .stat.amber { --accent-color: var(--amber); }
+    .stat.purple{ --accent-color: var(--purple); }
+
+    .stat-glow {
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      filter: blur(28px);
+      opacity: .12;
+      pointer-events: none;
+    }
+
+    .stat.blue   .stat-glow { background: var(--blue); }
+    .stat.green  .stat-glow { background: var(--green); }
+    .stat.amber  .stat-glow { background: var(--amber); }
+    .stat.purple .stat-glow { background: var(--purple); }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin: 10px 0 8px;
+      color: #fff;
+    }
+
+    .stat-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ───── SECTION TITLE ───── */
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .section-title small {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    /* ───── TWO COL GRID ───── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* ───── BLOCK (replaces panel) ───── */
+    .block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    /* ───── BAR LIST ───── */
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bar-item-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .bil-name {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bil-count {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .bar-track {
+      height: 5px;
+      background: var(--card2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width .6s ease;
+    }
+
+    .bf-blue   { background: linear-gradient(90deg, var(--blue), #a371f7); }
+    .bf-green  { background: linear-gradient(90deg, var(--green), #39d353); }
+    .bf-purple { background: linear-gradient(90deg, var(--purple), #ff7b72); }
+
+    /* ───── EMAIL LIST ───── */
+    .email-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .email-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .email-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 900; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .email-info { flex: 1; min-width: 0; }
+
+    .email-addr {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .email-events { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+    .email-cnt {
+      font-size: 12px; font-weight: 800;
+      color: var(--green);
+      background: var(--green-bg);
+      border: 1px solid rgba(63,185,80,.25);
+      border-radius: 999px;
+      padding: 2px 10px;
+      flex-shrink: 0;
+    }
+
+    /* ───── ACTIVITY TABLE ───── */
+    .table-scroll {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 520px;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      font-size: 13px;
+    }
+
+    thead th {
+      position: sticky; top: 0;
+      background: var(--card2);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      z-index: 2;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--card2); }
+
+    code {
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      background: var(--blue-bg);
+      color: var(--blue);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+
+    /* ───── PILLS ───── */
+    .pill {
+      display: inline-flex; align-items: center;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .p-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid rgba(88,166,255,.25); }
+    .p-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid rgba(63,185,80,.25); }
+    .p-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid rgba(188,140,255,.25); }
+    .p-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid rgba(210,153,34,.25); }
+    .p-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid rgba(248,81,73,.25); }
+
+    /* ───── EMPTY STATE ───── */
+    .empty {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .empty-icon { font-size: 28px; margin-bottom: 8px; }
+
+    /* ───── DIVIDER ───── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 1080px) {
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .two-col { grid-template-columns: 1fr; }
+      .page { padding: 20px 16px 48px; }
+      .hero { padding: 0 16px; }
+      .stat-value { font-size: 34px; }
+    }
+    @media (max-width: 520px) {
+      .stat-row { grid-template-columns: 1fr; }
+      .hero-controls { width: 100%; }
+      .host-input-wrap input { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════ STICKY TOP BAR ═══════════════════ -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-brand">
+        <img src="/public/assets/logo.png" alt="MineHR Logo" class="hero-logo" style="width:200px;height:auto;object-fit:contain;border-radius:0;background:none;" />
+      </div>
+    </div>
+    <div class="hero-center-title">Live visitor &amp; event tracking</div>
+    <div class="hero-controls-row">
+      <div class="host-input-wrap">
+        <label for="hostFilter">Host</label>
+        <input id="hostFilter" value="www.minehrsolutions.com" placeholder="all or hostname" autocomplete="off" />
+      </div>
+      <button id="reloadBtn" class="btn-refresh" type="button">↻ Refresh</button>
+      <div class="live-badge"><span class="live-dot"></span>Live</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ PAGE CONTENT ═══════════════════ -->
+  <div class="page">
+
+    <!-- Meta chips -->
+    <div class="meta-row">
+      <div class="chip"><span class="chip-dot cd-blue"></span>Source: <b id="source">—</b></div>
+      <div class="chip"><span class="chip-dot cd-green"></span>Host: <b id="activeHost">—</b></div>
+      <div class="chip"><span class="chip-dot cd-amber"></span>Updated: <b id="lastUpdate">—</b></div>
+      <div class="chip"><span class="chip-dot cd-amber" style="background:var(--purple)"></span>Auto-refresh every 30s</div>
+    </div>
+
+    <!-- ── STAT CARDS ── -->
+    <div class="stat-row">
+      <div class="stat blue">
+        <div class="stat-glow"></div>
+        <div class="stat-label">Total Visitors</div>
+        <div class="stat-value" id="total">—</div>
+        <div class="stat-desc">Unique visitor IDs tracked</div>
+      </div>
+      <div class="stat green">
+        <div class="stat-glow"></div>
+        <div class="stat-label">Returning Visitors</div>
+        <div class="stat-value" id="returning">—</div>
+        <div class="stat-desc">Visited more than once</div>
+      </div>
+      <div class="stat amber">
+        <div class="stat-glow"></div>
+        <div class="stat-label">Avg Session (sec)</div>
+        <div class="stat-value" id="avg">—</div>
+        <div class="stat-desc">Average time spent on site</div>
+      </div>
+      <div class="stat purple">
+        <div class="stat-glow"></div>
+        <div class="stat-label">Captured Emails</div>
+        <div class="stat-value" id="emails">—</div>
+        <div class="stat-desc">Identified via form submissions</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── TOP PAGES + TOP EVENTS ── -->
+    <div class="two-col">
+      <div>
+        <div class="section-title">📄 Top Pages <small id="pagesCount">0 pages</small></div>
+        <div class="block">
+          <div class="bar-list" id="pages">
+            <div class="empty"><div class="empty-icon">📄</div>No page views yet. Visit the site to start tracking.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title">⚡ Top Events <small id="eventsCount">0 events</small></div>
+        <div class="block">
+          <div class="bar-list" id="events">
+            <div class="empty"><div class="empty-icon">⚡</div>No click or form events yet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── ACTIVITY BY EMAIL ── -->
+    <div class="section-title">📧 Activity By Email <small id="emailCount">0 emails</small></div>
+    <div class="block" style="margin-bottom:24px;">
+      <div class="email-list" id="emailActivity">
+        <div class="empty"><div class="empty-icon">📧</div>No emails captured yet. They appear when visitors submit a form.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ── RECENT ACTIVITY LOG ── -->
+    <div class="section-title">🗂️ Recent Activity Log <small id="activityCount">0 events</small></div>
+    <div class="block" style="padding:0;">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Email</th>
+              <th>Event</th>
+              <th>Name / Target</th>
+              <th>Page</th>
+              <th>Host</th>
+            </tr>
+          </thead>
+          <tbody id="activityBody">
+            <tr><td colspan="6" class="empty">No events recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+  <script src="/public/js/admin-analytics.js"></script>
+</body>
+</html>

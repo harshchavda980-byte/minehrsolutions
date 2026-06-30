@@ -16,6 +16,10 @@
         {
             "src": "services/**",
             "use": "@vercel/static"
+        },
+        {
+            "src": "admin/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
@@ -46,6 +50,14 @@
         {
             "src": "/assets/(.*)",
             "dest": "/public/assets/$1"
+        },
+        {
+            "src": "/admin/analytics",
+            "dest": "/admin/analytics.html"
+        },
+        {
+            "src": "/admin/(.*)\\.html",
+            "dest": "/admin/$1.html"
         },
         {
             "src": "/(.*\\.html)",

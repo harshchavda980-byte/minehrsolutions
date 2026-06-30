@@ -355,6 +355,8 @@ document.addEventListener("DOMContentLoaded", function() {
           method: "POST",
           body: formData
         });
+        const result = await response.json().catch(() => ({}));
+
         if(response.ok){
           // Close apply modal
           const applyModal = document.getElementById("applyModal");
@@ -367,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function() {
           form.reset();
           updateBodyScroll();
         } else {
-          alert("Application failed. Please try again.");
+          alert(result.error || "Application failed. Please try again.");
         }
       } catch (err) {
         alert("Error submitting application.");
@@ -422,7 +424,7 @@ window.onclick = function(event) {
 
 function chatRecruiter(jobTitle) {
 
-  const number = "917990977434";
+  const number = "917574063353";
 
   const message =
     `Hello, I am interested in the ${jobTitle} position. Please share more details.`;
