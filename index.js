@@ -226,32 +226,6 @@ function recordFallbackEvent({ visitor_id, session_id, event_type, event_name, p
   }
 }
 
-function trackEventFromServer({ visitor_id, session_id, event_type, event_name, page, email, host, meta }) {
-  if (!visitor_id) return;
-  const safeMeta = Object.assign({}, meta || {});
-  const normalizedEmail = normalizeEmail(email || safeMeta.email || null);
-  if (normalizedEmail) safeMeta.email = normalizedEmail;
-  safeMeta.host = normalizeHost(host || safeMeta.host || null);
-
-  recordFallbackEvent({
-    visitor_id,
-    session_id,
-    event_type,
-    event_name,
-    page,
-    email: normalizedEmail,
-    host: safeMeta.host,
-    full_url: safeMeta.full_url
-  });
-
-  if (analyticsDbReady) {
-    const eventSql = 'INSERT INTO analytics_events (visitor_id, session_id, event_type, event_name, page, meta) VALUES (?, ?, ?, ?, ?, ?)';
-    db.query(eventSql, [visitor_id, session_id || null, event_type, event_name || null, page || null, JSON.stringify(safeMeta)], (err) => {
-      if (err) console.error('Database analytics write error from server:', err.message);
-    });
-  }
-}
-
 function getHostFilter(rawHost) {
   const normalized = normalizeHost(rawHost);
   if (!normalized || normalized === 'all') return null;
@@ -725,24 +699,11 @@ function createSmtpTransporter() {
 }
 
 app.post('/api/apply', upload.single('resume'), async (req, res) => {
-  const { fullName, email, phone, location, jobTitle, visitor_id, session_id, page, host } = req.body;
+  const { fullName, email, phone, location, jobTitle } = req.body;
   const resumeFile = req.file ? req.file.filename : null;
 
   if (!fullName || !email || !phone || !resumeFile) {
     return res.status(400).json({ error: 'Missing required fields' });
-  }
-
-  if (visitor_id) {
-    trackEventFromServer({
-      visitor_id,
-      session_id,
-      event_type: 'form_submit',
-      event_name: 'career',
-      page: page || '/career.html',
-      email: email,
-      host: host || 'www.minehrsolutions.com',
-      meta: { name: fullName, location, jobTitle, phone }
-    });
   }
 
   let dbInserted = false;
@@ -908,25 +869,12 @@ app.post('/api/apply', upload.single('resume'), async (req, res) => {
 });
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, contact_number, company, message, visitor_id, session_id, page, host } = req.body;
+  const { name, email, contact_number, company, message } = req.body;
   
   if (!name) return res.status(400).json({ error: 'Name is required' });
   if (!email) return res.status(400).json({ error: 'Email is required' });
   if (!contact_number) return res.status(400).json({ error: 'Phone number is required' });
   if (!company) return res.status(400).json({ error: 'Company name is required' });
-
-  if (visitor_id) {
-    trackEventFromServer({
-      visitor_id,
-      session_id,
-      event_type: 'form_submit',
-      event_name: 'contact',
-      page: page || '/contact.html',
-      email: email,
-      host: host || 'www.minehrsolutions.com',
-      meta: { name, company, contact_number }
-    });
-  }
 
   // Insert into DB (wrapped in try-catch/callback error check so database issues don't crash email delivery)
   db.query(
