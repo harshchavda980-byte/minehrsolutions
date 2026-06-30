@@ -561,91 +561,71 @@ function getHostFilter(rawHost) {
   return normalized;
 }
 
-function buildFallbackSummary(hostFilter = null) {
-  const normalizedHost = getHostFilter(hostFilter);
-  if (normalizedHost) {
-    const items = fallbackAnalytics.recentEvents.filter((item) => item.host === normalizedHost);
-    const visitors = new Map();
-    const pages = new Map();
-    const events = new Map();
+function calculateMetricsFromEvents(items) {
+  const visitors = new Map(); // visitor_id -> Set of session_ids
+  const pages = new Map();
+  const events = new Map();
+  const sessionDurations = new Map(); // session_id -> { started, ended }
 
-    for (const item of items) {
-      if (item.event_type === 'session_start' && item.visitor_id) {
-        visitors.set(item.visitor_id, (visitors.get(item.visitor_id) || 0) + 1);
+  for (const item of items) {
+    if (item.visitor_id) {
+      if (!visitors.has(item.visitor_id)) {
+        visitors.set(item.visitor_id, new Set());
       }
-      if (item.event_type === 'page_view' && item.page) {
-        pages.set(item.page, (pages.get(item.page) || 0) + 1);
-      }
-      if ((item.event_type === 'click' || item.event_type === 'form_submit') && item.event_name) {
-        const key = `${item.event_type}::${item.event_name}`;
-        events.set(key, (events.get(key) || 0) + 1);
+      if (item.session_id) {
+        visitors.get(item.visitor_id).add(item.session_id);
       }
     }
 
-    const totalVisitors = visitors.size;
-    const returningVisitors = Array.from(visitors.values()).filter((count) => count > 1).length;
-    const topPages = Array.from(pages.entries())
-      .map(([page, cnt]) => ({ page, cnt }))
-      .sort((a, b) => b.cnt - a.cnt)
-      .slice(0, 10);
-    const topEvents = Array.from(events.entries())
-      .map(([key, cnt]) => {
-        const splitAt = key.indexOf('::');
-        return {
-          event_type: splitAt >= 0 ? key.slice(0, splitAt) : 'click',
-          event_name: splitAt >= 0 ? key.slice(splitAt + 2) : key,
-          cnt
-        };
-      })
-      .sort((a, b) => b.cnt - a.cnt)
-      .slice(0, 20);
+    if (item.event_type === 'page_view' && item.page) {
+      pages.set(item.page, (pages.get(item.page) || 0) + 1);
+    }
 
-    return {
-      total_visitors: totalVisitors,
-      returning_visitors: returningVisitors,
-      top_pages: topPages,
-      top_events: topEvents,
-      avg_session_seconds: 0,
-      source: 'memory',
-      host: normalizedHost
-    };
+    if ((item.event_type === 'click' || item.event_type === 'form_submit') && item.event_name) {
+      const key = `${item.event_type}::${item.event_name}`;
+      events.set(key, (events.get(key) || 0) + 1);
+    }
+
+    // Dynamic session duration calculation
+    if (item.session_id && item.created_at) {
+      const time = new Date(item.created_at).getTime();
+      if (!sessionDurations.has(item.session_id)) {
+        sessionDurations.set(item.session_id, { started: time, ended: time });
+      } else {
+        const sess = sessionDurations.get(item.session_id);
+        if (time < sess.started) sess.started = time;
+        if (time > sess.ended) sess.ended = time;
+      }
+    }
   }
 
-  const totalVisitors = fallbackAnalytics.visitors.size;
-  let returningVisitors = 0;
-
-  for (const v of fallbackAnalytics.visitors.values()) {
-    if ((v.visitCount || 0) > 1) returningVisitors += 1;
-  }
-
-  const topPages = Array.from(fallbackAnalytics.pageViews.entries())
+  const totalVisitors = visitors.size;
+  const returningVisitors = Array.from(visitors.values()).filter(s => s.size > 1).length;
+  
+  const topPages = Array.from(pages.entries())
     .map(([page, cnt]) => ({ page, cnt }))
     .sort((a, b) => b.cnt - a.cnt)
     .slice(0, 10);
 
-  const topEvents = Array.from(fallbackAnalytics.events.entries())
+  const topEvents = Array.from(events.entries())
     .map(([key, cnt]) => {
       const splitAt = key.indexOf('::');
-      const eventType = splitAt >= 0 ? key.slice(0, splitAt) : 'click';
-      const eventName = splitAt >= 0 ? key.slice(splitAt + 2) : key;
       return {
-        event_name: eventName,
-        event_type: eventType,
+        event_type: splitAt >= 0 ? key.slice(0, splitAt) : 'click',
+        event_name: splitAt >= 0 ? key.slice(splitAt + 2) : key,
         cnt
       };
     })
     .sort((a, b) => b.cnt - a.cnt)
     .slice(0, 20);
 
-  const durationValues = [];
-  for (const session of fallbackAnalytics.sessions.values()) {
-    if (typeof session.durationSeconds === 'number') {
-      durationValues.push(session.durationSeconds);
-    }
-  }
+  // calculate average session duration
+  const durations = Array.from(sessionDurations.values())
+    .map(s => Math.round((s.ended - s.started) / 1000))
+    .filter(d => d > 0); // ignore 0-second sessions
 
-  const avg = durationValues.length > 0
-    ? Math.round(durationValues.reduce((acc, cur) => acc + cur, 0) / durationValues.length)
+  const avgSession = durations.length > 0
+    ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length)
     : 0;
 
   return {
@@ -653,7 +633,24 @@ function buildFallbackSummary(hostFilter = null) {
     returning_visitors: returningVisitors,
     top_pages: topPages,
     top_events: topEvents,
-    avg_session_seconds: avg,
+    avg_session_seconds: avgSession
+  };
+}
+
+function buildFallbackSummary(hostFilter = null) {
+  const normalizedHost = getHostFilter(hostFilter);
+  const items = normalizedHost
+    ? fallbackAnalytics.recentEvents.filter((item) => item.host === normalizedHost)
+    : fallbackAnalytics.recentEvents;
+
+  const metrics = calculateMetricsFromEvents(items);
+
+  return {
+    total_visitors: metrics.total_visitors,
+    returning_visitors: metrics.returning_visitors,
+    top_pages: metrics.top_pages,
+    top_events: metrics.top_events,
+    avg_session_seconds: metrics.avg_session_seconds,
     source: 'memory',
     host: normalizedHost || 'all'
   };
@@ -758,49 +755,14 @@ async function getAnalyticsSummary(hostFilter = null) {
         [normalizedHost]
       );
       const allItems = allRows.map(mapActivityRow);
-
-      const visitors = new Map();
-      const pages = new Map();
-      const events = new Map();
-
-      for (const item of allItems) {
-        if (item.event_type === 'session_start' && item.visitor_id) {
-          visitors.set(item.visitor_id, (visitors.get(item.visitor_id) || 0) + 1);
-        }
-        if (item.event_type === 'page_view' && item.page) {
-          pages.set(item.page, (pages.get(item.page) || 0) + 1);
-        }
-        if ((item.event_type === 'click' || item.event_type === 'form_submit') && item.event_name) {
-          const key = `${item.event_type}::${item.event_name}`;
-          events.set(key, (events.get(key) || 0) + 1);
-        }
-      }
-
-      // Avg session duration from DB
-      let avgSec = 0;
-      try {
-        const [sessRows] = await db.query(
-          `SELECT AVG(duration_seconds) AS avg_d FROM analytics_sessions s
-           INNER JOIN analytics_events e ON e.session_id = s.session_id
-           WHERE JSON_UNQUOTE(JSON_EXTRACT(e.meta, '$.host')) = ? AND s.duration_seconds IS NOT NULL`,
-          [normalizedHost]
-        );
-        avgSec = sessRows[0] ? Math.round(sessRows[0].avg_d || 0) : 0;
-      } catch (_) {}
+      const metrics = calculateMetricsFromEvents(allItems);
 
       return {
-        total_visitors: visitors.size,
-        returning_visitors: Array.from(visitors.values()).filter((count) => count > 1).length,
-        top_pages: Array.from(pages.entries()).map(([page, cnt]) => ({ page, cnt })).sort((a, b) => b.cnt - a.cnt).slice(0, 10),
-        top_events: Array.from(events.entries()).map(([key, cnt]) => {
-          const splitAt = key.indexOf('::');
-          return {
-            event_type: splitAt >= 0 ? key.slice(0, splitAt) : 'click',
-            event_name: splitAt >= 0 ? key.slice(splitAt + 2) : key,
-            cnt
-          };
-        }).sort((a, b) => b.cnt - a.cnt).slice(0, 20),
-        avg_session_seconds: avgSec,
+        total_visitors: metrics.total_visitors,
+        returning_visitors: metrics.returning_visitors,
+        top_pages: metrics.top_pages,
+        top_events: metrics.top_events,
+        avg_session_seconds: metrics.avg_session_seconds,
         source: 'mysql',
         host: normalizedHost
       };
