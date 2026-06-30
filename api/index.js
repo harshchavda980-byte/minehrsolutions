@@ -46,6 +46,22 @@ function getPool() {
   return pool;
 }
 
+const path = require('path');
+const fs = require('fs');
+
+// Serve analytics dashboard — bypasses Vercel static cache so latest version always loads
+app.get(['/admin/analytics', '/admin/analytics.html'], (req, res) => {
+  const filePath = path.join(__dirname, '..', 'admin', 'analytics.html');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    res.send(content);
+  } catch (e) {
+    res.status(404).send('Analytics page not found');
+  }
+});
+
 // Contact form API
 app.post('/api/contact', async (req, res) => {
   const { name, email, contact_number, company, message } = req.body;

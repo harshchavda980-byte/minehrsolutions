@@ -53,7 +53,11 @@
         },
         {
             "src": "/admin/analytics",
-            "dest": "/admin/analytics.html"
+            "dest": "/api/index.js"
+        },
+        {
+            "src": "/admin/analytics.html",
+            "dest": "/api/index.js"
         },
         {
             "src": "/admin/(.*)\\.html",
