@@ -475,9 +475,175 @@
       .hero-controls { width: 100%; }
       .host-input-wrap input { min-width: 120px; }
     }
+
+    /* ─── LOCK SCREEN ─── */
+    #lockScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #0d1117;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    #lockScreen.hidden { display: none; }
+
+    .lock-logo {
+      width: 160px;
+      margin-bottom: 28px;
+    }
+
+    .lock-card {
+      background: #161b27;
+      border: 1px solid #21293a;
+      border-radius: 20px;
+      padding: 36px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    .lock-icon {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #58a6ff22, #bc8cff22);
+      border: 1px solid rgba(88,166,255,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+
+    .lock-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #e6edf3;
+      text-align: center;
+      margin-top: -8px;
+    }
+
+    .lock-sub {
+      font-size: 12px;
+      color: #586070;
+      text-align: center;
+      margin-top: -16px;
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 14px;
+    }
+
+    .pin-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid #2d3748;
+      background: transparent;
+      transition: all .15s;
+    }
+
+    .pin-dot.filled {
+      background: #58a6ff;
+      border-color: #58a6ff;
+      box-shadow: 0 0 10px rgba(88,166,255,.5);
+    }
+
+    .pin-dot.error {
+      background: #f85149;
+      border-color: #f85149;
+      box-shadow: 0 0 10px rgba(248,81,73,.5);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .key {
+      height: 56px;
+      border: 1px solid #21293a;
+      border-radius: 12px;
+      background: #1c2333;
+      color: #e6edf3;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background .1s, transform .1s;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .key:hover  { background: #2d3748; }
+    .key:active { background: #3d4f6b; transform: scale(.95); }
+
+    .key.key-del {
+      font-size: 14px;
+      color: #586070;
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .key.key-del:hover { color: #f85149; background: rgba(248,81,73,.08); border-color: rgba(248,81,73,.2); }
+
+    .lock-error {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f85149;
+      text-align: center;
+      height: 14px;
+      letter-spacing: .3px;
+    }
+
+    @keyframes shake {
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-8px)}
+      40%{transform:translateX(8px)}
+      60%{transform:translateX(-5px)}
+      80%{transform:translateX(5px)}
+    }
+
+    .shake { animation: shake .35s ease; }
   </style>
 </head>
 <body>
+
+  <!-- ═══════════════════ LOCK SCREEN ═══════════════════ -->
+  <div id="lockScreen">
+    <img src="/public/assets/logo.png" alt="MineHR Logo" class="lock-logo" />
+    <div class="lock-card">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">Admin Access Required</div>
+      <div class="lock-sub">Enter your 4-digit passcode to continue</div>
+      <div class="pin-dots">
+        <div class="pin-dot" id="d0"></div>
+        <div class="pin-dot" id="d1"></div>
+        <div class="pin-dot" id="d2"></div>
+        <div class="pin-dot" id="d3"></div>
+      </div>
+      <div class="lock-error" id="lockError"></div>
+      <div class="keypad" id="keypad">
+        <button class="key" onclick="pressKey('1')">1</button>
+        <button class="key" onclick="pressKey('2')">2</button>
+        <button class="key" onclick="pressKey('3')">3</button>
+        <button class="key" onclick="pressKey('4')">4</button>
+        <button class="key" onclick="pressKey('5')">5</button>
+        <button class="key" onclick="pressKey('6')">6</button>
+        <button class="key" onclick="pressKey('7')">7</button>
+        <button class="key" onclick="pressKey('8')">8</button>
+        <button class="key" onclick="pressKey('9')">9</button>
+        <button class="key key-del" onclick="pressKey('del')">⌫ DEL</button>
+        <button class="key" onclick="pressKey('0')">0</button>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ═══════════════════ STICKY TOP BAR ═══════════════════ -->
   <header class="hero">
@@ -595,5 +761,72 @@
   </div><!-- /page -->
 
   <script src="/public/js/admin-analytics.js"></script>
+
+  <script>
+    (function () {
+      const PASSKEY = '4567';
+      const SESSION_KEY = 'mhr_analytics_unlocked';
+
+      const lockScreen = document.getElementById('lockScreen');
+      const lockError  = document.getElementById('lockError');
+      const dots = [0,1,2,3].map(i => document.getElementById('d' + i));
+      let pin = '';
+
+      // Already unlocked this session? Skip lock.
+      if (sessionStorage.getItem(SESSION_KEY) === '1') {
+        lockScreen.classList.add('hidden');
+      }
+
+      function updateDots() {
+        dots.forEach((d, i) => {
+          d.classList.toggle('filled', i < pin.length);
+          d.classList.remove('error');
+        });
+        lockError.textContent = '';
+      }
+
+      function wrongPin() {
+        dots.forEach(d => { d.classList.add('error'); d.classList.remove('filled'); });
+        lockError.textContent = 'Incorrect passcode. Try again.';
+        document.querySelector('.lock-card').classList.add('shake');
+        setTimeout(() => {
+          document.querySelector('.lock-card').classList.remove('shake');
+          pin = '';
+          updateDots();
+        }, 400);
+      }
+
+      window.pressKey = function (val) {
+        if (val === 'del') {
+          pin = pin.slice(0, -1);
+          updateDots();
+          return;
+        }
+        if (pin.length >= 4) return;
+        pin += val;
+        updateDots();
+
+        if (pin.length === 4) {
+          setTimeout(() => {
+            if (pin === PASSKEY) {
+              sessionStorage.setItem(SESSION_KEY, '1');
+              lockScreen.style.transition = 'opacity .4s';
+              lockScreen.style.opacity = '0';
+              setTimeout(() => lockScreen.classList.add('hidden'), 400);
+            } else {
+              wrongPin();
+            }
+          }, 120);
+        }
+      };
+
+      // Also allow physical keyboard entry
+      document.addEventListener('keydown', function (e) {
+        if (lockScreen.classList.contains('hidden')) return;
+        if (e.key >= '0' && e.key <= '9') pressKey(e.key);
+        if (e.key === 'Backspace') pressKey('del');
+      });
+    })();
+  </script>
 </body>
 </html>
