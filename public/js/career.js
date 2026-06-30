@@ -349,6 +349,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Proceed to server submit
       const formData = new FormData(form);
+      const visitorId = localStorage.getItem('mhr_visitor_id');
+      const sessionId = sessionStorage.getItem('mhr_session_id');
+      if (visitorId) formData.append('visitor_id', visitorId);
+      if (sessionId) formData.append('session_id', sessionId);
+      formData.append('page', window.location.pathname + window.location.search);
+      formData.append('host', window.location.hostname);
 
       try {
         const response = await fetch("/api/apply", {

@@ -778,7 +778,11 @@ document.addEventListener('DOMContentLoaded', function () {
         company:        fd.get('company') || fd.get('company_name'),
         message:        subject
           ? `Subject: ${subject}\n\nMessage:\n${fd.get('message') || ''}`
-          : (fd.get('message') || '')
+          : (fd.get('message') || ''),
+        visitor_id:     localStorage.getItem('mhr_visitor_id'),
+        session_id:     sessionStorage.getItem('mhr_session_id'),
+        page:           window.location.pathname + window.location.search,
+        host:           window.location.hostname
       };
 
       try {
