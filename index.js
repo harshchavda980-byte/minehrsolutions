@@ -678,10 +678,14 @@ function hasPlaceholderMailConfig() {
 }
 
 function createSmtpTransporter() {
+  const host = process.env.MAIL_HOST || 'smtp.hostinger.com';
+  const port = parseInt(process.env.MAIL_PORT || '587');
+  const secure = port === 465; // secure is true only for port 465
+  
   return nodemailer.createTransport({
-    host: process.env.MAIL_HOST || 'smtp.hostinger.com',
-    port: parseInt(process.env.MAIL_PORT || '587'),
-    secure: false, // TLS via STARTTLS on port 587
+    host,
+    port,
+    secure,
     requireTLS: true,
     auth: {
       user: process.env.EMAIL_USER || process.env.MAIL_USERNAME,

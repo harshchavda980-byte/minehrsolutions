@@ -24,6 +24,26 @@ function hasPlaceholderMailConfig() {
   );
 }
 
+function createSmtpTransporter() {
+  const host = process.env.MAIL_HOST || 'smtp.hostinger.com';
+  const port = parseInt(process.env.MAIL_PORT || '587');
+  const secure = port === 465; // secure is true only for port 465
+  
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    requireTLS: true,
+    auth: {
+      user: process.env.EMAIL_USER || process.env.MAIL_USERNAME,
+      pass: process.env.EMAIL_PASS || process.env.MAIL_PASSWORD
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+}
+
 // TiDB Cloud connection pool with SSL
 let pool;
 function getPool() {
@@ -87,15 +107,7 @@ app.post('/api/contact', async (req, res) => {
       throw new Error('EMAIL_USER / EMAIL_PASS are still placeholder values. Configure a real Gmail account or app password before sending mail.');
     }
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
+    const transporter = createSmtpTransporter();
 
     const hrContactHtml = `
 <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
@@ -251,15 +263,7 @@ app.post('/api/apply', upload.single('resume'), async (req, res) => {
       throw new Error('EMAIL_USER / EMAIL_PASS are still placeholder values. Configure a real Gmail account or app password before sending mail.');
     }
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
+    const transporter = createSmtpTransporter();
 
     const hrEmailHtml = `
 <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
