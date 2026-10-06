@@ -1,438 +1,303 @@
-// =====================================
-// APPLY FORM OPEN / CLOSE
-// =====================================
+// =============================================================
+// MineHR Website – Dynamic Career Page
+// Fetches live jobs from Master Admin Panel API
+// API: https://master.minehrsolutions.com/api/jobs
+// Applications: submitted to local server /api/apply
+// =============================================================
 
+const ADMIN_API = 'https://master.minehrsolutions.com';
+// Apply endpoint: use local server (same origin) to avoid CORS and
+// to ensure the route is always available regardless of master-server health.
+const APPLY_API = '';  // empty string = same origin as the page
+
+// Global state
+let loadedJobs = [];
+let currentJobId = null;
+
+// =============================================================
+// BODY SCROLL LOCK
+// =============================================================
 function updateBodyScroll() {
-  const applyModal = document.getElementById("applyModal");
-  const jobModal = document.getElementById("jobModal");
-  const successModal = document.getElementById("successModal");
-  
-  const isAnyModalOpen = 
-    (applyModal && applyModal.style.display === "flex") ||
-    (jobModal && jobModal.style.display === "flex") ||
-    (successModal && successModal.style.display === "flex");
-    
-  if (isAnyModalOpen) {
-    document.documentElement.classList.add("modal-open");
-    document.body.classList.add("modal-open");
-  } else {
-    document.documentElement.classList.remove("modal-open");
-    document.body.classList.remove("modal-open");
-  }
+  const applyModal = document.getElementById('applyModal');
+  const jobModal = document.getElementById('jobModal');
+  const successModal = document.getElementById('successModal');
+  const isAnyOpen =
+    (applyModal && applyModal.style.display === 'flex') ||
+    (jobModal && jobModal.style.display === 'flex') ||
+    (successModal && successModal.style.display === 'flex');
+  document.documentElement.classList.toggle('modal-open', isAnyOpen);
+  document.body.classList.toggle('modal-open', isAnyOpen);
 }
 
-function openForm(jobTitle) {
+// =============================================================
+// TOAST HELPER
+// =============================================================
+function showToast(msg, type) {
+  const existing = document.getElementById('careerToast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.id = 'careerToast';
+  toast.style.cssText = `
+    position:fixed; bottom:30px; right:30px; z-index:9999;
+    background:${type === 'info' ? '#6366f1' : type === 'error' ? '#ef4444' : '#10b981'};
+    color:#fff; padding:14px 22px; border-radius:10px;
+    font-size:14px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.2);
+    animation: fadeInUp 0.3s ease;
+  `;
+  toast.innerText = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
 
-  // Close job modal if open
-  const jobModal = document.getElementById("jobModal");
-  if (jobModal) jobModal.style.display = "none";
+// =============================================================
+// APPLY FORM
+// =============================================================
+function openForm(jobId) {
+  // Close JD modal if open
+  const jobModal = document.getElementById('jobModal');
+  if (jobModal) { jobModal.style.display = 'none'; }
 
-  // Open apply modal
-  const applyModal = document.getElementById("applyModal");
-  if (applyModal) applyModal.style.display = "flex";
-  
-  // Set job title in hidden field
-  const appliedJobTitle = document.getElementById("appliedJobTitle");
-  if (appliedJobTitle) {
-    appliedJobTitle.value = jobTitle || "General Application";
-  }
-  
-  updateBodyScroll();
+  // Set the job id in the hidden field
+  const hiddenJobId = document.getElementById('applyJobId');
+  if (hiddenJobId) hiddenJobId.value = jobId || '';
+
+  // Also set a human-readable title if we can look it up
+  const job = loadedJobs.find(j => j.id == jobId);
+  const titleEl = document.getElementById('appliedJobTitle');
+  if (titleEl && job) titleEl.value = job.title;
+
+  const applyModal = document.getElementById('applyModal');
+  if (applyModal) { applyModal.style.display = 'flex'; updateBodyScroll(); }
 }
 
 function closeForm() {
-  const applyModal = document.getElementById("applyModal");
-  if (applyModal) applyModal.style.display = "none";
-  
-  updateBodyScroll();
+  const applyModal = document.getElementById('applyModal');
+  if (applyModal) { applyModal.style.display = 'none'; updateBodyScroll(); }
 }
 
-
-// =====================================
+// =============================================================
 // JOB DESCRIPTION MODAL
-// =====================================
-
-function openJob(type) {
-
-  const modal = document.getElementById("jobModal");
-  const title = document.getElementById("jobTitle");
-  const content = document.getElementById("jobContent");
-
+// =============================================================
+function openJob(id) {
+  const modal = document.getElementById('jobModal');
+  const title = document.getElementById('jobTitle');
+  const content = document.getElementById('jobContent');
   if (!modal || !title || !content) return;
 
-  modal.style.display = "flex";
+  const job = loadedJobs.find(j => j.id == id);
+  if (!job) return;
+  currentJobId = id;
 
-  let jobData = {
-    bde: {
-      title: "Business Development Executive",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Identify and develop new business opportunities.</li>
-          <li>Build and maintain strong relationships with prospective clients.</li>
-          <li>Pitch company services/products effectively to decision-makers.</li>
-          <li>Achieve monthly/quarterly business development targets.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>2–3 Years of experience in Business Development / Sales.</li>
-          <li>Location: Ahmedabad (On-site).</li>
-          <li>Salary: ₹4–5 LPA + Incentives.</li>
-          <li>Excellent communication, negotiation, and interpersonal skills.</li>
-        </ul>
-      `
-    },
-
-    sales_exec: {
-      title: "Sales Executive",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Direct interaction with potential leads and clients.</li>
-          <li>Understand client requirements and present suitable services.</li>
-          <li>Close sales deals and follow up on inquiries.</li>
-          <li>Work closely with the team to hit sales goals.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>0–1 Year experience (Freshers welcome).</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Salary: ₹2–3 LPA + Incentives.</li>
-          <li>Good English and local language speaking skills.</li>
-        </ul>
-      `
-    },
-
-    presales: {
-      title: "Pre-Sales Executive",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Conduct initial screening and qualify inbound/outbound leads.</li>
-          <li>Explain product/service offerings to potential clients.</li>
-          <li>Schedule meetings/demos for the sales team.</li>
-          <li>Maintain detailed lead status reports.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>6 Months–1 Year of experience in a pre-sales or tele-sales role.</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Salary: ₹3 LPA.</li>
-          <li>Strong listening and communication skills.</li>
-        </ul>
-      `
-    },
-
-    devops: {
-      title: "DevOps Developer",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Manage and optimize cloud infrastructure (AWS/Azure).</li>
-          <li>Build and maintain CI/CD pipelines for deployment.</li>
-          <li>Monitor application performance and system uptime.</li>
-          <li>Implement security best practices and automate system administration.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>1 Year of experience in DevOps or Cloud engineering.</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Salary: ₹3 LPA.</li>
-          <li>Hands-on experience with Docker, Git, CI/CD tools, and AWS.</li>
-        </ul>
-      `
-    },
-
-    content_writer: {
-      title: "Content Writer",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Create engaging and original content for blogs, websites, and social media.</li>
-          <li>Conduct research on industry-related topics to guide writing.</li>
-          <li>Proofread and edit copy before publication.</li>
-          <li>Optimize content using SEO best practices to increase organic reach.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>6 Months–2 Years of experience as a content writer or copywriter.</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Salary: ₹3–4 LPA.</li>
-          <li>Excellent written and verbal communication skills in English.</li>
-        </ul>
-      `
-    },
-
-    flutter_intern: {
-      title: "Flutter Developer Intern",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Assist in designing and building mobile applications using Flutter.</li>
-          <li>Write clean, maintainable, and efficient Dart code.</li>
-          <li>Collaborate with cross-functional teams to define and ship new features.</li>
-          <li>Debug and resolve issues in existing mobile apps.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>Fresher with solid understanding of Dart and Flutter fundamentals.</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Stipend: Paid Internship.</li>
-          <li>Portfolio of personal projects or college work is a plus.</li>
-        </ul>
-      `
-    },
-
-    fullstack: {
-      title: "Full Stack Developer",
-      content: `
-        <p><strong>Responsibilities:</strong></p>
-        <ul>
-          <li>Develop and maintain scalable web applications.</li>
-          <li>Build responsive front-end interfaces and secure back-end APIs.</li>
-          <li>Integrate databases and third-party services.</li>
-          <li>Participate in code reviews and troubleshoot production issues.</li>
-        </ul>
-
-        <p><strong>Requirements:</strong></p>
-        <ul>
-          <li>6 Months–1 Year of experience in Full Stack development.</li>
-          <li>Location: Ahmedabad.</li>
-          <li>Salary: ₹2–3 LPA.</li>
-          <li>Proficient in MongoDB, Express, React, and Node.js (MERN).</li>
-        </ul>
-      `
-    }
-  };
-
-  if (jobData[type]) {
-    title.innerText = jobData[type].title;
-    content.innerHTML = jobData[type].content;
-  }
+  title.innerText = job.title;
+  modal.style.display = 'flex';
   updateBodyScroll();
-}
 
-function closeJob(){
-  const jobModal = document.getElementById("jobModal");
-  if (jobModal) jobModal.style.display = "none";
-  updateBodyScroll();
-}
-
-
-// =====================================
-// SUCCESS POPUP AFTER SUBMIT
-// =====================================
-
-document.addEventListener("DOMContentLoaded", function() {
-
-  const form = document.querySelector(".apply-form-box form");
-
-  if(form){
-    // Suppress browser default validation bubbles
-    form.setAttribute("novalidate", "true");
-
-    const fullNameInput = form.querySelector("#fullName");
-    const emailInput = form.querySelector("#email");
-    const phoneInput = form.querySelector("#phone");
-    const resumeInput = form.querySelector("#resume");
-
-    function getErrorSpan(input) {
-      const fieldWrap = input.closest(".field-wrap");
-      if (fieldWrap) {
-        return fieldWrap.querySelector(".error-msg");
-      }
-      return null;
-    }
-
-    function showError(input, message) {
-      input.classList.add("invalid-input");
-      const span = getErrorSpan(input);
-      if (span) {
-        span.textContent = message;
-        span.classList.add("visible");
-      }
-    }
-
-    function clearError(input) {
-      input.classList.remove("invalid-input");
-      const span = getErrorSpan(input);
-      if (span) {
-        span.textContent = "";
-        span.classList.remove("visible");
-      }
-    }
-
-    // Clear errors on user input/focus
-    [fullNameInput, emailInput, phoneInput, resumeInput].forEach(input => {
-      if (input) {
-        input.addEventListener("input", () => clearError(input));
-        input.addEventListener("focus", () => clearError(input));
-        input.addEventListener("change", () => clearError(input)); // for file input
-      }
-    });
-
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      let hasError = false;
-      let firstErrorField = null;
-
-      // ─── 1. VALIDATE FULL NAME ───
-      const fullNameVal = fullNameInput.value.trim();
-      if (!fullNameVal) {
-        showError(fullNameInput, "Full Name is required.");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = fullNameInput;
-      } else {
-        clearError(fullNameInput);
-      }
-
-      // ─── 2. VALIDATE EMAIL ───
-      const emailVal = emailInput.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailVal) {
-        showError(emailInput, "Email Address is required.");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = emailInput;
-      } else if (!emailRegex.test(emailVal)) {
-        showError(emailInput, "Please enter a valid email address.");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = emailInput;
-      } else {
-        clearError(emailInput);
-      }
-
-      // ─── 3. VALIDATE PHONE ───
-      const phoneVal = phoneInput.value.trim();
-      const phoneClean = phoneVal.replace(/[^0-9]/g, "");
-      if (!phoneVal) {
-        showError(phoneInput, "Phone Number is required.");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = phoneInput;
-      } else if (phoneClean.length < 10) {
-        showError(phoneInput, "Please enter a valid phone number (at least 10 digits).");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = phoneInput;
-      } else {
-        clearError(phoneInput);
-      }
-
-      // ─── 4. VALIDATE RESUME ───
-      if (!resumeInput.files || resumeInput.files.length === 0) {
-        showError(resumeInput, "Please upload your resume.");
-        hasError = true;
-        if (!firstErrorField) firstErrorField = resumeInput;
-      } else {
-        const file = resumeInput.files[0];
-        const allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
-        if (!allowedExtensions.exec(file.name)) {
-          showError(resumeInput, "Only PDF, DOC, or DOCX files are allowed.");
-          hasError = true;
-          if (!firstErrorField) firstErrorField = resumeInput;
-        } else {
-          clearError(resumeInput);
-        }
-      }
-
-      if (hasError) {
-        if (firstErrorField) {
-          firstErrorField.focus();
-        }
-        return; // Stop form submission
-      }
-
-      // Proceed to server submit
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch("/api/apply", {
-          method: "POST",
-          body: formData
-        });
-        const result = await response.json().catch(() => ({}));
-
-        if(response.ok){
-          // Close apply modal
-          const applyModal = document.getElementById("applyModal");
-          if (applyModal) applyModal.style.display = "none";
-
-          // Show success modal
-          const successModal = document.getElementById("successModal");
-          if (successModal) successModal.style.display = "flex";
-
-          form.reset();
-          updateBodyScroll();
-        } else {
-          alert(result.error || "Application failed. Please try again.");
-        }
-      } catch (err) {
-        alert("Error submitting application.");
-      }
-    });
+  // Format description
+  let desc = '';
+  if (job.description) {
+    desc = (job.description.includes('<') && job.description.includes('>'))
+      ? job.description
+      : job.description.split('\n').map(l => `<p style="margin-bottom:12px;">${l}</p>`).join('');
+  } else {
+    desc = '<p style="color:#555;">No description provided.</p>';
   }
 
+  content.innerHTML = `
+    <div style="margin-bottom:16px;">
+      <span style="background:rgba(99,102,241,0.12);color:#6366f1;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-right:8px;">
+        ${job.employment_type || 'Full-time'}
+      </span>
+      <span style="background:rgba(16,185,129,0.12);color:#10b981;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;">
+        ${job.department}
+      </span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;font-size:14px;color:#555;">
+      <p>📍 <strong>Location:</strong> ${formatLocation(job.location)}</p>
+      <p>💼 <strong>Experience:</strong> ${job.experience || 'Not Specified'}</p>
+      <p>₹ <strong>Salary:</strong> ${job.salary || 'Competitive'}</p>
+      <p>👥 <strong>Openings:</strong> ${job.openings || 1}</p>
+      <p>📅 <strong>Deadline:</strong> ${job.deadline ? formatDate(job.deadline) : 'Open'}</p>
+    </div>
+    <h3 style="margin-bottom:12px;font-size:18px;">Role Overview &amp; Responsibilities</h3>
+    <div style="line-height:1.7;color:#333;">${desc}</div>
+  `;
+}
+
+function closeJob() {
+  const jobModal = document.getElementById('jobModal');
+  if (jobModal) { jobModal.style.display = 'none'; updateBodyScroll(); }
+}
+
+// =============================================================
+// HELPERS
+// =============================================================
+function formatDate(d) {
+  if (!d) return 'Open';
+  const dt = new Date(d);
+  if (isNaN(dt.getTime())) return d;
+  return `${String(dt.getDate()).padStart(2, '0')}/${String(dt.getMonth() + 1).padStart(2, '0')}/${dt.getFullYear()}`;
+}
+
+function formatLocation(loc) {
+  if (!loc) return 'Not Specified';
+  const parts = [];
+  if (loc.name) parts.push(loc.name);
+  if (loc.state?.name) {
+    parts.push(loc.state.name);
+    if (loc.state.country?.name) parts.push(loc.state.country.name);
+  }
+  return parts.join(', ') || 'Not Specified';
+}
+
+// =============================================================
+// LOAD JOBS FROM API
+// =============================================================
+async function loadWebsiteJobs() {
+  const grid = document.getElementById('jobsGrid');
+  if (!grid) return;
+
+  // Show skeleton loader
+  grid.innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:50px 20px;">
+      <div style="display:inline-block;width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:#6366f1;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+      <p style="margin-top:16px;color:#94a3b8;font-size:15px;">Loading opportunities...</p>
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+  `;
+
+  try {
+    const res = await fetch(`${ADMIN_API}/api/jobs`);
+    const data = await res.json();
+
+    if (data.success && data.jobs && data.jobs.length > 0) {
+      loadedJobs = data.jobs;
+      renderJobs(data.jobs);
+    } else {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:60px 20px;">
+          <div style="font-size:48px;margin-bottom:12px;">🔭</div>
+          <h3 style="font-size:20px;color:#334155;margin-bottom:8px;">No Open Positions Right Now</h3>
+          <p style="color:#64748b;font-size:15px;">We're always looking for great talent. Check back soon!</p>
+        </div>
+      `;
+    }
+  } catch (err) {
+    console.error('Career page job load error:', err);
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:60px 20px;">
+        <div style="font-size:48px;margin-bottom:12px;">⚠️</div>
+        <p style="color:#ef4444;font-size:15px;">Unable to load job openings. Please refresh the page.</p>
+      </div>
+    `;
+  }
+}
+
+// =============================================================
+// RENDER JOB CARDS
+// =============================================================
+function renderJobs(jobs) {
+  const grid = document.getElementById('jobsGrid');
+  if (!grid) return;
+
+  grid.innerHTML = jobs.map(j => `
+    <div class="job-card" data-id="${j.id}">
+      <div class="top-row">
+        <button class="jd-btn" onclick="openJob(${j.id})">
+          Job Description →
+        </button>
+      </div>
+
+      <h3>${j.title}</h3>
+
+      <div class="tags">
+        <span>${j.department}</span>
+        ${j.employment_type ? `<span>${j.employment_type}</span>` : ''}
+        ${j.openings ? `<span>${j.openings} Opening${j.openings > 1 ? 's' : ''}</span>` : ''}
+      </div>
+
+      <div class="info">
+        <p>📍 ${formatLocation(j.location)}</p>
+        <p>${j.salary ? '₹ ' + j.salary : '💰 Competitive Package'}</p>
+        <p>📅 ${j.deadline ? formatDate(j.deadline) : 'Open Deadline'}</p>
+        <p>💼 ${j.experience || 'Exp. Not Specified'}</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="apply-btn" onclick="openForm(${j.id})">Apply Now</button>
+        <button class="chat-btn" onclick="chatRecruiter('${j.title.replace(/'/g, "\\'")}')">
+          Chat With Recruiter
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// =============================================================
+// SUBMIT APPLICATION
+// =============================================================
+document.addEventListener('DOMContentLoaded', function () {
+  // Boot job loader
+  loadWebsiteJobs();
+
+  const form = document.querySelector('.apply-form-box form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerText : 'Submit Application';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = 'Submitting...'; }
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(`${APPLY_API}/api/apply`, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        closeForm();
+        const successModal = document.getElementById('successModal');
+        if (successModal) { successModal.style.display = 'flex'; updateBodyScroll(); }
+        form.reset();
+      } else {
+        showToast(result.message || 'Application failed. Please try again.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('Network error. Please check your connection.', 'error');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = originalText; }
+    }
+  });
 });
 
-function closeSuccess(){
-  const successModal = document.getElementById("successModal");
-  if (successModal) successModal.style.display = "none";
-  updateBodyScroll();
+// =============================================================
+// CLOSE SUCCESS MODAL
+// =============================================================
+function closeSuccess() {
+  const m = document.getElementById('successModal');
+  if (m) { m.style.display = 'none'; updateBodyScroll(); }
 }
 
+// =============================================================
+// CLOSE MODAL ON OUTSIDE CLICK
+// =============================================================
+window.addEventListener('click', function (e) {
+  ['applyModal', 'jobModal', 'successModal'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && e.target === el) { el.style.display = 'none'; updateBodyScroll(); }
+  });
+});
 
-// =====================================
-// CLOSE MODAL WHEN CLICK OUTSIDE
-// =====================================
-
-window.onclick = function(event) {
-
-  const applyModal = document.getElementById("applyModal");
-  const jobModal = document.getElementById("jobModal");
-  const successModal = document.getElementById("successModal");
-  let changed = false;
-
-  if (event.target === applyModal) {
-    applyModal.style.display = "none";
-    changed = true;
-  }
-
-  if (event.target === jobModal) {
-    jobModal.style.display = "none";
-    changed = true;
-  }
-
-  if (event.target === successModal) {
-    successModal.style.display = "none";
-    changed = true;
-  }
-  
-  if (changed) {
-    updateBodyScroll();
-  }
-};
-
-
-// =====================================
-// WHATSAPP CHAT WITH PREFILLED MESSAGE
-// =====================================
-
+// =============================================================
+// WHATSAPP CHAT
+// =============================================================
 function chatRecruiter(jobTitle) {
-
-  const number = "917574063353";
-
-  const message =
-    `Hello, I am interested in the ${jobTitle} position. Please share more details.`;
-
-  const encodedMessage = encodeURIComponent(message);
-
-  window.open(
-    `https://wa.me/${number}?text=${encodedMessage}`,
-    "_blank"
-  );
+  const number = '917574063353'; // MineHR Recruiter WhatsApp: +91 75740 63353
+  const message = `Hello, I am interested in the ${jobTitle} position. Please share more details.`;
+  window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
 }

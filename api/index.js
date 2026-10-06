@@ -82,6 +82,55 @@ app.get(['/admin/analytics', '/admin/analytics.html'], (req, res) => {
   }
 });
 
+app.get('/api/jobs', async (req, res) => {
+  const query = `
+    SELECT 
+      j.id, j.job_id, j.title, j.department, j.status, j.description, j.requirements, j.employment_type, j.experience, j.salary, j.openings, j.deadline,
+      c.name AS city_name, 
+      s.name AS state_name, 
+      co.name AS country_name 
+    FROM jobs j
+    LEFT JOIN cities c ON j.city_id = c.id
+    LEFT JOIN states s ON c.state_id = s.id
+    LEFT JOIN countries co ON s.country_id = co.id
+    WHERE j.status = 'Open'
+    ORDER BY j.created_at DESC
+  `;
+  try {
+    const dbPool = getPool();
+    const [rows] = await dbPool.query(query);
+
+    const jobs = rows.map(r => ({
+      id: r.id,
+      job_id: r.job_id,
+      title: r.title,
+      department: r.department,
+      status: r.status,
+      description: r.description,
+      requirements: r.requirements,
+      employment_type: r.employment_type,
+      experience: r.experience,
+      salary: r.salary,
+      openings: r.openings,
+      deadline: r.deadline,
+      location: r.city_name ? {
+        name: r.city_name,
+        state: r.state_name ? {
+          name: r.state_name,
+          country: r.country_name ? {
+            name: r.country_name
+          } : null
+        } : null
+      } : null
+    }));
+
+    res.json({ success: true, jobs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error fetching jobs' });
+  }
+});
+
 // Contact form API
 app.post('/api/contact', async (req, res) => {
   const { name, email, contact_number, company, message } = req.body;
@@ -234,7 +283,7 @@ app.post('/api/contact', async (req, res) => {
 
 // Job application form API
 app.post('/api/apply', upload.single('resume'), async (req, res) => {
-  const { fullName, email, phone, location, jobTitle } = req.body;
+  const { fullName, email, phone, location, jobId, jobTitle } = req.body;
   const resumeBuffer = req.file ? req.file.buffer : null;
   const resumeFilename = req.file ? req.file.originalname : null;
 
@@ -248,9 +297,34 @@ app.post('/api/apply', upload.single('resume'), async (req, res) => {
   // 1. Try to insert into database
   try {
     const db = getPool();
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    const application_id = `APP-${dateStr}-${random}`;
+
+    // Resolve job_id: only use if it exists in local jobs table
+    // (website jobs come from master API and may not be in local DB)
+    let safeJobId = null;
+    if (jobId) {
+      const jobIdInt = parseInt(jobId, 10);
+      const [jobRows] = await db.query('SELECT id FROM jobs WHERE id = ? LIMIT 1', [jobIdInt]);
+      safeJobId = jobRows.length > 0 ? jobIdInt : null;
+    }
+
+    // resume_url tag so admin knows a CV was attached; actual bytes go in resume_data BLOB
+    const resumeUrl = resumeBuffer ? `db:resume:${Date.now()}` : null;
+    const resumeMimetype = req.file ? req.file.mimetype : null;
+
     await db.query(
-      'INSERT INTO career (full_name, email, phone, location, resume, resume_filename, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
-      [fullName, email, phone, location, resumeBuffer, resumeFilename]
+      `INSERT INTO applications
+         (application_id, candidate_name, email, phone, location,
+          job_id, job_title, resume_url, resume_data, resume_filename, resume_mimetype,
+          source, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "Website", "New", NOW(), NOW())`,
+      [
+        application_id, fullName, email, phone, location || null,
+        safeJobId, jobTitle || null, resumeUrl,
+        resumeBuffer, resumeFilename, resumeMimetype
+      ]
     );
     dbInserted = true;
   } catch (err) {

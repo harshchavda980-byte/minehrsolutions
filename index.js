@@ -615,19 +615,73 @@ app.get('/admin/:page', (req, res, next) => {
   });
 });
 
+app.get('/api/jobs', async (req, res) => {
+  const query = `
+    SELECT 
+      j.id, j.job_id, j.title, j.department, j.status, j.description, j.requirements, j.employment_type, j.experience, j.salary, j.openings, j.deadline,
+      c.name AS city_name, 
+      s.name AS state_name, 
+      co.name AS country_name 
+    FROM jobs j
+    LEFT JOIN cities c ON j.city_id = c.id
+    LEFT JOIN states s ON c.state_id = s.id
+    LEFT JOIN countries co ON s.country_id = co.id
+    WHERE j.status = 'Open'
+    ORDER BY j.created_at DESC
+  `;
+  try {
+    const rows = await new Promise((resolve, reject) => {
+      db.query(query, (err, results) => {
+        if (err) reject(err);
+        else resolve(results);
+      });
+    });
+
+    const jobs = rows.map(r => ({
+      id: r.id,
+      job_id: r.job_id,
+      title: r.title,
+      department: r.department,
+      status: r.status,
+      description: r.description,
+      requirements: r.requirements,
+      employment_type: r.employment_type,
+      experience: r.experience,
+      salary: r.salary,
+      openings: r.openings,
+      deadline: r.deadline,
+      location: r.city_name ? {
+        name: r.city_name,
+        state: r.state_name ? {
+          name: r.state_name,
+          country: r.country_name ? {
+            name: r.country_name
+          } : null
+        } : null
+      } : null
+    }));
+
+    res.json({ success: true, jobs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error fetching jobs' });
+  }
+});
+
 // Contact form API
 // Job application form API
 const multer = require('multer');
+// Use memory storage so file bytes are saved to DB (resume_data BLOB).
+// This makes CVs downloadable from the admin panel on any server/host.
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, 'uploads'));
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      cb(null, uniqueSuffix + '-' + file.originalname);
-    }
-  })
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB max
+  fileFilter: function (req, file, cb) {
+    const allowed = ['.pdf', '.doc', '.docx'];
+    const ext = require('path').extname(file.originalname).toLowerCase();
+    if (allowed.includes(ext)) cb(null, true);
+    else cb(new Error('Only PDF, DOC and DOCX files are allowed.'));
+  }
 });
 
 function escapeHtml(value) {
@@ -698,34 +752,65 @@ function createSmtpTransporter() {
 }
 
 app.post('/api/apply', upload.single('resume'), async (req, res) => {
-  const { fullName, email, phone, location, jobTitle } = req.body;
-  const resumeFile = req.file ? req.file.filename : null;
+  const { fullName, email, phone, location, jobId, jobTitle } = req.body;
 
-  if (!fullName || !email || !phone || !resumeFile) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  // With memoryStorage, file bytes are in req.file.buffer
+  const resumeBuffer   = req.file ? req.file.buffer           : null;
+  const resumeFilename = req.file ? req.file.originalname     : null;
+  const resumeMimetype = req.file ? req.file.mimetype         : null;
+  // Keep a human-readable URL tag so the admin knows a CV was attached
+  const resumeUrl      = req.file ? `db:resume:${Date.now()}` : null;
+
+  if (!fullName || !email || !phone) {
+    return res.status(400).json({ success: false, message: 'Name, email, and phone are required.' });
+  }
+  if (!resumeBuffer) {
+    return res.status(400).json({ success: false, message: 'Please upload your resume (PDF, DOC, or DOCX).' });
   }
 
   let dbInserted = false;
   let emailSent = false;
 
-  // 1. Database insert
+  // 1. Database insert — store file bytes as BLOB so admin CV download works
   try {
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    const application_id = `APP-${dateStr}-${random}`;
+
+    // Resolve job_id: only use it if it actually exists in the local jobs table
+    // (website jobs come from the external master API and may not be in local DB)
+    let safeJobId = null;
+    if (jobId) {
+      const jobIdInt = parseInt(jobId, 10);
+      const jobExists = await new Promise((resolve) => {
+        db.query('SELECT id FROM jobs WHERE id = ? LIMIT 1', [jobIdInt], (err, rows) => {
+          resolve(!err && rows && rows.length > 0);
+        });
+      });
+      safeJobId = jobExists ? jobIdInt : null;
+    }
+
     await new Promise((resolve, reject) => {
       db.query(
-        'INSERT INTO career (full_name, email, phone, location, resume, created_at) VALUES (?, ?, ?, ?, ?, NOW())',
-        [fullName, email, phone, location, resumeFile],
+        `INSERT INTO applications
+           (application_id, candidate_name, email, phone, location,
+            job_id, job_title, resume_url, resume_data, resume_filename, resume_mimetype,
+            source, status, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "Website", "New", NOW(), NOW())`,
+        [
+          application_id, fullName, email, phone, location || null,
+          safeJobId, jobTitle || null, resumeUrl,
+          resumeBuffer, resumeFilename, resumeMimetype
+        ],
         (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(result);
-          }
+          if (err) reject(err);
+          else resolve(result);
         }
       );
     });
     dbInserted = true;
   } catch (err) {
-    console.warn('Database error (skipping database insert for career application):', err.message);
+    console.warn('Database insert error for career application:', err.message);
   }
 
   // 2. Send emails
